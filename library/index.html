@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<html>
+    <head>
+        <title>UC UAS Risk Assessment</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <script src="bower_components/chart.js/dist/Chart.min.js" type="text/javascript"></script>
+        <script src="bower_components/jquery/dist/jquery.min.js" type="text/javascript"></script>
+        <script src="bower_components/jquery-ui/jquery-ui.min.js" type="text/javascript"></script>
+        <link href="bower_components/jquery-ui/themes/base/jquery-ui.min.css" rel="stylesheet" type="text/css"/>
+        <script src="utils.js"></script>
+        <style>
+            canvas{
+                -moz-user-select: none;
+                -webkit-user-select: none;
+                -ms-user-select: none;
+            }
+        </style>
+    </head>
+    <body>
+        <div style="width:100%">
+            <canvas id="canvas">
+                <p>Your browser does not support this element</p>
+            </canvas>
+            <center>
+            <p id="risk_text"></p>
+            <strong>
+            <p id="risk_expl"></p>
+            </strong>
+            </center>
+        </div>
+
+        <!-- <button id="removeDataset">Remove Dataset</button> -->
+
+        <div>
+            <label for="spinner1">Pilot Score:</label>
+            <input id="spinner1" value="2">
+            <label for="spinner2">Aircraft Score:</label>
+            <input id="spinner2" value="1">
+        </div>
+        <div>
+            <label for="spinner3">Location Score:</label>
+            <input id="spinner3" value="2">
+            <label for="spinner4">Flight Plan Score:</label>
+            <input id="spinner4" value="3">
+        </div>
+        <div>
+            <label for="spinner5">Weather Score:</label>
+            <input id="spinner5" value="2">
+            <label for="spinner6">Ground Crew Score:</label>
+            <input id="spinner6" value="3">
+        </div>
+        <div>
+            <label for="spinner7">Organization Score:</label>
+            <input id="spinner7" value="2">
+        </div>
+
+        <script>
+            $(function () {
+                $("#spinner1").spinner({min:1,max:5}).width(30);
+                $("#spinner1").on("spinstop", function () {
+                    update_Score();
+                });
+                $("#spinner2").spinner({min:1,max:5}).width(30);
+                $("#spinner2").on("spinstop", function () {
+                    update_Score();
+                });
+                $("#spinner3").spinner({min:1,max:5}).width(30);
+                $("#spinner3").on("spinstop", function () {
+                    update_Score();
+                });
+                $("#spinner4").spinner({min:1,max:5}).width(30);
+                $("#spinner4").on("spinstop", function () {
+                    update_Score();
+                });
+                $("#spinner5").spinner({min:1,max:5}).width(30);
+                $("#spinner5").on("spinstop", function () {
+                    update_Score();
+                });
+                $("#spinner6").spinner({min:1,max:5}).width(30);
+                $("#spinner6").on("spinstop", function () {
+                    update_Score();
+                });
+                $("#spinner7").spinner({min:1,max:5}).width(30);
+                $("#spinner7").on("spinstop", function () {
+                    update_Score();
+                });
+            });
+            
+            function update_Score(){
+                scores = grab_Scores();
+                risk_score = calc_Score(scores);
+                update_graph(scores,risk_score);
+                perc = risk_score*100;
+                
+                output_expl = "Do not fly";
+                if (perc<25) {
+                    output_expl = "Low Risk - Have fun and fly safe.";
+                } else if (perc>99) {
+                    output_expl = "Cancel flight mission - Do not fly.";
+                    perc = 100;
+                } else if (perc>49) {
+                    output_expl = "High Risk - Unacceptable without significant risk mitigation.";
+                } else {
+                    output_expl = "Moderate Risk - Consider taking extra precautions to reduce risk.";
+                }
+                output_text = "Risk Score: ".concat(perc.toFixed(0),"%");
+                document.getElementById("risk_text").innerHTML = output_text;
+                document.getElementById("risk_expl").innerHTML = output_expl;
+                
+            }
+            
+            function grab_Scores(){
+                sc1 = $("#spinner1").spinner('value');
+                sc2 = $("#spinner2").spinner('value');
+                sc3 = $("#spinner3").spinner('value');
+                sc4 = $("#spinner4").spinner('value');
+                sc5 = $("#spinner5").spinner('value');
+                sc6 = $("#spinner6").spinner('value');
+                sc7 = $("#spinner7").spinner('value');
+                return [sc1,sc2,sc3,sc4,sc5,sc6,sc7];
+            }
+            
+            var calc_Score = function(scores) {
+                
+                data1 = scores;
+                temp=0;
+                for (i=1;i<7;i++){
+                    temp = temp+0.5*0.7818*data1[i]*data1[i-1];
+                }
+                temp = temp+0.5*0.7818*data1[0]*data1[6];
+                return temp/47.78;
+            };
+
+
+            var randomScalingFactor = function () {
+                return Math.round(Math.random() * 100);
+            };
+
+            var color = Chart.helpers.color;
+            var config = {
+                type: 'radar',
+                data: {
+                    labels: ['Pilot', 'Aircraft', 'Location', 'Flight Plan', 'Weather', 'Ground Crew', 'Organization'],
+                    datasets: [{
+                            backgroundColor: 'rgba(153,191,0,.4)',
+                            borderColor: 'rgba(153,191,0,1)',
+                            pointBackgroundColor: 'rgba(153,191,0,1)',
+                            data: [
+                                2,
+                                1,
+                                2,
+                                3,
+                                2,
+                                3,
+                                2
+                            ]
+                        }]
+                },
+                options: {
+                    legend: {
+                        display: false
+                    },
+                    title: {
+                        display: true,
+                        text: 'Risk Map',
+                        fontSize: 18,
+                        fontColor: '#000',
+                    },
+                    scale: {
+                        
+                        ticks: {
+                            min: 0,
+                            max: 5,
+                            stepSize:1
+                        }
+                    }
+                }
+            };
+
+            window.onload = function () {
+                window.myRadar = new Chart(document.getElementById('canvas'), config);
+                perc = 26;
+                output_text = "Risk Score: ".concat(perc.toFixed(0),"%");
+                document.getElementById("risk_text").innerHTML = output_text;
+                document.getElementById("risk_expl").innerHTML = "Moderate Risk - Consider taking extra precautions to reduce risk.";
+            };
+            
+            function update_graph(scores,risk_score){
+                hue = -200*risk_score+120;
+                R=0;
+                G=0;
+                C=.75;
+                if (hue>120){
+                    hue = 120;
+                }
+                if (hue<0) {
+                    hue=0;
+                }
+                X = C*(1-Math.abs(((hue/60)%2)-1))
+                if (hue<60){
+                    R=C*255;
+                    G=X*255;
+                } else {
+                    R=X*255;
+                    G=C*255;
+                }
+                
+                color_string = "rgba(";
+                color_string_alpha = color_string.concat(R.toFixed(0),",",G.toFixed(0),",0,0.3)");
+                color_string = color_string.concat(R.toFixed(0),",",G.toFixed(0),",0,0.8)");
+                //console.log(color_string);
+                
+                config.data.datasets.forEach(function(dataset) {
+                    dataset.data =scores;
+                    dataset.backgroundColor = color_string_alpha;
+                    dataset.borderColor = color_string;
+                    dataset.pointBackgroundColor = color_string;
+                });
+                window.myRadar.update();
+            }
+
+        </script>
+    </body>
+</html>
