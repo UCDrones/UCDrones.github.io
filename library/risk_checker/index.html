@@ -1,0 +1,372 @@
+<!DOCTYPE html>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<html>
+    <head>
+        <title>UC UAS Risk Checker</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+        <script src="js/libs/Chart.js/Chart.js" type="text/javascript"></script>
+
+        <script src="js/libs/jquery/jquery.js" type="text/javascript"></script>
+        <link rel="icon" href="data:;base64,iVBORwOKGO=" />
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+
+        <style>
+            canvas{
+                -moz-user-select: none;
+                -webkit-user-select: none;
+                -ms-user-select: none;
+            }
+
+            .score_num{
+                font-size: large;
+                font-weight: bold;
+            }
+
+            .score_des{
+                margin-bottom: 50px;
+            }
+
+
+
+
+
+
+        </style>
+    </head>
+
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-md-12">
+                <h1>
+                    UC Drone Risk Checker
+                </h1>
+                <p>This UC Drone Risk Checker is designed to help drone pilots think about the overall 
+                    risk profile in a holistic manner, considering the many potential sources of risk.  
+                    It is designed to be sensitive to the impacts of varied moderate levels of risk to help
+                    pilots explore the risk profiles of different scenarios as they begin planning for 
+                    flight operations.  It is not a replacement for the pilot's responsibility to 
+                    maintain a safe operational environment.</p>
+                <div class="row">
+                    <div class="col-md-4">
+                        <br>
+                        <p>
+                            Please enter your rating (1-5). Where the rating scale represents:
+                        </p>
+                        <ul>
+                            <li> 1 - 'Best' conditions
+                            <li> 2 - 'Good' conditions
+                            <li> 3 - 'Average' conditions
+                            <li> 4 - 'Subpar' conditions
+                            <li> 5 - 'Unfavorable' conditions
+                        </ul>
+
+
+                        <form class="form-horizontal">
+                            <div class="form-inline">
+                                <label for="spinner1">Pilot Score:</label>
+
+                                <input class="slider" id="spinner1" type="range" min="1" max="5" value="2">
+
+                            </div>
+                            <div class="form-inline">
+                                <label for="spinner2">Aircraft Score:</label>
+
+                                <input class="slider" id="spinner2" type="range" min="1" max="5" value="1">
+
+                            </div>
+                            <div class="form-inline">
+                                <label for="spinner3">Location Score:</label>
+
+                                <input class="slider" id="spinner3" type="range" min="1" max="5" value="2">
+
+                            </div>
+                            <div class="form-inline">
+                                <label for="spinner4">Flight Plan Score:</label>
+
+                                <input class="slider" id="spinner4" type="range" min="1" max="5" value="3">
+
+                            </div>
+                            <div class="form-inline">
+                                <label for="spinner5">Weather Score:</label>
+
+                                <input class="slider" id="spinner5" type="range" min="1" max="5" value="2">
+
+                            </div>
+                            <div class="form-inline">
+                                <label for="spinner6">Ground Crew Score:</label>
+
+                                <input class="slider" id="spinner6" type="range" min="1" max="5" value="3">
+
+                            </div>
+                            <div class="form-inline">
+                                <label for="spinner7">Organization Score:</label>
+
+                                <input class="slider" id="spinner7" type="range" min="1" max="5" value="2">
+
+                            </div>
+                        </form>
+                        <br>
+                        <h3>
+                            Risk Analysis
+                        </h3>
+                        <p class="score_num" id="risk_text"></p>
+                        <p class="score_des" id="risk_expl"></p>
+
+                    </div>
+                    <div class="col-md-8" style="position:relative; height:60vh; width:60vw; align-content: center;">
+                        <canvas id="canvas" >
+                            <p>Your browser does not support this element</p>
+                        </canvas>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+            <div class="container-fluid extra">
+                <h2>How to rate your categories</h2>
+                <p>The ratings in each of your categories is an assessment between 1-5 given within each of the categories. The rating is a compilation of several factors within the category. Example ratings for common scenarios are provided. </p>
+                <ul class="nav nav-pills">
+                    <li class="active"><a data-toggle="pill" href="#menu1">Pilot</a></li>
+                    <li><a data-toggle="pill" href="#menu2">Aircraft</a></li>
+                    <li><a data-toggle="pill" href="#menu3">Location</a></li>
+                    <li><a data-toggle="pill" href="#menu4">Flight Plan</a></li>
+                    <li><a data-toggle="pill" href="#menu5">Weather</a></li>
+                    <li><a data-toggle="pill" href="#menu6">Ground Crew</a></li>
+                    <li><a data-toggle="pill" href="#menu7">Organization</a></li>
+                </ul>
+
+                <div class="tab-content">
+                    <div id="menu1" class="tab-pane fade in active">
+                        <h3>Pilot</h3>
+                        <p>Rate the pilot's readiness by taking in account the following factors:</p>
+                        <ul>
+                            <li>Pilot's physical and mental readiness to fly.</li>
+                            <li>Pilot's experience with this or of similar type of sUAS operations.</li>
+                            <li>Pilot's experience with the aircraft.</li>
+                            <li>Pilot's flight skill or aptitude.</li>
+                            <li>Pilot's familiarity with the rest of the flight crew.</li>
+                        </ul>
+                        <p>
+                            An experienced Pilot working a regular sUAS operation would typically be at a 2 rating.   
+                        </p>
+                        <p> An exceptionally talented and well-rested Pilot would score a 1 rating.</p>
+                        <p> A complete novice sUAS pilot working alone would be at a 5 rating. </p>
+                    </div>
+                    <div id="menu2" class="tab-pane fade">
+                        <h3>Aircraft</h3>
+                        <p>Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
+                        <ul>
+                            <li>The aircraft's last flight performance.</li>
+                            <li>The aircraft's last maintenance.</li>
+                            <li>The aircraft's construction quality and durability.</li>
+                            <li>The aircraft's size and weight.</li>
+                            <li>The aircraft's complexity of use.</li>
+                            <li>The aircraft's suitability for the proposed flight operation.</li>
+                        </ul>
+                    </div>
+                    <div id="menu3" class="tab-pane fade">
+                        <h3>Location</h3>
+                        <p>Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam.</p>
+                    </div>
+                    <div id="menu4" class="tab-pane fade">
+                        <h3>Flight Plan</h3>
+                        <p>Eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo.</p>
+                    </div>
+                    <div id="menu5" class="tab-pane fade">
+                        <h3>Location</h3>
+                        <p>Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam.</p>
+                    </div>
+                    <div id="menu6" class="tab-pane fade">
+                        <h3>Flight Plan</h3>
+                        <p>Eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo.</p>
+                    </div>
+                    <div id="menu7" class="tab-pane fade">
+                        <h3>Flight Plan</h3>
+                        <p>Eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script>
+        var slider1 = document.getElementById("spinner1");
+        var slider2 = document.getElementById("spinner2");
+        var slider3 = document.getElementById("spinner3");
+        var slider4 = document.getElementById("spinner4");
+        var slider5 = document.getElementById("spinner5");
+        var slider6 = document.getElementById("spinner6");
+        var slider7 = document.getElementById("spinner7");
+
+
+        slider1.oninput = function () {
+            update_Score();
+        };
+
+        slider2.oninput = function () {
+            update_Score();
+        };
+
+        slider3.oninput = function () {
+            update_Score();
+        };
+        slider4.oninput = function () {
+            update_Score();
+        };
+
+        slider5.oninput = function () {
+            update_Score();
+        };
+
+        slider6.oninput = function () {
+            update_Score();
+        };
+        slider7.oninput = function () {
+            update_Score();
+        };
+
+        function update_Score() {
+            scores = grab_Scores();
+            risk_score = calc_Score(scores);
+            update_graph(scores, risk_score);
+            perc = risk_score * 100;
+
+            output_expl = "Do not fly";
+            if (perc < 25) {
+                output_expl = "Low Risk - Have fun and fly safe.";
+            } else if (perc > 99) {
+                output_expl = "Cancel flight mission - Do not fly.";
+                perc = 100;
+            } else if (perc > 49) {
+                output_expl = "High Risk - Unacceptable without significant risk mitigation.";
+            } else {
+                output_expl = "Moderate Risk - Consider taking extra precautions to reduce risk.";
+            }
+            output_text = "Risk Score: ".concat(perc.toFixed(0), "%");
+            document.getElementById("risk_text").innerHTML = output_text;
+            document.getElementById("risk_expl").innerHTML = output_expl;
+
+        }
+
+        function grab_Scores() {
+            sc1 = document.getElementById("spinner1").value;
+            sc2 = document.getElementById("spinner2").value;
+            sc3 = document.getElementById("spinner3").value;
+            sc4 = document.getElementById("spinner4").value;
+            sc5 = document.getElementById("spinner5").value;
+            sc6 = document.getElementById("spinner6").value;
+            sc7 = document.getElementById("spinner7").value;
+            return [sc1, sc2, sc3, sc4, sc5, sc6, sc7];
+        }
+
+        var calc_Score = function (scores) {
+
+            data1 = scores;
+            temp = 0;
+            for (i = 1; i < 7; i++) {
+                temp = temp + 0.5 * 0.7818 * data1[i] * data1[i - 1];
+            }
+            temp = temp + 0.5 * 0.7818 * data1[0] * data1[6];
+            return temp / 47.78;
+        };
+
+
+        var randomScalingFactor = function () {
+            return Math.round(Math.random() * 100);
+        };
+
+        var color = Chart.helpers.color;
+        var config = {
+            type: 'radar',
+            data: {
+                labels: ['Pilot', 'Aircraft', 'Location', 'Flight Plan', 'Weather', 'Ground Crew', 'Organization'],
+                datasets: [{
+                        backgroundColor: 'rgba(153,191,0,.4)',
+                        borderColor: 'rgba(153,191,0,1)',
+                        pointBackgroundColor: 'rgba(153,191,0,1)',
+                        data: [
+                            2,
+                            1,
+                            2,
+                            3,
+                            2,
+                            3,
+                            2
+                        ]
+                    }]
+            },
+            options: {
+                legend: {
+                    display: false
+                },
+                title: {
+                    display: true,
+                    text: 'Risk Map',
+                    fontSize: 18,
+                    fontColor: '#000',
+                },
+                scale: {
+
+                    ticks: {
+                        min: 0,
+                        max: 5,
+                        stepSize: 1
+                    }
+                },
+                maintainAspectRatio: false
+            }
+        };
+
+        window.onload = function () {
+            window.myRadar = new Chart(document.getElementById('canvas'), config);
+            perc = 26;
+            output_text = "Risk Score: ".concat(perc.toFixed(0), "%");
+            document.getElementById("risk_text").innerHTML = output_text;
+            document.getElementById("risk_expl").innerHTML = "Moderate Risk - Consider taking extra precautions to reduce risk.";
+        };
+
+        function update_graph(scores, risk_score) {
+            hue = -200 * risk_score + 120;
+            R = 0;
+            G = 0;
+            C = .75;
+            if (hue > 120) {
+                hue = 120;
+            }
+            if (hue < 0) {
+                hue = 0;
+            }
+            X = C * (1 - Math.abs(((hue / 60) % 2) - 1))
+            if (hue < 60) {
+                R = C * 255;
+                G = X * 255;
+            } else {
+                R = X * 255;
+                G = C * 255;
+            }
+
+            color_string = "rgba(";
+            color_string_alpha = color_string.concat(R.toFixed(0), ",", G.toFixed(0), ",0,0.3)");
+            color_string = color_string.concat(R.toFixed(0), ",", G.toFixed(0), ",0,0.8)");
+            //console.log(color_string);
+
+            config.data.datasets.forEach(function (dataset) {
+                dataset.data = scores;
+                dataset.backgroundColor = color_string_alpha;
+                dataset.borderColor = color_string;
+                dataset.pointBackgroundColor = color_string;
+            });
+            window.myRadar.update();
+        }
+
+    </script>
+
+</html>
