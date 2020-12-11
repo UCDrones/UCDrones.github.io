@@ -1,4 +1,5 @@
 var max_Zoom_Out = 2400000;
+var max_Zoom_Out2 = 10400000;
 var max_Zoom_Fac = 300000;
 
 var color_FAA_blue_opaqu = [1, 135, 191, 0.9];
@@ -9,6 +10,10 @@ var color_FAA_mage_clear = [167, 98, 168, .3];
 var color_NFS = [0,128,0,0.4];
 var color_NFS_line = color_NFS.slice();
 color_NFS_line[3] = 0.9;
+
+var color_CSP = [0, 56, 118, 0.3];
+var color_CSP_line = color_CSP.slice();
+color_CSP_line[3] = 0.9;
 
 var color_LAANC_1 = [0, 128, 0, .3];
 var color_LAANC_1_line = [0, 128, 0, .8];
@@ -74,6 +79,15 @@ var sym_NFS = {
 	outline: {
 		width: 1.5,
 		color: color_NFS_line,
+	},
+}
+
+var sym_CSP = {
+	type: "simple-fill",
+	color: color_CSP,
+	outline: {
+		width: 1.5,
+		color: color_CSP_line,
 	},
 }
 
@@ -185,6 +199,35 @@ var sym_univ = {
 	outline: {  
 		color: [0, 0, 0 ],
 		width: 2,  
+	}
+}
+
+var sym_fieldstation = {
+	type: "simple-marker", 
+	style: "circle",
+	color: [254, 150, 100],
+	size: "10px",  
+	outline: {  
+		color: [0, 0, 0 ],
+		width: 2,  
+	}
+}
+
+var sym_city_regs = {
+	type: "simple-fill",
+	color: [ 200, 200, 0, 0.00 ],
+	outline: { 
+		width: 1,
+		color: "black"
+	}
+}
+
+var sym_county_regs = {
+	type: "simple-fill",
+	color: [ 0, 200, 200, 0.00],
+	outline: { 
+		width: 1,
+		color: "black"
 	}
 }
 

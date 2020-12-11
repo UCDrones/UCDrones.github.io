@@ -355,3 +355,15 @@ var UC_renderer2 = {
 	],
 
 };
+
+const UC_point_renderer = {
+    type: "simple",
+    symbol: sym_univ,
+	label: "UC Campus",
+};
+
+const UC_point_other_renderer = {
+    type: "simple",
+    symbol: sym_fieldstation,
+	label: "UC Campus - Other",
+};

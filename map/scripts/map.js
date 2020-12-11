@@ -60,6 +60,9 @@ require([
 	definitionExpression: "OwnerType <> 'Caltrans' ",
 	renderer: renderer_site,
 	
+	minScale: max_Zoom_Out,
+    maxScale: 0,
+	
 	popupTemplate: {		
 		title: "{Name}",
 		content: [
@@ -106,6 +109,7 @@ require([
 	 url:"https://apps.fs.usda.gov/arcx/rest/services/EDW/EDW_ForestSystemBoundaries_01/MapServer" ,
 	 outFields:["*"],
 	 title: "National Forests",
+	 labelingInfo: [NFS_Labels],
 	 minScale: max_Zoom_Out,
      maxScale: 0,
 	 renderer: NFS_Renderer,
@@ -151,6 +155,7 @@ require([
 	 title: "CA State Parks",
 	 minScale: max_Zoom_Out,
 	 maxScale: 0,
+	 renderer: renderer_CSP,
 	 
 	 popupTemplate: {
 		title: "{UNITNAME}",
@@ -178,7 +183,7 @@ require([
 	 outFields:["*"],	 
 	 title: "Main Campus",
 	 renderer: UC_renderer,
-	 minScale: max_Zoom_Out,
+	 //minScale: max_Zoom_Out2,
 	 maxScale: 0,
 	 definitionExpression: "Type = 'Main Campus'",
 	 popupTemplate: {
@@ -191,7 +196,7 @@ require([
 	 url:"https://services2.arcgis.com/wx8u046p68e0iGuj/arcgis/rest/services/UC_Properties/FeatureServer/0",
 	 outFields:["*"],	 
 	 title: "Other UC Properties",
-	 minScale: max_Zoom_Out,
+	 //minScale: max_Zoom_Out,
 	 maxScale: 0,
 	 renderer: UC_renderer2,
 	 definitionExpression: "Type <> 'Main Campus'",
@@ -201,6 +206,75 @@ require([
 	 }
   });
 
+  var CA_city_regs1 = new FeatureLayer({
+	  url:"https://services2.arcgis.com/wx8u046p68e0iGuj/arcgis/rest/services/CA_UAS_Regulations/FeatureServer/0",
+	  outFields:["*"],
+	  title: "CA City Regulations",
+	  minScale: max_Zoom_Out,
+	  maxScale: 0,
+	  renderer: renderer_city,
+	  definitionExpression: "DroneReg = 1",
+	  popupTemplate: {
+		  title: "{NAME}",
+		  content: "<b>Caution City Regulations Exist</b><br><b>Please review: </b><br> - {Drone_Sec} - <a href='{Drone_Code}' target='_blank'>Source</a><br><b>Summary: </b>{Notes}<br><b>Last Reviewed: </b>{LastUpdate}"
+	  }
+  });
+  
+  var CA_city_regs2 = new FeatureLayer({
+	  url:"https://services2.arcgis.com/wx8u046p68e0iGuj/arcgis/rest/services/CA_UAS_Regulations/FeatureServer/0",
+	  outFields:["*"],
+	  title: "CA City Regulations",
+	  minScale: max_Zoom_Out,
+	  maxScale: 0,
+	  renderer: renderer_city,
+	  definitionExpression: "DroneReg = 2",
+	  popupTemplate: {
+		  title: "{NAME}",
+		  content: "<b>Caution City Regulations Exist</b><br><b>Please review: </b><br> - {Drone_Sec} - <a href='{Drone_Code}' target='_blank'>Source</a><br> - {Drone_Sec2} - <a href='{Drone_Code2}' target='_blank'>Source</a><br><b>Summary: </b>{Notes}<br><b>Last Reviewed: </b>{LastUpdate}"
+	  }
+  });
+
+  var CA_county_regs1 = new FeatureLayer({
+	  url:"https://services2.arcgis.com/wx8u046p68e0iGuj/arcgis/rest/services/CA_UAS_Regulations/FeatureServer/1",
+	  outFields:["*"],
+	  title: "CA County Regulations",
+	  minScale: max_Zoom_Out,
+	  maxScale: 0,
+	  renderer: renderer_county,
+	  definitionExpression: "DroneReg = 1",
+	  popupTemplate: {
+		  title: "{NAME} County",
+		  content: "<b>Caution County Regulations Exist</b><br><b>Please review: </b><br> - {Drone_Sec} - <a href='{Drone_Code}' target='_blank'>Source</a><br><b>Summary: </b>{Notes}<br><b>Last Reviewed: </b>{LastUpdate}"
+	  }
+  });
+  
+  var CA_county_regs2 = new FeatureLayer({
+	  url:"https://services2.arcgis.com/wx8u046p68e0iGuj/arcgis/rest/services/CA_UAS_Regulations/FeatureServer/1",
+	  outFields:["*"],
+	  title: "CA County Regulations",
+	  minScale: max_Zoom_Out,
+	  maxScale: 0,
+	  renderer: renderer_county,
+	  definitionExpression: "DroneReg = 2",
+	  popupTemplate: {
+		  title: "{NAME} County",
+		  content: "<b>Caution County Regulations Exist</b><br><b>Please review: </b><br> - {Drone_Sec} - <a href='{Drone_Code}' target='_blank'>Source</a><br> - {Drone_Sec2} - <a href='{Drone_Code2}' target='_blank'>Source</a><br><b>Summary: </b>{Notes}<br><b>Last Reviewed: </b>{LastUpdate}"
+	  }
+  });
+  
+  var CA_county_regs3 = new FeatureLayer({
+	  url:"https://services2.arcgis.com/wx8u046p68e0iGuj/arcgis/rest/services/CA_UAS_Regulations/FeatureServer/1",
+	  outFields:["*"],
+	  title: "CA County Regulations",
+	  minScale: max_Zoom_Out,
+	  maxScale: 0,
+	  renderer: renderer_county,
+	  definitionExpression: "DroneReg = 3",
+	  popupTemplate: {
+		  title: "{NAME} County",
+		  content: "<b>Caution County Regulations Exist</b><br><b>Please review: </b><br> - {Drone_Sec} - <a href='{Drone_Code}' target='_blank'>Source</a><br> - {Drone_Sec2} - <a href='{Drone_Code2}' target='_blank'>Source</a><br> - {Drone_Sec} - <a href='{Drone_Code}' target='_blank'>Source</a><br><b>Summary: </b>{Notes}<br><b>Last Reviewed: </b>{LastUpdate}"
+	  }
+  });
 
   var publicGroupLayers = new GroupLayer({
 	  title: "Public Lands",
@@ -227,14 +301,41 @@ require([
 	  title: "University of California",
 	  visible: true,
 	  visibilityMode: "independent",
-	  layers: [UC_campus, UC_other]
+	  layers: [ UC_other,UC_campus,]
+	  
+  });
+  
+  var CA_county = new GroupLayer({
+	  title: "CA County Regulations",
+	  visibility: true,
+	  visibilityMode: "inherited",
+	  listMode: "hide-children",
+	  layers: [CA_county_regs1, CA_county_regs2, CA_county_regs3],
+  });
+  
+  var CA_city = new GroupLayer({
+	 title: "CA City Regulations",
+	 visibility: true,	 
+	 visibilityMode: "inherited",
+	 listMode: "hide-children",
+	 layers: [CA_city_regs1, CA_city_regs2],
+	 
+  });
+  
+  var CA_State_Local_Regs = new GroupLayer({
+	  title: "CA Local Regulations",
+	  visible: true,
+	  visibilityMode: "independent",
+	  layers: [CA_city, CA_county],
 	  
   });
 
   var map = new Map({
     basemap: "gray",
     layers: [
+
 	  publicGroupLayers,
+	  CA_State_Local_Regs,
       airspaceGroupLayers,
   
       FAA_NS_NFZ,
@@ -306,8 +407,10 @@ require([
 	  {
 		layer: UC_campus,
 		title: "UC Campuses",
-	  }
-	  ],
+	  },{
+	    layer: UC_other,
+		title: "UC Properties"
+	  }],
 	});
 	view.ui.add(legend, "top-right");
 	
@@ -334,5 +437,13 @@ require([
     });
     view.ui.add(sitesExpand, "top-left");
   });
+  
+	view.when().then(function() {
+
+		view.watch("scale", function(newValue) {
+			UC_campus.renderer = newValue <= max_Zoom_Out ? UC_renderer : UC_point_renderer;
+			UC_other.renderer = newValue <= max_Zoom_Out ? UC_renderer2 : UC_point_other_renderer;
+		});
+	});
 
 });

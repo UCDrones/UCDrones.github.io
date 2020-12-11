@@ -55,5 +55,5 @@ var UASFacilitiesLabels = {
 var NFS_Labels = {
 	symbol: label_NFS_text,
 	labelPlacement: "always-horizontal",
-	labelExpressionInfo: {expression: "$feature.FORESTNAME"},
+	//labelExpressionInfo: {expression: "$feature.FORESTNAME"},
 };

@@ -72,6 +72,11 @@ var renderer_NFZ = {
 	symbol: sym_NFZ,
 };
 
+var renderer_CSP = {
+	type: "simple",
+	symbol: sym_CSP,
+};
+
 var NPS_Renderer = {
 	type: "simple",  
 	symbol: sym_NPS,
@@ -86,4 +91,14 @@ var FAA_RF_Renderer = {
 var NFS_Renderer = {
 	type: "simple",
 	symbol: sym_NFS,
+};
+
+var renderer_city = {
+	type: "simple",
+	symbol: sym_city_regs,
+};
+
+var renderer_county = {
+	type: "simple",
+	symbol: sym_county_regs,
 };

@@ -30,4 +30,5 @@ var arcadeExpressionInfos = [
 		expression: "if($feature.PracticeMission==1){return 'Yes'} else {return 'No'}"
 	},
   
-  ];
+];
+  
