@@ -215,18 +215,18 @@ var sym_fieldstation = {
 
 var sym_city_regs = {
 	type: "simple-fill",
-	color: [ 200, 200, 0, 0.00 ],
+	color: [ 200, 200, 0, 0.10 ],
 	outline: { 
-		width: 1,
+		width: 2,
 		color: "black"
 	}
 }
 
 var sym_county_regs = {
 	type: "simple-fill",
-	color: [ 0, 200, 200, 0.00],
+	color: [ 0, 200, 200, 0.10],
 	outline: { 
-		width: 1,
+		width: 2,
 		color: "black"
 	}
 }

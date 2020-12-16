@@ -326,7 +326,8 @@ require([
 	  title: "CA Local Regulations",
 	  visible: true,
 	  visibilityMode: "independent",
-	  layers: [CA_city, CA_county],
+	  blendMode: "normal",
+	  layers: [CA_city,CA_county],
 	  
   });
 
