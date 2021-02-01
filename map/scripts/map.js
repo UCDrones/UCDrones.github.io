@@ -365,12 +365,12 @@ require([
   
   view.ui.add(basemapToggle, "bottom-right");
   
-  const sitesElement = document.getElementById("sites-filter");
+  //const sitesElement = document.getElementById("sites-filter");
 
   // click event handler for sites choices
-  sitesElement.addEventListener("click", filterBysite);
+  //sitesElement.addEventListener("click", filterBysite);
 
-  function filterBysite(event) {
+  /*function filterBysite(event) {
     var par = event.target.parentNode;
     var c = par.children;
     var i;
@@ -383,7 +383,7 @@ require([
     siteLayerView.filter = {
       where: selectedsite + " = 1",
     };
-  }
+  }*/
 
   var layerList = new LayerList({
     view: view,
