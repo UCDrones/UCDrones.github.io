@@ -343,7 +343,7 @@ require([
 	  DL_NOTAM,
 
       UC_propertiesGroupLayers,
-	  flyingsitesGroupLayers,
+	  //flyingsitesGroupLayers,
 	  
     ],
   });
@@ -397,21 +397,23 @@ require([
 	var legend = new Legend({
 	  view: view,
 	  layerInfos: [
-	  {
+	  /*{
 		layer: FAA_rec_fields,
 		title: "FAA Sites",
 	  },
 	  {
 		layer: UASTestSite,
 		title: "Identified Flying Sites"
-	  },
+	  },*/
 	  {
 		layer: UC_campus,
 		title: "UC Campuses",
-	  },{
+	  },/* {
 	    layer: UC_other,
 		title: "UC Properties"
-	  }],
+	  }
+               * 
+           */],
 	});
 	view.ui.add(legend, "top-right");
 	
