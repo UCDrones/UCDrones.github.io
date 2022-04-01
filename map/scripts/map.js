@@ -36,7 +36,7 @@ require([
 
   var uasFacilities = new FeatureLayer({
     url:
-      "https://services6.arcgis.com/ssFJjBXIUyZDrSYZ/arcgis/rest/services/FAA_UAS_FacilityMap_Data_V5/FeatureServer/0",
+      "https://services6.arcgis.com/ssFJjBXIUyZDrSYZ/arcgis/rest/services/FAA_UAS_FacilityMap_Data_V5/FeatureServer/0/",
     outFields: ["*"],
 
     minScale: max_Zoom_Fac,
@@ -119,6 +119,38 @@ require([
 		 content: "Flight Operations within National Forests are not prohibited, but please contact the U.S. Forest Service if you want to operate in these areas. <b>Flight operations within Congressionally Designated Wilderness Areas are prohibited</b>",
 	 }
   });
+  
+  var BLM_NMS = new FeatureLayer({
+    url: "https://gis.blm.gov/arcgis/rest/services/lands/BLM_Natl_NLCS_NM_NCA_poly/MapServer/1",
+    outFields:["*"],
+    title: "National Monuments",
+    minScale: max_Zoom_Out,
+    maxScale: 0,
+    renderer: NMS_Renderer,
+    definitionExpression: "STATE_ADMN = 'CA'",
+    popupTemplate: {
+        title: "{Monuments_NCAs_SimilarDesignation2015.NCA_NAME}",
+	content: "Flight Operations within National Monucments and Conservation Areas are typically prohibited, contact the Bureau of Land Management if you want to operate in these areas. <b>Flight operations within Congressionally Designated Wilderness Areas are prohibited</b>",
+    }
+      
+  });
+  
+    var FED_NWA = new FeatureLayer({
+    url: "https://services1.arcgis.com/ERdCHt0sNM6dENSD/arcgis/rest/services/Wilderness_Areas_in_the_United_States/FeatureServer/0",
+    outFields:["*"],
+    title: "National Wilderness Area",
+    minScale: max_Zoom_Out,
+    maxScale: 0,
+    renderer: renderer_NWA,
+    visible: false,
+    definitionExpression: "STATE = 'CA' OR STATE='CA/NV' OR STATE='CA/OR' OR STATE='AZ/CA'",
+    popupTemplate: {
+        title: "{NAME}",
+	content: "<b>Flight Operations within National Wilderness Areas are prohibited</b>",
+    }
+      
+  });
+  
   
   var DL_NOTAM = new FeatureLayer({
 	 url: "https://www.ocgis.com/uav/rest/services/Survey/OC_Flight_Restrictions/MapServer/0",
@@ -275,12 +307,69 @@ require([
 		  content: "<b>Caution County Regulations Exist</b><br><b>Please review: </b><br> - {Drone_Sec} - <a href='{Drone_Code}' target='_blank'>Source</a><br> - {Drone_Sec2} - <a href='{Drone_Code2}' target='_blank'>Source</a><br> - {Drone_Sec} - <a href='{Drone_Code}' target='_blank'>Source</a><br><b>Summary: </b>{Notes}<br><b>Last Reviewed: </b>{LastUpdate}"
 	  }
   });
+  
+  var FAA_MOA = new FeatureLayer({
+   url:
+      "https://services6.arcgis.com/ssFJjBXIUyZDrSYZ/arcgis/rest/services/Special_Use_Airspace/FeatureServer/0",
+    outFields: ["*"],
+
+    visible: true,
+    renderer: renderer_suAirspace,
+    opacity: 0.8,
+	minScale: max_Zoom_Out,
+	maxScale: 0,
+	title: "FAA - Military Operations Area",
+    definitionExpression:
+      "STATE = 'CA' AND (LOWER_VAL=0 OR LOWER_VAL=200) AND (TYPE_CODE='MOA')",
+    popupTemplate:{
+        title:"{NAME}",
+        content: "<b>Caution</b>: Military Operations Area<br>Pilots must exercise extreme caution while flying within a MOA when military activity is being conducted.  Flight operations not prohibited, but not recommended when active. <br><br><b>Active:</b> {TIMESOFUSE}. <br>From {LOWER_VAL} ft and above. <br><b>Managed by:</b> {CONT_AGENT}."
+    }
+  });
+  
+    var FAA_R = new FeatureLayer({
+   url:
+      "https://services6.arcgis.com/ssFJjBXIUyZDrSYZ/arcgis/rest/services/Special_Use_Airspace/FeatureServer/0",
+    outFields: ["*"],
+
+    visible: true,
+    renderer: renderer_suAirspace,
+    opacity: 0.8,
+	minScale: max_Zoom_Out,
+	maxScale: 0,
+	title: "FAA - Restricted Airspace",
+    definitionExpression:
+      "STATE = 'CA' AND (LOWER_VAL=0 OR LOWER_VAL=200) AND (TYPE_CODE='R')",
+    popupTemplate:{
+        title:"{NAME}",
+        content: "<b>Caution</b>: Restricted Areas<br>All flight operations in restricted areas must be pre-authorized by the controlling entity at all times.  Authorization may be possible when not active, but not guaranteed. <br><br><b>Active:</b> {TIMESOFUSE}. <br>From {LOWER_VAL} ft and above. <br><b>Managed by:</b> {CONT_AGENT}."
+    }
+  });
+  
+      var FAA_A = new FeatureLayer({
+   url:
+      "https://services6.arcgis.com/ssFJjBXIUyZDrSYZ/arcgis/rest/services/Special_Use_Airspace/FeatureServer/0",
+    outFields: ["*"],
+
+    visible: true,
+    renderer: renderer_suAirspace,
+    opacity: 0.8,
+	minScale: max_Zoom_Out,
+	maxScale: 0,
+	title: "FAA - Alert Area",
+    definitionExpression:
+      "STATE = 'CA' AND (LOWER_VAL=0 OR LOWER_VAL=200) AND (TYPE_CODE='A')",
+    popupTemplate:{
+        title:"{NAME}",
+        content: "<b>Caution</b>: Alert Area<br>Area contains a high volume of pilot training operations, or an unusual type of aeronautical activity.  Fly with caution. <br><br><b>Active:</b> {TIMESOFUSE}. <br>From {LOWER_VAL} ft and above. <br><b>Managed by:</b> {CONT_AGENT}."
+    }
+  });
 
   var publicGroupLayers = new GroupLayer({
 	  title: "Public Lands",
 	  visible: false,
 	  visibilityMode: "independent",
-	  layers: [US_NPS, NFS_bounds, CA_State_Park],
+	  layers: [US_NPS, NFS_bounds, BLM_NMS, FED_NWA, CA_State_Park],
   });
   
   var flyingsitesGroupLayers = new GroupLayer({
@@ -290,11 +379,19 @@ require([
 		layers: [FAA_rec_fields, UASTestSite],
   });
   
+  var FAA_SUA = new GroupLayer({
+      title: "FAA Special Use Airspace",
+      visible:true,
+      visibilityMode:"inherited",
+      listMode:"hide-children",
+      layers:[FAA_MOA,FAA_R,FAA_A],
+  })
+  
   var airspaceGroupLayers = new GroupLayer({
 	 title: "FAA Airspace Information",
 	 visible: true,
 	 visibilityMode: "independent",
-	 layers: [classAirspace, uasFacilities],
+	 layers: [classAirspace, uasFacilities, FAA_SUA],
   });
   
   var UC_propertiesGroupLayers = new GroupLayer({
@@ -324,27 +421,24 @@ require([
   
   var CA_State_Local_Regs = new GroupLayer({
 	  title: "CA Local Regulations",
-	  visible: true,
+	  visible: false,
 	  visibilityMode: "independent",
 	  blendMode: "normal",
 	  layers: [CA_city,CA_county],
 	  
   });
+  
+  
 
   var map = new Map({
     basemap: "gray",
     layers: [
-
-	  publicGroupLayers,
-	  CA_State_Local_Regs,
-      airspaceGroupLayers,
-  
-      FAA_NS_NFZ,
-	  DL_NOTAM,
-
-      UC_propertiesGroupLayers,
-	  //flyingsitesGroupLayers,
-	  
+        publicGroupLayers,
+	CA_State_Local_Regs,
+        airspaceGroupLayers,
+        FAA_NS_NFZ,
+	DL_NOTAM,
+        UC_propertiesGroupLayers	  
     ],
   });
   
@@ -365,29 +459,10 @@ require([
   
   view.ui.add(basemapToggle, "bottom-right");
   
-  //const sitesElement = document.getElementById("sites-filter");
-
-  // click event handler for sites choices
-  //sitesElement.addEventListener("click", filterBysite);
-
-  /*function filterBysite(event) {
-    var par = event.target.parentNode;
-    var c = par.children;
-    var i;
-    for (i = 0; i < c.length; i++) {
-      c[i].classList.remove("active");
-    }
-
-    event.target.classList.add("active");
-    const selectedsite = event.target.getAttribute("data-site");
-    siteLayerView.filter = {
-      where: selectedsite + " = 1",
-    };
-  }*/
 
   var layerList = new LayerList({
     view: view,
-    container: "layers",
+    container: "layers"
   });
 
   //Do some things after everything has loaded
@@ -397,56 +472,20 @@ require([
 	var legend = new Legend({
 	  view: view,
 	  layerInfos: [
-	  /*{
-		layer: FAA_rec_fields,
-		title: "FAA Sites",
-	  },
-	  {
-		layer: UASTestSite,
-		title: "Identified Flying Sites"
-	  },*/
 	  {
 		layer: UC_campus,
-		title: "UC Campuses",
-	  },/* {
-	    layer: UC_other,
-		title: "UC Properties"
-	  }
-               * 
-           */],
+		title: "UC Campuses"
+	  }]
 	});
 	view.ui.add(legend, "top-right");
 	
   }, 2000);
   
 
-
-  view.whenLayerView(UASTestSite).then(function (layerView) {
-
-    siteLayerView = layerView;
-
-    sitesElement.style.visibility = "visible";
-    const sitesExpand = new Expand({
-      view: view,
-      content: sitesElement,
-      expandIconClass: "esri-icon-filter",
-      group: "top-left",
-    });
-
-    sitesExpand.watch("expanded", function () {
-      if (!sitesExpand.expanded) {
-        siteLayerView.filter = null;
-      }
-    });
-    view.ui.add(sitesExpand, "top-left");
-  });
-  
-	view.when().then(function() {
-
-		view.watch("scale", function(newValue) {
-			UC_campus.renderer = newValue <= max_Zoom_Out ? UC_renderer : UC_point_renderer;
-			UC_other.renderer = newValue <= max_Zoom_Out ? UC_renderer2 : UC_point_other_renderer;
-		});
+    view.when().then(function() {
+        view.watch("scale", function(newValue) {
+	UC_campus.renderer = newValue <= max_Zoom_Out ? UC_renderer : UC_point_renderer;
+	UC_other.renderer = newValue <= max_Zoom_Out ? UC_renderer2 : UC_point_other_renderer;
 	});
-
+    });
 });

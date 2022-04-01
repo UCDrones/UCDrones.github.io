@@ -7,9 +7,17 @@ var color_FAA_blue_clear = [1, 135, 191, 0.3];
 var color_FAA_mage_opaqu = [167, 98, 168, .9];
 var color_FAA_mage_clear = [167, 98, 168, .3];
 
-var color_NFS = [0,128,0,0.4];
+var color_NFS = [70,180,70,0.4];
 var color_NFS_line = color_NFS.slice();
 color_NFS_line[3] = 0.9;
+
+var color_NMS = [255,172,28,0.4];
+var color_NMS_line = color_NMS.slice();
+color_NMS_line[3] = 0.9;
+
+var color_NPS = [30, 70,30,0.6];
+var color_NPS_line = color_NPS.slice();
+color_NPS_line[3] = 0.9;
 
 var color_CSP = [0, 56, 118, 0.3];
 var color_CSP_line = color_CSP.slice();
@@ -73,12 +81,55 @@ var sym_def = {
 	color: "blue",
 }
 
+
+var sym_MOA = {
+    type: "simple-fill",
+    color: [0,0,0,.1],
+
+    outline: {
+        color: color_FAA_mage_opaqu,
+        width: "2px",
+	style: "dot"
+    }
+};
+
+var sym_R = {
+    type: "simple-fill",
+    color: [128,0,0,.3],
+
+    outline: {
+        color: color_FAA_blue_opaqu,
+        width: "2px",
+	style: "dot"
+    }
+};
+
+var sym_A = {
+    type: "simple-fill",
+    color: [0,0,0,.1],
+
+    outline: {
+        color: color_FAA_mage_opaqu,
+        width: "2px",
+	style: "dot"
+    }
+};
+
 var sym_NFS = {
 	type: "simple-fill",
 	color: color_NFS,
 	outline: {
 		width: 1.5,
 		color: color_NFS_line,
+	},
+}
+
+var sym_NMS = {
+	type: "simple-fill",
+	color: color_NMS,
+	outline: {
+		width: 1.5,
+		color: color_NMS_line,
 	},
 }
 
@@ -129,10 +180,10 @@ var sym_NFZ = {
 
 var sym_NPS = {
 	type: "simple-fill",  
-	color: [ 255, 140, 0, 0.6 ],
+	color: color_NPS,
 	outline: { 
 		width: 2,
-		color: "orange"
+		color: color_NPS_line,
 	}
 }
 
@@ -231,3 +282,12 @@ var sym_county_regs = {
 	}
 }
 
+var sym_NWA = {
+    type: "simple-fill", // autocasts as new SimpleFillSymbol()
+    color: [0, 0, 0, 1],
+    style: "diagonal-cross",
+    outline: {
+        color: "black",
+        width: 1
+    }
+}

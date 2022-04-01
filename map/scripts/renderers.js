@@ -22,6 +22,25 @@ var renderer_classAirspace = {
 	],
 };
 
+var renderer_suAirspace = {
+	type: "unique-value",
+	field: "TYPE_CODE",
+
+	defaultSymbol: sym_def, 
+	uniqueValueInfos: [
+	  {
+		value: "MOA",
+		symbol: sym_MOA
+	  }, {
+		value: "R",
+		symbol: sym_R,
+	  }, {
+		value: "A",
+		symbol: sym_A,
+	  }, 
+	],
+};
+
 var renderer_site = {
 	type: "unique-value",
 	field: "OwnerType",
@@ -62,6 +81,11 @@ var renderer_uasFacilities = {
 	],
 };
 
+var renderer_NWA = {
+    type: "simple",
+    symbol: sym_NWA    
+};
+
 var renderer_District = {
 	type: "simple",  
 	symbol: sym_white_outline,
@@ -91,6 +115,11 @@ var FAA_RF_Renderer = {
 var NFS_Renderer = {
 	type: "simple",
 	symbol: sym_NFS,
+};
+
+var NMS_Renderer = {
+	type: "simple",
+	symbol: sym_NMS,
 };
 
 var renderer_city = {
