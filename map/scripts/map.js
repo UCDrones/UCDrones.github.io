@@ -106,17 +106,17 @@ require([
   });
   
   var NFS_bounds = new FeatureLayer({
-	 url:"https://apps.fs.usda.gov/arcx/rest/services/EDW/EDW_ForestSystemBoundaries_01/MapServer" ,
+	 url:"https://gis.cnra.ca.gov/arcgis/rest/services/Boundaries/CPAD_AgencyClassification/MapServer/2" ,
 	 outFields:["*"],
 	 title: "National Forests",
 	 labelingInfo: [NFS_Labels],
 	 minScale: max_Zoom_Out,
      maxScale: 0,
 	 renderer: NFS_Renderer,
-	 definitionExpression: "REGION = '05'",
+	 definitionExpression: "LAYER='US Forest Service'",
 	 popupTemplate: {
-		 title: "{FORESTNAME}",
-		 content: "Flight Operations within National Forests are not prohibited, but please contact the U.S. Forest Service if you want to operate in these areas. <b>Flight operations within Congressionally Designated Wilderness Areas are prohibited</b>",
+		 title: "{PARK_NAME}",
+		 content: "Flight Operations within National Forests are not prohibited, but please contact the U.S. Forest Service if you want to operate in these areas. <br><br><b>Flight operations within Congressionally Designated Wilderness Areas are prohibited. Please review the National Wilderness Area layer.</b>",
 	 }
   });
   
@@ -130,7 +130,7 @@ require([
     definitionExpression: "STATE_ADMN = 'CA'",
     popupTemplate: {
         title: "{Monuments_NCAs_SimilarDesignation2015.NCA_NAME}",
-	content: "Flight Operations within National Monucments and Conservation Areas are typically prohibited, contact the Bureau of Land Management if you want to operate in these areas. <b>Flight operations within Congressionally Designated Wilderness Areas are prohibited</b>",
+	content: "Flight Operations within National Monucments and Conservation Areas are typically prohibited, contact the Bureau of Land Management if you want to operate in these areas. <br><br><b>Flight operations within Congressionally Designated Wilderness Areas are prohibited. Please review the National Wilderness Area layer.</b>",
     }
       
   });
@@ -191,14 +191,85 @@ require([
 	 
 	 popupTemplate: {
 		title: "{UNITNAME}",
-		content: "Contact the Park for authorization<br><b>More Information: </b><a href='https://www.parks.ca.gov/?page_id=29229' target='_blank'>Drones in State Parks</a>",
+		content: "Drone use in CA State Parks is decided by the local park director.  Contact the Park for authorization<br><b>More Information: </b><a href='https://www.parks.ca.gov/?page_id=29229' target='_blank'>Drones in State Parks</a>",
 	 }
   });
+  
+  
+  var CA_PublicLands_Restricted = new FeatureLayer({
+    url: "https://gis.cnra.ca.gov/arcgis/rest/services/Boundaries/CPAD_AgencyClassification/MapServer/2",
+    outFields: ["*"],
+    definitionExpression: "(ACCESS_TYP='No Public Access' OR ACCESS_TYP='Restricted Access') AND MNG_AGENCY<>'University of California' AND MNG_AG_TYP<>'Federal Agency' AND MNG_AG_TYP<>'Home Owners Association' AND MNG_AG_LEV<>'City' AND MNG_AG_LEV<>'State'",
+    title: "Other Lands",
+    minScale: max_Zoom_Out,
+    maxScale: 0,
+    renderer: renderer_RA_Other,
+    popupTemplate: {
+        title: "{PARK_NAME}",
+        content: "Other Lands - Contact the managing entity for authorization.<br><br>Managed by: {MNG_AGENCY}. <br>Type of Agency: {MNG_AG_TYP}<br>Public Access: {ACCESS_TYP}"
+    }
+  });
+  
+  var CA_PublicLands_CAother = new FeatureLayer({
+    url: "https://gis.cnra.ca.gov/arcgis/rest/services/Boundaries/CPAD_AgencyClassification/MapServer/2",
+    outFields: ["*"],
+    definitionExpression: "MNG_AGENCY<>'California Department of Parks and Recreation' AND MNG_AGENCY<>'University of California' AND MNG_AG_LEV='State'",
+    title: "CA State Lands",
+    minScale: max_Zoom_Out,
+    maxScale: 0,
+    renderer: renderer_CA_Other,
+    popupTemplate: {
+        title: "{PARK_NAME}",
+        content: "California State Land requires authorization from the managing agency. <br><br>Managed by: {MNG_AGENCY}. <br>Public Access: {ACCESS_TYP}."
+    }
+  });
+  
+    var CA_PublicLands_BLM = new FeatureLayer({
+    url: "https://gis.cnra.ca.gov/arcgis/rest/services/Boundaries/CPAD_AgencyClassification/MapServer/2",
+    outFields: ["*"],
+    definitionExpression: "(ACCESS_TYP='Open Access') AND (LAYER='US Bureau of Land Management')",
+    title: "Bureau of Land Management",
+    minScale: max_Zoom_Out,
+    maxScale: 0,
+    renderer: renderer_BLM,
+    popupTemplate: {
+        title: "Bureau of Land Management",
+        content: "Flight Operations within lands managed by the Bureau of Land Management are not prohibited, but please contact the BLM if you want to operate in these areas. <br><br><b>Flight operations within Congressionally Designated Wilderness Areas are prohibited. Please review the National Wilderness Area layer.</b>"
+    }
+  })
+  
+  var CA_PublicLands_FWS = new FeatureLayer({
+    url: "https://gis.cnra.ca.gov/arcgis/rest/services/Boundaries/CPAD_AgencyClassification/MapServer/2",
+    outFields: ["*"],
+    definitionExpression: "LAYER='US Fish and Wildlife Service'",
+    title: "National Wildlife Refuge",
+    minScale: max_Zoom_Out,
+    maxScale: 0,
+    renderer: NPS_Renderer,
+    popupTemplate: {
+        title: "{PARK_NAME}",
+        content: "Flight Operations within National Wildlife Refuges are generally prohibted.  Contact the Refuge for authorization."
+    }
+  })
+  
+  var Fed_PublicLands_Other = new FeatureLayer({
+    url: "https://gis.cnra.ca.gov/arcgis/rest/services/Boundaries/CPAD_AgencyClassification/MapServer/2",
+    outFields: ["*"],
+    definitionExpression: "LAYER='Other Federal'",
+    title: "Other Federal Lands",
+    minScale: max_Zoom_Out,
+    maxScale: 0,
+    renderer: NPS_Renderer,
+    popupTemplate: {
+        title: "{PARK_NAME}",
+        content: "Other Federal lands may be restriced.  Contact the managing agency for authorization. <br><br>Managed by: {MNG_AGENCY}. <br><br>Public Access: {ACCESS_TYP}."
+    }
+  })
   
   var US_NPS = new FeatureLayer({
 	 url: "https://services1.arcgis.com/fBc8EJBxQRMcHlei/arcgis/rest/services/NPS_Land_Resources_Division_Boundary_and_Tract_Data_Service/FeatureServer/2",
 	 outFields: ["*"],
-	 title: "US National Parks",
+	 title: "National Park System",
 	 minScale: max_Zoom_Out,
 	 maxScale: 0,
 	 definitionExpression: "STATE = 'CA'",
@@ -206,12 +277,12 @@ require([
 	 
 	 popupTemplate: {
 		title: "{UNIT_NAME}",
-		content: "National Parks are generally a no-drone-zone.  Contact the Park for authorization",
+		content: "National Parks are generally a no-drone-zone.  Contact the Park for authorization. <b>Flight operations within Congressionally Designated Wilderness Areas are prohibited. Please review the National Wilderness Area layer.</b>",
 	 }
   });
   
   var UC_campus = new FeatureLayer({
-	 url:"https://services2.arcgis.com/wx8u046p68e0iGuj/arcgis/rest/services/UC_Properties/FeatureServer/0",
+	 url:"https://services2.arcgis.com/wx8u046p68e0iGuj/arcgis/rest/services/UC_Properties/FeatureServer",
 	 outFields:["*"],	 
 	 title: "Main Campus",
 	 renderer: UC_renderer,
@@ -225,7 +296,7 @@ require([
   });
   
   var UC_other = new FeatureLayer({
-	 url:"https://services2.arcgis.com/wx8u046p68e0iGuj/arcgis/rest/services/UC_Properties/FeatureServer/0",
+	 url:"https://services2.arcgis.com/wx8u046p68e0iGuj/arcgis/rest/services/UC_Properties/FeatureServer",
 	 outFields:["*"],	 
 	 title: "Other UC Properties",
 	 //minScale: max_Zoom_Out,
@@ -365,12 +436,30 @@ require([
     }
   });
 
-  var publicGroupLayers = new GroupLayer({
+  
+var FederalLayers = new GroupLayer({
+    title: "Federal Lands",
+    visible: true,
+    visibilityMode: "independent",
+    layers: [ NFS_bounds, CA_PublicLands_BLM, Fed_PublicLands_Other, CA_PublicLands_FWS, BLM_NMS,US_NPS, FED_NWA]
+})
+
+var CALayers = new GroupLayer({
+    title: "California State Lands",
+    visible: true,
+    visibilityMode: "independent",
+    layers: [CA_PublicLands_CAother, CA_State_Park]
+    
+})
+
+var publicGroupLayers = new GroupLayer({
 	  title: "Public Lands",
 	  visible: false,
 	  visibilityMode: "independent",
-	  layers: [US_NPS, NFS_bounds, BLM_NMS, FED_NWA, CA_State_Park],
+	  layers: [ CA_PublicLands_Restricted, CALayers, FederalLayers],
   });
+  
+  
   
   var flyingsitesGroupLayers = new GroupLayer({
 	 title: "Identified Flying Sites",

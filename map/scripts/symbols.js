@@ -19,9 +19,17 @@ var color_NPS = [30, 70,30,0.6];
 var color_NPS_line = color_NPS.slice();
 color_NPS_line[3] = 0.9;
 
+var color_other = [88,55,88,0.6];
+var color_other_line = color_other.slice();
+color_other_line[3] = 0.9;
+
 var color_CSP = [0, 56, 118, 0.3];
 var color_CSP_line = color_CSP.slice();
-color_CSP_line[3] = 0.9;
+color_CSP_line[3] = 0.6;
+
+var color_CA = [128, 96, 77, 0.3];
+var color_CA_line = color_CA.slice();
+color_CA_line[3] = 0.6;
 
 var color_LAANC_1 = [0, 128, 0, .3];
 var color_LAANC_1_line = [0, 128, 0, .8];
@@ -115,6 +123,15 @@ var sym_A = {
     }
 };
 
+var sym_other = {
+    type: "simple-fill",
+    color: color_other,
+    outline: {
+        width: 1.5,
+        color: color_other_line
+    }
+};
+
 var sym_NFS = {
 	type: "simple-fill",
 	color: color_NFS,
@@ -122,7 +139,7 @@ var sym_NFS = {
 		width: 1.5,
 		color: color_NFS_line,
 	},
-}
+};
 
 var sym_NMS = {
 	type: "simple-fill",
@@ -131,7 +148,7 @@ var sym_NMS = {
 		width: 1.5,
 		color: color_NMS_line,
 	},
-}
+};
 
 var sym_CSP = {
 	type: "simple-fill",
@@ -140,7 +157,16 @@ var sym_CSP = {
 		width: 1.5,
 		color: color_CSP_line,
 	},
-}
+};
+
+var sym_CA = {
+	type: "simple-fill",
+	color: color_CA,
+	outline: {
+		width: 1.5,
+		color: color_CA_line,
+	},
+};
 
 var sym_LAANC_1 = {
 	type: "simple-fill",  
@@ -149,7 +175,7 @@ var sym_LAANC_1 = {
 		width: 3,
 		color: color_LAANC_1_line,
 	}
-}
+};
 
 var sym_LAANC_0 = {
 	type: "simple-fill",  

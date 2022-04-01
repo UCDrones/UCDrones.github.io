@@ -86,6 +86,21 @@ var renderer_NWA = {
     symbol: sym_NWA    
 };
 
+var renderer_RA_Other = {
+    type: "simple",
+    symbol: sym_other    
+};
+
+var renderer_CA_Other = {
+    type: "simple",
+    symbol: sym_CA    
+};
+
+var renderer_BLM = {
+    type: "simple",
+    symbol: sym_NFS   
+};
+
 var renderer_District = {
 	type: "simple",  
 	symbol: sym_white_outline,
