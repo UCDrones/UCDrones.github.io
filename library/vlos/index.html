@@ -1,0 +1,251 @@
+<!DOCTYPE html>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<html>
+    <head>
+        <title>Visual Line of Distance Estimator</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        
+        <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+        
+        
+    </head>
+    <body>
+        <div class="container-fluid">
+        <h1>Estimate How Far You Can See Your Drone</h1>
+        <div class="row">
+            
+            <div class="col-sm-4">
+                <h2>Select Drone</h2>
+                <div class="form-group">
+                    <label for="sel">Select Drone:</label>
+                    <select class="form-control" id="sel">
+                        <option value="I2">DJI Inspire Series</option>
+                        <option value="M100">DJI Matrice 100 Series</option>
+                        <option value="M200">DJI Matrice 200 Series</option>
+                        <option value="M300">DJI Matrice 300 Series</option>
+                        <option value="M600">DJI Matrice 600 Series</option>
+                        <option value="Mavic">DJI Mavic Series</option>
+                        <option value="Mini">DJI Mini Series</option>
+                        <option value="P4">DJI Phantom 4 Series</option>
+                        <option value="ANAFI">Parrot Anafi</option>
+                        <option value="EBEE">Sensefly EBEE Series</option>
+                        
+                    </select>
+                    
+                
+                
+                <button type="button" id = "pbt" class="btn btn-primary">Plot</button>
+                <button type="button" id = "rbt" class="btn btn-default">Reset</button>
+                </div>
+                <div style="text-align:center;">
+                <p id ="name"></p>
+                <p id="size"></p>
+                <p id="dist"></p>
+                </div>
+            </div>
+            <div class="col-sm-8">
+                <canvas id="myChart"></canvas>
+            </div>
+     
+        </div>
+        <div class="row">
+            <p style="text-align:center;"><b>Warning:</b> Estimate based on visual acuity - actual range will depend on other factors including weather conditions and background clutter</p>
+            <p style="text-align:center;"><em>The standard definition of normal visual acuity (20/20 vision) is the ability to resolve a spatial pattern separated by a visual angle of 1 arc minute (1/60 of a degree). This app calculates the size of the viewing plane of a drone (given the drone's horizontal and vertical dimensions) to find the distance that corresponds to 1 arc minute (maximum distance) and 3 arc minutes (safe distance) as a function of the drone's altitude.</em></p>
+        </div>
+        </div>
+    </body>
+    <script>
+    const ctx = document.getElementById('myChart');
+    var alt_idx = Array(40+1).fill().map((_,index) => index*10);
+    
+    let maxVis = [];
+    let effVis = [];
+    
+    
+    var data ={
+        
+        datasets:[
+            {
+                label: 'Maximum Distance',
+                data: maxVis,
+                //fill: false,
+                borderColor: 'rgb(210, 43, 43)',
+                backgroundColor: 'rgba(210,43,43,0.5)',
+                showLine: true,
+                
+            },
+            {
+                label: 'Safe Distance',
+                data: effVis,
+                //fill: false,
+                borderColor: 'rgb(84, 225, 83)',
+                backgroundColor: 'rgba(84, 225, 83,0.5)',
+                showLine: true,
+                
+            },
+            
+            
+        ]
+    };
+    
+    var config = {
+            type: 'scatter',
+            data: data,
+            options: {
+                responsive: true,
+                plugins: {
+                    legend: {
+                        position: 'top',
+                        },
+                    title: {
+                        display: true,
+                        text: 'Visual Line of Sight Range',
+                    },
+                    tooltip: {
+                        enabled: false,
+                    },
+                   
+                },
+                
+                scales: {
+                    x: {min:0,
+                        title: {
+                            display: true,
+                            text: "Lateral Distance (ft)",
+                        }
+                    },
+                    
+                    y: {
+                        max: 400,
+                        min: 0,
+                        title: {
+                            display: true,
+                            text: "Altitude (ft)"
+                        }
+                        
+                    }
+                }
+                
+            }
+        };
+        
+    const myChart = new Chart(ctx, config
+    );
+    
+    
+    var droneList = { 
+    Mavic: {name: "Mavic Series",
+            x:3.3,
+            y:9.5},
+    Mini: {name: "Mini Series",
+            x:1,
+            y:2},
+    M100: {name: "Matrice 100 Series",
+            x:9,
+            y:18.0},
+    M200: {name: "Matrice 200 Series",
+            x:15,
+            y:35.0},
+    M300: {name: "Matrice 300 Series",
+            x:17,
+            y:31.8},
+    M600: {name: "Matrice 600 Series",
+            x: 21,
+            y: 44.6},
+    P4: {name: "Phantom 4 Series",
+        x: 8.66,
+        y: 12.8},
+    EBEE: {name: "Sensefly Ebee Series",
+        x: 4.3,
+        y: 45.7},
+    ANAFI: {name: "Parrot Anafi Series",
+        x: 2.5,
+        y: 9.4},
+    I2: {name: "DJI Inspire Series",
+        x: 8.2,
+        y: 23.8},
+    };
+    
+    const pbt = document.getElementById("pbt");
+    const rbt = document.getElementById("rbt");
+    const sizeText = document.getElementById('size');
+    const nameText = document.getElementById('name');
+    const distText = document.getElementById('dist');
+    
+    pbt.onclick= function(){
+        
+        selectElement = document.querySelector('#sel');
+        output = selectElement.value;  
+        var drone = droneList[output];
+        nameText.innerHTML = "<b>Drone:</b> " + drone.name;
+        sizeText.innerHTML = "Size: " + drone.y+"in wide by " + drone.x +"in tall"; 
+        calcData(drone.x,drone.y);
+        
+        
+    }
+    rbt.onclick=function(){
+        sizeText.innerHTML = "";
+        nameText.innerHTML = "";
+        distText.innerHTML = "";
+    }
+    
+    
+    function calcData(x,y) {
+        var minD_1 = [];
+        var minD_2 = [];
+        const alt_idx = Array(40+1).fill().map((_,index) => index*10);
+        for (let i in alt_idx) {
+            let alt = alt_idx[i];
+            minD_1[i] = calc_minVis(x,y,alt,1/60);
+            minD_2[i] = calc_minVis(x,y,alt,3/60);
+        }
+        if (minD_1[0]===0) {
+            minD_1[0] = minD_1[1];
+        }
+        if (minD_2[0]===0) {
+            minD_2[0] = minD_2[1];
+        }
+        
+        let maxVis = minD_1.map( (v,i) => ({x:v, y:alt_idx[i]}));
+        let effVis = minD_2.map( (v,i) => ({x:v, y:alt_idx[i]}));
+        
+        
+        let txt="<b>Safe Max Distance:</b> " + Math.max.apply(Math, effVis.map(function(o) {return o.x} )) + "ft <br>";
+        txt = txt + "<b>Do not fly further than</b>: " + Math.max.apply(Math, maxVis.map(function(o) {return o.x} )) + "ft";
+        
+        distText.innerHTML = txt;
+        
+        config.data.datasets[0].data = maxVis;
+        config.data.datasets[1].data = effVis;
+        myChart.update();
+        
+    }
+    
+    
+    function calc_minVis(x,y,alt,range){
+        let minT = 3.1415/180*range;
+        let theta_c = 2;
+        let d = -10;
+        
+        x = x/12;
+        y = y/12;
+        
+        do {
+            d = d+10;
+            let num1 = (d-y/2)*(d+y/2)+(alt+x/2)*(alt-x/2);
+            let den1 = ( ( ( (d-y/2)**2) + ( (alt+x/2)**2) )**.5) * ( ( ( (d+y/2)**2) + ( (alt-x/2)**2))**.5);
+            theta_c = Math.acos(num1/den1);   
+        }
+        while (theta_c>minT);
+        return d
+    }
+    </script> 
+</html>
