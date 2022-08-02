@@ -24,6 +24,7 @@ pre code {
 
 .book .book-body .page-wrapper .page-inner section.normal a {
     color: black;
+	padding: 4px 4px;
 	text-decoration:none;
 	border-bottom: 2px solid #9BB9DF;
 	box-shadow: inset 0 -2px 0 #9BB9DF;
@@ -41,16 +42,18 @@ pre code {
 
 .book  .book-body .page-wrapper .page-inner section.normal a:hover, a:active {
   text-decoration: none;
-  background-color: #9BB9DF; !important
+  background-color: #9BB9DF !important;
   
 }
 
-
+.book .book-body .page-wrapper .page-inner section.normal li{
+  margin: 5px 0;
+}
 
 .book .book-summary ul.summary li a:link, a:visited {
   /*border: 2px solid black;*/
   color: black;
-  padding: 1px 1px;
+  padding: 8px 8px;
   text-align: center;
   text-decoration: none;
   display: inline-block;
@@ -91,7 +94,7 @@ pre code {
 
 .book .book-body .page-wrapper .page-inner section.normal h1 {
     font-size: 1.75em;
-	margin-top: 10px;
+	margin-top: 20px;
 	margin-bottom: 10px;
 }
 
@@ -106,3 +109,8 @@ pre code {
 	margin-left:1em;
 }
 
+.book .book-body .page-wrapper .page-inner {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 20px 0 40px;
+}
