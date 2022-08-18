@@ -50,7 +50,11 @@ var UASFacilitiesLabels = {
 	maxScale: 0,
 };
 
-
+var NMS_Labels = {
+	symbol: label_NFS_text,
+	labelPlacement: "always-horizontal",
+	labelExpressionInfo: {expression: "$feature.Name" }
+};
 
 var NFS_Labels = {
 	symbol: label_NFS_text,

@@ -89,6 +89,28 @@ var sym_def = {
 	color: "blue",
 }
 
+var sym_MS = {
+	type: "simple-fill",
+    color: [0,0,0,0],
+
+    outline: {
+        color: color_FAA_blue_opaqu,
+        width: "2px",
+	style: "dot"
+    }	
+};
+
+var sym_MS_ROZ = {
+	type: "simple-fill",
+    color: color_FAA_mage_clear,
+    style: "diagonal-cross",
+
+    outline: {
+        color: color_FAA_mage_opaqu,
+        width: "2px",
+	style: "dot"
+    }	
+};
 
 var sym_MOA = {
     type: "simple-fill",

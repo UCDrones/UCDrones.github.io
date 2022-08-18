@@ -50,6 +50,39 @@ require([
 	
   });
   
+  var MarineSanc = new FeatureLayer({
+	url: "https://services2.arcgis.com/wx8u046p68e0iGuj/arcgis/rest/services/CA_NMS/FeatureServer/1",
+	outFields: ["*"],
+	minScale: max_Zoom_Out,
+	maxScale: 0,
+	renderer: renderer_NMS,
+	labelingInfo: [NMS_Labels],
+	visible: true,
+	title: "National Marine Sanctuaries",
+	
+	popupTemplate: {
+        title: "{NAME}",
+	content: "Flight Operations within National Marine Sanctuaries are not prohibited, except within Regulated Overflight Zones",
+    }
+  
+  });
+  
+  var NMS_overflight = new FeatureLayer({
+	url: "https://services2.arcgis.com/wx8u046p68e0iGuj/arcgis/rest/services/CA_NMS/FeatureServer/0",
+	outFields: ["*"],
+	minScale: max_Zoom_Out,
+	maxScale: 0,
+	renderer: renderer_NMSROZ,
+	visible: true,
+	title: "Regulated Overflight Zones",
+	
+	popupTemplate: {
+        title: "{NAME} - {NMS}",
+	content: "<b>Flight Operations within National Marine Sanctuary Regulated Overflight Zones are prohibited</b>",
+    }
+  
+  });
+  
 
   var UASTestSite = new FeatureLayer({
     url:
@@ -436,13 +469,20 @@ require([
     }
   });
 
+
+var NationalMarine = new GroupLayer({
+	title: "National Marine Sanctuaries",
+    visible: true,
+    visibilityMode: "independent",
+    layers: [ MarineSanc, NMS_overflight]
+});
   
 var FederalLayers = new GroupLayer({
     title: "Federal Lands",
     visible: true,
     visibilityMode: "independent",
-    layers: [ NFS_bounds, CA_PublicLands_BLM, Fed_PublicLands_Other, CA_PublicLands_FWS, BLM_NMS,US_NPS, FED_NWA]
-})
+    layers: [ NationalMarine, NFS_bounds, CA_PublicLands_BLM, Fed_PublicLands_Other, CA_PublicLands_FWS, BLM_NMS,US_NPS, FED_NWA]
+});
 
 var CALayers = new GroupLayer({
     title: "California State Lands",
@@ -450,7 +490,7 @@ var CALayers = new GroupLayer({
     visibilityMode: "independent",
     layers: [CA_PublicLands_CAother, CA_State_Park]
     
-})
+});
 
 var publicGroupLayers = new GroupLayer({
 	  title: "Public Lands",
@@ -474,7 +514,7 @@ var publicGroupLayers = new GroupLayer({
       visibilityMode:"inherited",
       listMode:"hide-children",
       layers:[FAA_MOA,FAA_R,FAA_A],
-  })
+  });
   
   var airspaceGroupLayers = new GroupLayer({
 	 title: "FAA Airspace Information",

@@ -81,6 +81,16 @@ var renderer_uasFacilities = {
 	],
 };
 
+var renderer_NMS = {
+	type: "simple",
+    symbol: sym_MS 
+};
+
+var renderer_NMSROZ = {
+	type: "simple",
+    symbol: sym_MS_ROZ 
+};
+
 var renderer_NWA = {
     type: "simple",
     symbol: sym_NWA    
