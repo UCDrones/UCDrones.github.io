@@ -37,6 +37,7 @@ and open the template in the editor.
                         <option value="P4">DJI Phantom 4 Series</option>
                         <option value="ANAFI">Parrot Anafi</option>
                         <option value="EBEE">Sensefly EBEE Series</option>
+						<option value="Skydio">Skydio 2/2+</option>
                         
                     </select>
                     
@@ -58,7 +59,7 @@ and open the template in the editor.
         </div>
         <div class="row">
             <p style="text-align:center;"><b>Warning:</b> Estimate based on visual acuity - actual range will depend on other factors including weather conditions and background clutter</p>
-            <p style="text-align:center;"><em>The standard definition of normal visual acuity (20/20 vision) is the ability to resolve a spatial pattern separated by a visual angle of 1 arc minute (1/60 of a degree). This app calculates the size of the viewing plane of a drone (given the drone's horizontal and vertical dimensions) to find the distance that corresponds to 1 arc minute (maximum distance) and 3 arc minutes (safe distance) as a function of the drone's altitude.</em></p>
+            <p style="text-align:center;"><em>The standard definition of normal visual acuity (20/20 vision) is the ability to resolve a spatial pattern separated by a visual angle of 1 arc minute (1/60 of a degree). This app calculates the size of the viewing plane of a drone (given the drone's horizontal and vertical dimensions) to find the distance that corresponds to 1 arc minute (maximum distance of human acuity) and 3 arc minutes (recommended maximum distance) as a function of the drone's altitude.</em></p>
         </div>
         </div>
     </body>
@@ -68,13 +69,14 @@ and open the template in the editor.
     
     let maxVis = [];
     let effVis = [];
+	let safVis = [];
     
     
     var data ={
         
         datasets:[
             {
-                label: 'Maximum Distance',
+                label: 'Limit of Average Human Vision',
                 data: maxVis,
                 //fill: false,
                 borderColor: 'rgb(210, 43, 43)',
@@ -83,11 +85,20 @@ and open the template in the editor.
                 
             },
             {
-                label: 'Safe Distance',
+                label: 'Recommended Maximum Distance',
                 data: effVis,
                 //fill: false,
                 borderColor: 'rgb(84, 225, 83)',
                 backgroundColor: 'rgba(84, 225, 83,0.5)',
+                showLine: true,
+                
+            },
+			{
+                label: 'Safe Distance',
+                data: safVis,
+                //fill: false,
+                borderColor: 'rgb(84, 83, 225)',
+                backgroundColor: 'rgba(84, 83, 225,0.5)',
                 showLine: true,
                 
             },
@@ -146,8 +157,8 @@ and open the template in the editor.
             x:3.3,
             y:9.5},
     Mini: {name: "Mini Series",
-            x:1,
-            y:2},
+            x:2.2,
+            y:7},
     M100: {name: "Matrice 100 Series",
             x:9,
             y:18.0},
@@ -172,7 +183,11 @@ and open the template in the editor.
     I2: {name: "DJI Inspire Series",
         x: 8.2,
         y: 23.8},
-    };
+    Skydio: {name: "Skydio 2/2+",
+	    x: 3.0,
+		y: 9.0},
+	};
+	
     
     const pbt = document.getElementById("pbt");
     const rbt = document.getElementById("rbt");
@@ -201,11 +216,13 @@ and open the template in the editor.
     function calcData(x,y) {
         var minD_1 = [];
         var minD_2 = [];
+		var minD_3 = [];
         const alt_idx = Array(40+1).fill().map((_,index) => index*10);
         for (let i in alt_idx) {
             let alt = alt_idx[i];
             minD_1[i] = calc_minVis(x,y,alt,1/60);
             minD_2[i] = calc_minVis(x,y,alt,3/60);
+			minD_3[i] = calc_minVis(x,y,alt,6/60);
         }
         if (minD_1[0]===0) {
             minD_1[0] = minD_1[1];
@@ -213,18 +230,24 @@ and open the template in the editor.
         if (minD_2[0]===0) {
             minD_2[0] = minD_2[1];
         }
+		if (minD_3[0]===0) {
+            minD_3[0] = minD_3[1];
+        }
         
         let maxVis = minD_1.map( (v,i) => ({x:v, y:alt_idx[i]}));
         let effVis = minD_2.map( (v,i) => ({x:v, y:alt_idx[i]}));
+		let safVis = minD_3.map( (v,i) => ({x:v, y:alt_idx[i]}));
         
         
-        let txt="<b>Safe Max Distance:</b> " + Math.max.apply(Math, effVis.map(function(o) {return o.x} )) + "ft <br>";
+        let txt="<b>Safe Distance:</b> " + Math.max.apply(Math, safVis.map(function(o) {return o.x} )) + "ft <br>";
+		txt = txt + "<b>Recommended Max Distance:</b> " + Math.max.apply(Math, effVis.map(function(o) {return o.x} )) + "ft <br>";
         txt = txt + "<b>Do not fly further than</b>: " + Math.max.apply(Math, maxVis.map(function(o) {return o.x} )) + "ft";
         
         distText.innerHTML = txt;
         
         config.data.datasets[0].data = maxVis;
         config.data.datasets[1].data = effVis;
+		config.data.datasets[2].data = safVis;
         myChart.update();
         
     }
