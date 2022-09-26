@@ -243,10 +243,24 @@ require([
     }
   });
   
+  var CA_PublicLands_CFWS = new FeatureLayer({
+    url: "https://gis.cnra.ca.gov/arcgis/rest/services/Boundaries/CPAD_AgencyClassification/MapServer/2",
+    outFields: ["*"],
+    definitionExpression: "LAYER='California Department of Fish and Wildlife'",
+    title: "National Wildlife Refuge",
+    minScale: max_Zoom_Out,
+    maxScale: 0,
+    renderer: renderer_RA_Other,
+    popupTemplate: {
+        title: "{PARK_NAME}",
+        content: "Flight Operations within California Department of Fish and Wildlife Lands is prohibited - https://wildlife.ca.gov/drones. <br><br>Contact the Department for a Special Use Permit."
+    }
+  })
+  
   var CA_PublicLands_CAother = new FeatureLayer({
     url: "https://gis.cnra.ca.gov/arcgis/rest/services/Boundaries/CPAD_AgencyClassification/MapServer/2",
     outFields: ["*"],
-    definitionExpression: "MNG_AGENCY<>'California Department of Parks and Recreation' AND MNG_AGENCY<>'University of California' AND MNG_AG_LEV='State'",
+    definitionExpression: "MNG_AGENCY<>'California Department of Parks and Recreation' AND MNG_AGENCY<>'University of California' AND MNG_AG_LEV='State' AND MNG_AGENCY<>'California Department of Fish and Wildlife'",
     title: "CA State Lands",
     minScale: max_Zoom_Out,
     maxScale: 0,
@@ -281,7 +295,7 @@ require([
     renderer: NPS_Renderer,
     popupTemplate: {
         title: "{PARK_NAME}",
-        content: "Flight Operations within National Wildlife Refuges are generally prohibted.  Contact the Refuge for authorization."
+        content: "Flight Operations within National Wildlife Refuges are generally prohibited.  Contact the Refuge for authorization."
     }
   })
   
@@ -488,7 +502,7 @@ var CALayers = new GroupLayer({
     title: "California State Lands",
     visible: true,
     visibilityMode: "independent",
-    layers: [CA_PublicLands_CAother, CA_State_Park]
+    layers: [CA_PublicLands_CAother, CA_PublicLands_CFWS, CA_State_Park]
     
 });
 
