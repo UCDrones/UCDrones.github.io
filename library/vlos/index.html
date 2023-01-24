@@ -14,6 +14,11 @@ and open the template in the editor.
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+        <style>
+            h1 {text-align: center;padding-bottom: 50px;}
+            h2 {text-align: center;padding-bottom: 20px;}
+
+        </style>
         
         
     </head>
@@ -22,7 +27,7 @@ and open the template in the editor.
         <h1>Estimate How Far You Can See Your Drone</h1>
         <div class="row">
             
-            <div class="col-sm-4">
+            <div class="col-sm-3">
                 <h2>Select Drone</h2>
                 <div class="form-group">
                     <label for="sel">Select Drone:</label>
@@ -37,7 +42,7 @@ and open the template in the editor.
                         <option value="P4">DJI Phantom 4 Series</option>
                         <option value="ANAFI">Parrot Anafi</option>
                         <option value="EBEE">Sensefly EBEE Series</option>
-						<option value="Skydio">Skydio 2/2+</option>
+			<option value="Skydio">Skydio 2/2+</option>
                         
                     </select>
                     
@@ -52,24 +57,44 @@ and open the template in the editor.
                 <p id="dist"></p>
                 </div>
             </div>
-            <div class="col-sm-8">
+            <div class="col-sm-9">
                 <canvas id="myChart"></canvas>
             </div>
      
         </div>
         <div class="row">
             <p style="text-align:center;"><b>Warning:</b> Estimate based on visual acuity - actual range will depend on other factors including weather conditions and background clutter</p>
-            <p style="text-align:center;"><em>The standard definition of normal visual acuity (20/20 vision) is the ability to resolve a spatial pattern separated by a visual angle of 1 arc minute (1/60 of a degree). This app calculates the size of the viewing plane of a drone (given the drone's horizontal and vertical dimensions) to find the distance that corresponds to 1 arc minute (maximum distance of human acuity) and 3 arc minutes (recommended maximum distance) as a function of the drone's altitude.</em></p>
+            
+        </div>
+        <h2>Explanation</h2>
+        <p style="text-align:center;"><em>The standard definition of normal visual acuity (20/20 vision) is the ability to resolve a spatial pattern separated by a visual angle of 1 arc minute (1/60 of a degree). </em></p>
+        
+        <div class="row">
+            <div class="col-sm-3"></div>
+            <div class="col-sm-6">
+                <p>Visual angle is calculated as the angle between the max points of the drone at a given distance and altitude. This app calculates the size of the viewing plane of a drone (given the drone's horizontal and vertical dimensions) to find the distance and altitude that corresponds to 1 arc minute (maximum distance of human acuity), 3 arc minutes (recommended maximum distance) and 6 arc minutes (generally safe distance)</p>
+            <div class="thumbnail">
+                <a href="diagram.png" target="_blank">
+                  <img src="diagram.png" alt="Lights" style="width:100%">
+                  <div class="caption">
+                    
+                  </div>
+                </a>
+              </div>
+            </div>
+            <div class="col-sm-3"></div>
         </div>
         </div>
     </body>
     <script>
     const ctx = document.getElementById('myChart');
+    const ctx2 = document.getElementById('myChart2');
+    
     var alt_idx = Array(40+1).fill().map((_,index) => index*10);
     
     let maxVis = [];
     let effVis = [];
-	let safVis = [];
+    let safVis = [];
     
     
     var data ={
@@ -222,7 +247,7 @@ and open the template in the editor.
             let alt = alt_idx[i];
             minD_1[i] = calc_minVis(x,y,alt,1/60);
             minD_2[i] = calc_minVis(x,y,alt,3/60);
-			minD_3[i] = calc_minVis(x,y,alt,6/60);
+            minD_3[i] = calc_minVis(x,y,alt,6/60);
         }
         if (minD_1[0]===0) {
             minD_1[0] = minD_1[1];
@@ -236,18 +261,18 @@ and open the template in the editor.
         
         let maxVis = minD_1.map( (v,i) => ({x:v, y:alt_idx[i]}));
         let effVis = minD_2.map( (v,i) => ({x:v, y:alt_idx[i]}));
-		let safVis = minD_3.map( (v,i) => ({x:v, y:alt_idx[i]}));
+	let safVis = minD_3.map( (v,i) => ({x:v, y:alt_idx[i]}));
         
         
         let txt="<b>Safe Distance:</b> " + Math.max.apply(Math, safVis.map(function(o) {return o.x} )) + "ft <br>";
-		txt = txt + "<b>Recommended Max Distance:</b> " + Math.max.apply(Math, effVis.map(function(o) {return o.x} )) + "ft <br>";
-        txt = txt + "<b>Do not fly further than</b>: " + Math.max.apply(Math, maxVis.map(function(o) {return o.x} )) + "ft";
+	txt = txt + "<b>Recommended Max Distance:</b> " + Math.max.apply(Math, effVis.map(function(o) {return o.x} )) + "ft <br>";
+        txt = txt + "<b>Limit of Human Vision</b>: " + Math.max.apply(Math, maxVis.map(function(o) {return o.x} )) + "ft";
         
         distText.innerHTML = txt;
         
         config.data.datasets[0].data = maxVis;
         config.data.datasets[1].data = effVis;
-		config.data.datasets[2].data = safVis;
+	config.data.datasets[2].data = safVis;
         myChart.update();
         
     }
@@ -270,5 +295,8 @@ and open the template in the editor.
         while (theta_c>minT);
         return d
     }
+    
+    
+    
     </script> 
 </html>
