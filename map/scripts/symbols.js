@@ -1,4 +1,4 @@
-var max_Zoom_Out = 2400000;
+var max_Zoom_Out = 7200000;
 var max_Zoom_Out2 = 10400000;
 var max_Zoom_Fac = 300000;
 

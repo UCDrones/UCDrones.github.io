@@ -17,12 +17,12 @@ and open the template in the editor.
     <!--Arcgis Stylesheet-->
     <link
       rel="stylesheet"
-      href="https://js.arcgis.com/4.17/esri/themes/light/main.css"
+      href="https://js.arcgis.com/4.27/esri/themes/light/main.css"
     />
 
     <!--Custom Stylesheet-->
     <link href="css/style.css" rel="stylesheet" />
-    <script src="https://js.arcgis.com/4.17/"></script>
+    <script src="https://js.arcgis.com/4.27/"></script>
 
     <!-- Map Javascript Content -->
 	<script type="text/javascript" src="scripts/symbols.js"></script>
@@ -50,19 +50,30 @@ and open the template in the editor.
 
         <div id="navpane">
           <!-- Layers -->
-          <div id="legend"></div>
-          <div id="info"></div>
-	  <div id="layers">
-
-        </div>
+			<div id="layers">
+			</div>
 		  
 	<div id="new-request">
-	<div class="small-caption">Missing information? Email us at <a href="mailto:UASsafety@ucmerced.edu">UASsafety@ucmerced.edu</a>
-	</div>
-		  
+		<div class="LatLon">
+			<p class="h3">Latitude and Longitude</p>
+			<label for="flat">Lat:</label>
+			<input type="text" id="flat" name="flat" size="10">
+			<button onclick="myFunction()">Copy</button>
+			<br><br>
+			<label for="flon">Lon:</label>
+			<input type="text" id="flon" name="flon" size="10">
+			<button onclick="myFunction()">Copy</button>
+			<br>
+			<br>
+		
+		</div>
+	
+		<div class="small-caption">Missing information? Email us at <a href="mailto:UASsafety@ucmerced.edu">UASsafety@ucmerced.edu</a>
+		</div>
+		 
           
 
-        </div>
+    </div>
         <!-- Side Pane Content -->
         </div>
       </div>

@@ -14,7 +14,11 @@ require([
   "esri/layers/GraphicsLayer", 
   "esri/Graphic",
   "esri/Color",
-], function (Map, Basemap, MapView, FeatureLayer, Extent, Expand, LayerList, BasemapToggle, GroupLayer, Legend, Color, GraphicsLayer, Graphic) {
+  "esri/widgets/Search",
+  "esri/widgets/Locate",
+  "esri/geometry/Point",
+  "esri/symbols/SimpleMarkerSymbol",
+], function (Map, Basemap, MapView, FeatureLayer, Extent, Expand, LayerList, BasemapToggle, GroupLayer, Legend, Color, GraphicsLayer, Graphic, Search, Locate, Point, SimpleMarkerSymbol) {
   let siteLayerView;
     
   var classAirspace = new FeatureLayer({
@@ -30,6 +34,11 @@ require([
 	title: "FAA Airspace Class",
     definitionExpression:
       "STATE = 'CA' AND (LOCAL_TYPE='CLASS_E2' AND LOWER_VAL=0 OR LOCAL_TYPE='CLASS_B' AND LOWER_VAL=0 OR LOCAL_TYPE='CLASS_C' AND LOWER_VAL=0 OR LOCAL_TYPE='CLASS_D' AND LOWER_VAL=0) AND (NAME<>'SANTA BARBARA AIRPORT CLASS E2') AND NAME<>'VAN NUYS CLASS E2' AND NAME<>'RIVERSIDE MARCH FIELD CLASS D' AND NAME<>'EDWARDS AFB CLASS E2' AND NAME<>'LANCASTER CLASS E2' AND NAME<>'BAKERSFIELD CLASS E2' AND NAME<>'LEMOORE NAS CLASS E2' AND NAME<>'MONTEREY PENINSULA AIRPORT CLASS E2' AND NAME<>'MOUNTAIN VIEW CLASS E2' AND NAME<>'SACRAMENTO EXECUTIVE AIRPORT CLASS E2'",
+	
+	popupTemplate: {
+        title: "{NAME}",
+	content: "Turn on the Facility Map Layer to view the allowable flight altitude",
+	}
   });
 
 
@@ -572,15 +581,43 @@ var publicGroupLayers = new GroupLayer({
   });
   
   
+// First create a point geometry (this is the location of the Titanic)
+    var Upoint = {
+      type: "point", // autocasts as new Point()
+        longitude: -120.420165,
+        latitude: 37.363572
+    };
+
+// Create a symbol for drawing the point
+    const markerSymbol = {
+      type: "simple-marker", // autocasts as new SimpleMarkerSymbol()
+      color: [226, 119, 40],
+      outline: {
+      // autocasts as new SimpleLineSymbol()
+        color: [255, 255, 255],
+        width: 2
+      }
+    };
+
+// Create a graphic and add the geometry and symbol to it
+  const pointGraphic = new Graphic({
+    geometry: Upoint,
+    symbol: markerSymbol
+ });
+  
+
+
+ 
+  
 
   var map = new Map({
-    basemap: "gray",
+    basemap: "topo-vector",
     layers: [
         publicGroupLayers,
-	CA_State_Local_Regs,
+	    CA_State_Local_Regs,
         airspaceGroupLayers,
         FAA_NS_NFZ,
-	DL_NOTAM,
+	    DL_NOTAM,
         UC_propertiesGroupLayers	  
     ],
   });
@@ -590,9 +627,19 @@ var publicGroupLayers = new GroupLayer({
   var view = new MapView({
     container: "Map", 
     map: map, 
-    zoom: 11, 
+    zoom: 7, 
     center: [-120.420165, 37.363572], // longitude, latitude
+	
+	popup: {
+            dockEnabled: true,
+            dockOptions: {
+              buttonEnabled: false,
+              breakpoint: false
+            }
+          }
   });
+  
+
   
   
   var basemapToggle = new BasemapToggle({
@@ -602,33 +649,51 @@ var publicGroupLayers = new GroupLayer({
   
   view.ui.add(basemapToggle, "bottom-right");
   
+  const searchWidget = new Search({
+  view: view
+});
+
+  view.ui.add(searchWidget, {
+  position: "top-left",
+  index: 0
+});
+
+const locateBtn = new Locate({
+          view: view
+        });
+
+        // Add the locate widget to the top left corner of the view
+        view.ui.add(locateBtn, {
+          position: "top-left",
+		  index: 1
+        });
 
   var layerList = new LayerList({
     view: view,
     container: "layers"
   });
+  
+  
+ view.on("click", (event) => {
+  // Get the coordinates of the click on the view
+  // around the decimals to 3 decimals
+  const lat = Math.round(event.mapPoint.latitude * 100000) / 100000;
+  const lon = Math.round(event.mapPoint.longitude * 100000) / 100000;
+  
+  document.getElementById('flat').value = lat;
+  document.getElementById('flon').value = lon;
+    
+
+ });  
+ 
+
 
   //Do some things after everything has loaded
   setTimeout(function(){
 	layerList.operationalItems.reverse();
-	
-	var legend = new Legend({
-	  view: view,
-	  layerInfos: [
-	  {
-		layer: UC_campus,
-		title: "UC Campuses"
-	  }]
-	});
-	view.ui.add(legend, "top-right");
-	
+		
   }, 2000);
   
 
-    view.when().then(function() {
-        view.watch("scale", function(newValue) {
-	UC_campus.renderer = newValue <= max_Zoom_Out ? UC_renderer : UC_point_renderer;
-	UC_other.renderer = newValue <= max_Zoom_Out ? UC_renderer2 : UC_point_other_renderer;
-	});
-    });
+    
 });
