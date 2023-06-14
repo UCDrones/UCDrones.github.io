@@ -628,7 +628,7 @@ var publicGroupLayers = new GroupLayer({
     container: "Map", 
     map: map, 
     zoom: 7, 
-    center: [-120.420165, 37.363572], // longitude, latitude
+    center: [-120.4, 37.3], // longitude, latitude
 	
 	popup: {
             dockEnabled: true,
@@ -647,13 +647,13 @@ var publicGroupLayers = new GroupLayer({
 	nextBasemap: "satellite"
   });
   
-  view.ui.add(basemapToggle, "bottom-right");
+view.ui.add(basemapToggle, "bottom-right");
   
-  const searchWidget = new Search({
+const searchWidget = new Search({
   view: view
 });
 
-  view.ui.add(searchWidget, {
+view.ui.add(searchWidget, {
   position: "top-left",
   index: 0
 });
