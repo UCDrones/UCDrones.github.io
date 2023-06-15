@@ -37,24 +37,14 @@ and open the template in the editor.
   </head>
 
   <body>
-    
-
     <div id="content" class="wrapper">
       <div id="header" class="top_header">
         <p class="h1">Drone Map of California</p>
       </div>
-	   
-	  
+
       <div id="Map" class="map_window"></div>
       <div id="DashBoard" class="dash_window">
-
-        <div id="navpane">
-          <!-- Layers -->
-			<div id="layers">
-			</div>
-		  
-	<div id="new-request">
-		<div class="LatLon">
+        <div class="LatLon">
 			<p class="h3">Latitude and Longitude</p>
 			<label for="flat">Lat:</label>
 			<input type="text" id="flat" name="flat" size="10">
@@ -65,17 +55,10 @@ and open the template in the editor.
 			<button onclick="copyTextBoxLon()">Copy</button>
 			<br>
 			<br>
-		
-		</div>
-	
-		<div class="small-caption">Missing information? Email us at <a href="mailto:UASsafety@ucmerced.edu">UASsafety@ucmerced.edu</a>
-		</div>
-		 
-          
-
-    </div>
-        <!-- Side Pane Content -->
-        </div>
+		  </div>
+		<div id="layers"></div>
+		<div class="small-caption">Missing information? Email us at <a href="mailto:UASsafety@ucmerced.edu">UASsafety@ucmerced.edu</a></div>
       </div>
+    </div>
   </body>
 </html>

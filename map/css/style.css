@@ -5,7 +5,7 @@ body {
   background-color: rgb(255, 255, 255);
   margin: 0;
   padding: 0;
-  font-family: Sans-serif;
+  font-family: Arial;
 }
 
 .wrapper {
@@ -116,6 +116,10 @@ opacity: 0.90;
 
 .h1 {
   text-align: center;
+}
+
+.h3 {
+	text-align: center;
 }
 
 .icon {

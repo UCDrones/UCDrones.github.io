@@ -28,6 +28,16 @@ for (i=0; i<color_table.length;i++){
 	color_UC[i]= [temp1,temp2,temp3];
 }
 
+var select_symbol = {
+  type: "simple-marker",
+  style: "circle",
+  size: 8,
+  color: [0, 255, 255],
+  outline: {
+   color: [50, 50, 50],
+    width: 1
+  }
+}
 
 
 var UCANR_symbol = {

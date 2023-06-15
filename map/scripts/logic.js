@@ -37,3 +37,14 @@ function layerToggle() {
    // Copy the text inside the text field
   navigator.clipboard.writeText(copyText.value);
 }
+
+function defineActions(event){
+	  const item = event.item;
+	  
+	  if (item.title === "FAA Airspace Information"){
+	  	  item.open = true;
+	  }
+	  if (item.title === "CA Local Regulations"){
+		  item.open = true;
+	  }
+  }
