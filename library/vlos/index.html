@@ -32,6 +32,7 @@ and open the template in the editor.
                 <div class="form-group">
                     <label for="sel">Select Drone:</label>
                     <select class="form-control" id="sel">
+						<option value="AutelEvo">Autel Evo Series</option>
                         <option value="I2">DJI Inspire Series</option>
                         <option value="M100">DJI Matrice 100 Series</option>
                         <option value="M200">DJI Matrice 200 Series</option>
@@ -42,8 +43,8 @@ and open the template in the editor.
                         <option value="P4">DJI Phantom 4 Series</option>
                         <option value="ANAFI">Parrot Anafi</option>
                         <option value="EBEE">Sensefly EBEE Series</option>
-			<option value="Skydio">Skydio 2/2+</option>
-			<option value="AutelEvo">Autel Evo Series</option>
+						<option value="Skydio">Skydio 2/2+</option>
+						<option value="Wingtra">Wingtra One Series</option>
                         
                     </select>
                     
@@ -179,44 +180,46 @@ and open the template in the editor.
     
     
     var droneList = { 
-    Mavic: {name: "Mavic Series",
-            x:4.2,
+    Mavic:	{name: "Mavic Series",
+			x:4.2,
             y:11.3},
-    Mini: {name: "Mini Series",
+    Mini: 	{name: "Mini Series",
             x:2.2,
             y:6.5},
-    M100: {name: "Matrice 100 Series",
+    M100: 	{name: "Matrice 100 Series",
             x:9,
             y:18.0},
-    M200: {name: "Matrice 200 Series",
+    M200: 	{name: "Matrice 200 Series",
             x:15,
             y:35.0},
-    M300: {name: "Matrice 300 Series",
+    M300: 	{name: "Matrice 300 Series",
             x:17,
             y:31.8},
-    M600: {name: "Matrice 600 Series",
+    M600: 	{name: "Matrice 600 Series",
             x: 21,
             y: 44.6},
-    P4: {name: "Phantom 4 Series",
-        x: 8.66,
-        y: 12.8},
-    EBEE: {name: "Sensefly Ebee Series",
-        x: 4.3,
-        y: 45.7},
-    ANAFI: {name: "Parrot Anafi Series",
-        x: 2.5,
-        y: 9.4},
-    I2: {name: "DJI Inspire Series",
-        x: 12.4,
-        y: 16.8},
+    P4: 	{name: "Phantom 4 Series",
+			x: 8.66,
+			y: 12.8},
+    EBEE: 	{name: "Sensefly Ebee Series",
+			x: 4.3,
+			y: 45.7},
+    ANAFI: 	{name: "Parrot Anafi Series",
+			x: 2.5,
+			y: 9.4},
+    I2: 	{name: "DJI Inspire Series",
+			x: 12.4,
+			y: 16.8},
     AutelEvo: {name: "Autel Evo Series",
-	x: 4.33,
-        y: 13.9},
+			x: 4.33,
+			y: 13.9},
     Skydio: {name: "Skydio 2/2+",
-	    x: 3.0,
-		y: 9.0},
+			x: 3.0,
+			y: 9.0},
+	Wingtra: {name: "Wingtra One",
+			x: 4.7,
+			y: 50.4}
 	};
-	
     
     const pbt = document.getElementById("pbt");
     const rbt = document.getElementById("rbt");
