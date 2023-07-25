@@ -37,8 +37,10 @@ var classAirspace = new FeatureLayer({
   }
 });
   
+  
+  
 var uasFacilities = new FeatureLayer({
-  url: "https://services6.arcgis.com/ssFJjBXIUyZDrSYZ/arcgis/rest/services/FAA_UAS_FacilityMap_Data_V5/FeatureServer/0/",
+  url: "https://services6.arcgis.com/ssFJjBXIUyZDrSYZ/arcgis/rest/services/FAA_UAS_FacilityMap_Data/FeatureServer/0/",
   outFields: ["*"],
   minScale: max_Zoom_Fac,
   maxScale: 0,
