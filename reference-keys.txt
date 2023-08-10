@@ -1,0 +1,4 @@
+fig:db120
+fig:dtag
+fig:ridedit
+fig:rideupd
