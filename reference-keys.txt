@@ -1,4 +1,5 @@
 fig:db120
 fig:dtag
+fig:skyID
 fig:ridedit
 fig:rideupd
