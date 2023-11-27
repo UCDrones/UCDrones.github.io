@@ -1,5 +1,5 @@
 p.caption {
-  color: #777;
+  color: #00425B;
   margin-top: 10px;
 }
 p code {
@@ -13,104 +13,38 @@ pre code {
   white-space: inherit;
 }
 
-/*.book .book-body .page-wrapper .page-inner section.normal a 
-%  color: red; !important
-%} */
-
-/*
-.book  .book-body .page-wrapper .page-inner section.normal a {
-  color: rgb(9, 47, 68); !important
-}*/
-
-.book .book-body .page-wrapper .page-inner section.normal a {
-    color: black;
-	padding: 0px 0px;
-	text-decoration:none;
-	border-bottom: 2px solid #9BB9DF;
-	box-shadow: inset 0 -2px 0 #9BB9DF;
-}
-
-/*
-.book  .book-body .page-wrapper .page-inner section.normal a:link, a:visited {
-  border: 2px solid black; 
-  padding: 2px 2px;
-  color: black;
-  text-decoration: none;
-  text-align: center;
-  display: inline-block;
-}*/
-
-.book  .book-body .page-wrapper .page-inner section.normal a:hover, a:active {
-  text-decoration: none;
-  background-color: #9BB9DF !important;
-  
-}
-
-.book .book-body .page-wrapper .page-inner section.normal li{
-  margin: 5px 0;
-}
-
-.book .book-summary ul.summary li a:link, a:visited {
-  /*border: 2px solid black;*/
-  color: black;
-  padding: 8px 8px;
-  text-align: center;
-  text-decoration: none;
-  display: inline-block;
+.inline-figure {
+  border: none !important;
 }
 
 
-.book .book-summary ul.summary li a:hover, .book .book-summary ul.summary li.active>a {
-    color: black;
-	background-color: #9BB9DF;
-    text-decoration: none;
+.figure {
+  border: none !important;
+  margin:  1.5rem -0.5rem 1rem -0.5rem;
+  padding: 1.5rem    0    1rem      1rem;
 }
 
-.book .book-body .page-wrapper .page-inner section.normal h1.title {
-    font-size: 2.25em;
-	margin-top: 10px;
-	margin-bottom: 10px;
-	text-align: center;
+.sidebar li.book-part {
+  font-weight: bolder;
+  font-size: 1.0rem;
 }
 
-.book .book-body .page-wrapper .page-inner section.normal p.author {
-	text-align: center;
-	margin-top: 5px;
-	margin-bottom: 5px;
-}
-.book .book-body .page-wrapper .page-inner section.normal .date {
-	text-align: center;
-	font-style: normal !important;
-	margin-top: 2px !important;
-	margin-bottom: 2px !important;
-	
+.sidebar h2 {
+    font-weight: bolder;
+    font-size: 1.1rem;
 }
 
-.book .book-body .page-wrapper .page-inner section.normal h2 {
-    font-size: 1.25em;
-	margin-top: 10px;
-	margin-bottom: 10px;
+.header-section-number {
+    color: #00425B;
+    font-weight: bolder;
 }
 
-.book .book-body .page-wrapper .page-inner section.normal h1 {
-    font-size: 1.75em;
-	margin-top: 20px;
-	margin-bottom: 10px;
+.sidebar h1 {
+    font-size: 1.2rem;
+    font-weight: bolder;
 }
 
-.book .book-body .page-wrapper .page-inner section.normal h3 {
-    font-size: 1em;
-	margin-top: 5px;
-	margin-bottom: 5px;
-}
 
-.book .book-body .page-wrapper .page-inner section.normal .level3 {
-    display:inline-block;
-	margin-left:1em;
-}
-
-.book .book-body .page-wrapper .page-inner {
-    max-width: 1200px;
-    margin: 0 auto;
-    padding: 20px 0 40px;
+.datatables {
+    font-size: 12px;
 }
