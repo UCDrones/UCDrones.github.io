@@ -33,13 +33,14 @@ ch-cybersecurity
 cybersecurity-risk
 mitigation-strategies
 dji-drones
+background
 frequently-asked-questions
-need-to-pick-a-drone
+pickdrone
 cheap-drones
 drones-for-multimedia
 drones-for-mapping
 the-best-drones
-high-security-drones
+ndaa2024
 dronelist
 remote-identification
 what-is-remote-identification
@@ -57,6 +58,7 @@ available-apps
 turn-off-wi-fi-scan-throttling
 drone-broadcasting
 regulatory-updates
+billNDAA2024
 faa-reauthorization-bill-of-2023
 ca-ab1016-pest-control-operations-aircraft-operations-private-applicator
 the-recreational-uas-safety-test-trust
