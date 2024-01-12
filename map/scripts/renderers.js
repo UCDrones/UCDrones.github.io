@@ -137,6 +137,34 @@ var FAA_RF_Renderer = {
 	label: "Recognized Fixed-Flying Site",
 };
 
+var FRIA_renderer = {
+	type: "unique-value",
+	field: "orgName",
+	defaultSymbol: sym_EDU,
+	uniqueValueInfos: [
+	{
+		value: "Academy of Model Aeronautics",
+		symbol: sym_AMA,
+		label: "AMA",
+	},
+	{
+		value: "Flite Test Community Association",
+		symbol: sym_AMA,
+		label: "AMA",
+	},
+	{
+		value: "STEM+C Inc",
+		symbol: sym_AMA,
+		label: "AMA",
+	},
+	{
+		value: "FPV Freedom Coalition, Inc",
+		symbol: sym_AMA,
+		label: "AMA",
+	},
+	],
+};
+
 var NFS_Renderer = {
 	type: "simple",
 	symbol: sym_NFS,

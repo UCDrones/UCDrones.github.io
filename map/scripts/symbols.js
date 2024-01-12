@@ -19,7 +19,7 @@ var color_NPS = [30, 70,30,0.6];
 var color_NPS_line = color_NPS.slice();
 color_NPS_line[3] = 0.9;
 
-var color_other = [88,55,88,0.6];
+var color_other = [38,87,124,0.6];
 var color_other_line = color_other.slice();
 color_other_line[3] = 0.9;
 
@@ -243,6 +243,24 @@ var sym_FAA_RF = {
 	outline: {  
 		color: [0, 0, 0 ],
 		width: 2,  
+	}
+}
+
+var sym_AMA = {
+	type: "simple-fill",  
+	color: [ 34, 165, 255, 0.2 ],
+	outline: { 
+		width: 2,
+		color: [ 50, 117, 197,.6]
+	}
+}
+
+var sym_EDU = {
+	type: "simple-fill",  
+	color: [ 75, 44, 109, 0.2 ],
+	outline: { 
+		width: 2,
+		color: [ 50, 29, 72,.6]
 	}
 }
 

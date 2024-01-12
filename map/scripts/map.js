@@ -153,7 +153,22 @@ var airspaceGroupLayers = new GroupLayer({
 			  classAirspace,
 			  uasFacilities],
   });
-  
+
+
+var FAA_FRIA = new FeatureLayer({
+	url: "https://services6.arcgis.com/ssFJjBXIUyZDrSYZ/arcgis/rest/services/FAA_Recognized_Identification_Areas/FeatureServer/",
+	outFields:["*"],
+	title: "FAA-Recognized Identification Areas",
+	renderer: FRIA_renderer,
+	maxScale: 0,
+	definitionExpression: "STATE = 'CA'",
+	popupTemplate: {
+			title: "FRIA",
+			content: "<b>{title}</b><br>{orgName}<br>{refNumber}<br>Contact the FRIA for access and authorization information",
+	}
+});
+
+
   
 /* ****************************** UC Layers **************/
 var UC_campus = new FeatureLayer({
@@ -514,7 +529,7 @@ var FederalLayers = new GroupLayer({
     title: "Federal Lands",
     visible: true,
     visibilityMode: "independent",
-    layers: [ NationalMarine, NFS_bounds, CA_PublicLands_BLM, Fed_PublicLands_Other, CA_PublicLands_FWS, BLM_NMS,US_NPS, FED_NWA]
+    layers: [NationalMarine, NFS_bounds, CA_PublicLands_BLM, Fed_PublicLands_Other, CA_PublicLands_FWS, BLM_NMS,US_NPS, FED_NWA]
 });
 
 /* ***************** County/City Managed Lands  **********************/
@@ -552,6 +567,7 @@ const map = new Map({
   layers: [CA_State_Local_Regs,
            airspaceGroupLayers,
            publicGroupLayers,
+		   FAA_FRIA, 
            UC_propertiesGroupLayers
            ],
 });
