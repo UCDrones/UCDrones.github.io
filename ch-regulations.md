@@ -1,5 +1,35 @@
 # Regulatory Updates
 
+## FAA Reauthorization Bill of 2024
+
+**Signed May 16, 2024** 
+
+After a 5-year reprieve, Congress is set to put together another FAA Reauthorization Bill. While these bills ensure funding to the FAA, they're also used to make significant regulatory changes. The FAA Reauthorization Bill of 2012 introduced Section 333 exemptions and the pathway forward for Part 107. The FAA Reauthorization Bill of 2018 revamped regulations around the recreational use of drones and introduced academic and educational exemptions.  
+
+The text of the 2024 Re-authorization Act can be found here: [here](https://www.congress.gov/bill/118th-congress/house-bill/3935/text) 
+
+
+While much of the news related to this bill was centered around noticable adjustments to the FAA's mission and enabling private jet owners to make their registration information anonymous, there were a couple of noticeable drone related updates.
+
+
+A couple of quick notes on the final law:
+
+1. Adds elementary and secondary schools to the academic/educational exemption list.  
+2. Requires a BVLOS NPRM to be published within four months and the final rule within 16 months.
+3. Updates to enabling more public safety agencies to use tethered drones, even in 0 grid areas (previously not allowed)
+3. Requires the FAA to put together a UTM CONOPS within one year
+4. Explore the feasibility of Network-based RemoteID
+5. Mandate to improve the waiver process. Waiver evaluators may now consider property access and ownership during the evaluation process.
+5. Changes to [44807](https://www.faa.gov/uas/advanced_operations/certification/section_44807) authorization process (special airworthiness) to streamline specific authorizations, including low risk BVLOS, EVLOS, and shielded operations within 100 ft of the ground or structure.
+6. Updates to Fixed-Site designations
+7. New options for obtaining a Temporary Flight Restriction for public events
+6. Launches an FAA Aviation Infrastructure Inspection Pilot Program 
+7. Launches a critical infrastructure inspection grant program for governmental entities
+8. Continues the FAA Workforce development grant program
+
+Some reasonable steps to push the drone industry, but nothing immediately impactful for the UC. We'll update as we start to dive deep into the changes.
+
+
 ## National Defense Authorization Act of 2024 {#billNDAA2024}
 
 **Signed into Law on Dec 22, 2023**
@@ -25,26 +55,7 @@ The legislation also requires the development of a new federal-wide policy on th
 In the meantime, we've posted some of our recommended DJI-alternative platforms on our [guide to selecting a drone](#pickdrone).
 
 
-## FAA Reauthorization Bill of 2023
 
-**Still in in progress** 
-
-After a 5-year reprieve, Congress is set to put together another FAA Reauthorization Bill. While these bills ensure funding to the FAA, they're also used to make significant regulatory changes. The FAA Reauthorization Bill of 2012 introduced Section 333 exemptions and the pathway forward for Part 107. The FAA Reauthorization Bill of 2018 revamped regulations around the recreational use of drones and introduced academic and educational exemptions.  
-
-The first draft of the [2023 Reauthorization Bill](https://transportation.house.gov/uploadedfiles/sgrlaa_act_intro_text.pdf) was released on 6/9/2023 and looks like it takes a couple of steps forward, but also a couple of steps back for the UC's drone activity.
-
-A couple of quick notes on the current draft (6/9/2023):
-
-1. Adds elementary and secondary schools to the academic/educational exemption list.  
-2. Requires a BVLOS NPRM to be published within four months and the final rule within 16 months.
-3. Requires the FAA to put together a UTM CONOPS within one year
-4. Explore the feasibility of Network-based RemoteID
-5. Waiver evaluation can explore using AI to improve response time; waiver evaluators may now consider property access and ownership during the evaluation process.
-6. Launches an FAA Aviation Infrastructure Inspection Pilot Program - bans all Chinese drones from participating
-7. Launches a critical infrastructure inspection grant program for governmental entities - bans all Chinese drones from participating
-8. Continues the FAA Workforce development grant program - bans all Chinese drones from participating
-
-Mix-bag so far. Some reasonable steps to push the drone industry. Disappointing to see the proposal to prohibit using Chinese drones within the workforce development grant program. Low-cost drones are often made in China, making excellent training drones, especially in K-12 programs. DJI drones are still the dominant drones used in industry, so banning their participation in workforce development limits how much workforce development can occur if the participants can't use the industry standards.
 
 
 ## CA AB1016 Pest control operations: aircraft operations: private applicator
