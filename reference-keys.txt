@@ -58,6 +58,7 @@ available-apps
 turn-off-wi-fi-scan-throttling
 drone-broadcasting
 regulatory-updates
+billNDAA2025
 faa-reauthorization-bill-of-2024
 billNDAA2024
 ca-ab1016-pest-control-operations-aircraft-operations-private-applicator

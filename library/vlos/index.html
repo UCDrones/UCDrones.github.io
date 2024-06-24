@@ -1,309 +1,489 @@
 <!DOCTYPE html>
-<!--
-To change this license header, choose License Headers in Project Properties.
-To change this template file, choose Tools | Templates
-and open the template in the editor.
--->
-<html>
-    <head>
-        <title>Visual Line of Distance Estimator</title>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        
-        <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
-        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
-        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
-        <style>
-            h1 {text-align: center;padding-bottom: 50px;}
-            h2 {text-align: center;padding-bottom: 20px;}
+<html lang="en">
 
-        </style>
-        
-        
-    </head>
-    <body>
-        <div class="container-fluid">
-        <h1>Estimate How Far You Can See Your Drone</h1>
-        <div class="row">
-            
-            <div class="col-sm-3">
-                <h2>Select Drone</h2>
-                <div class="form-group">
-                    <label for="sel">Select Drone:</label>
-                    <select class="form-control" id="sel">
-						<option value="AutelEvo">Autel Evo Series</option>
-                        <option value="I2">DJI Inspire Series</option>
-                        <option value="M100">DJI Matrice 100 Series</option>
-                        <option value="M200">DJI Matrice 200 Series</option>
-                        <option value="M300">DJI Matrice 300 Series</option>
-                        <option value="M600">DJI Matrice 600 Series</option>
-                        <option value="Mavic">DJI Mavic Series</option>
-                        <option value="Mini">DJI Mini Series</option>
-                        <option value="P4">DJI Phantom 4 Series</option>
-                        <option value="ANAFI">Parrot Anafi</option>
-                        <option value="EBEE">Sensefly EBEE Series</option>
-						<option value="Skydio">Skydio 2/2+</option>
-						<option value="Wingtra">Wingtra One Series</option>
-                        
-                    </select>
-                    
-                
-                
-                <button type="button" id = "pbt" class="btn btn-primary">Plot</button>
-                <button type="button" id = "rbt" class="btn btn-default">Reset</button>
-                </div>
-                <div style="text-align:center;">
-                <p id ="name"></p>
-                <p id="size"></p>
-                <p id="dist"></p>
-                </div>
-            </div>
-            <div class="col-sm-9">
-                <canvas id="myChart"></canvas>
-            </div>
-     
+<head>
+  <title>Visual Line of Distance Estimator</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.3/dist/chart.umd.min.js"></script>
+  <link rel="stylesheet" href="style.css" />
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css" />
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+</head>
+
+<body style="background-color:#C9D1DB;">
+  <ul>
+    <li><a class="active" href="">Home</a></li>
+    <li><a href="#vlos" onclick="openCollapsible(event, 'vlos')">Visual Line of Sight</a></li>
+    <li><a href="#fresnel" onclick="openCollapsible(event, 'fresnel')">Fresnel Zone</a></li>
+    <img class="logo" src="uc-coe_Unmanned-aircraft-system-safety-color_update-01 (1).png" alt="UC UAS Safety Logo">
+  </ul>
+    <h1>Estimate the Safest Flight Path</h1>
+  <section>
+  <div class="container-fluid">
+  <div class="row">
+    <div class="col-sm-3">
+      <h2>Select Drone</h2>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-sm-3">
+      <div class="form-group">
+        <label for="sel">Select Drone:</label>
+        <select class="form-control" id="sel">
+          <option value="AutelEvo">Autel Evo Series</option>
+          <option value="I2">DJI Inspire Series</option>
+          <option value="M100">DJI Matrice 100 Series</option>
+          <option value="M200">DJI Matrice 200 Series</option>
+          <option value="M300">DJI Matrice 300 Series</option>
+          <option value="M600">DJI Matrice 600 Series</option>
+          <option value="Mavic">DJI Mavic Series</option>
+          <option value="Mini">DJI Mini Series</option>
+          <option value="P4">DJI Phantom 4 Series</option>
+          <option value="ANAFI">Parrot Anafi</option>
+          <option value="EBEE">Sensefly EBEE Series</option>
+          <option value="Skydio">Skydio 2/2+</option>
+          <option value="Wingtra">Wingtra One Series</option>
+        </select>
+
+        <button type="button" id="pbt" class="btn btn-primary">Plot</button>
+        <button type="button" id="rbt" class="btn btn-default">Reset</button>
+        <p id="Warning" class="bubble">
+          <b class="bubble">Warning:</b> Estimate based on 2.4 GHz frequency - some drones may be able to operate with
+          5.8 GHz
+        </p>
+      </div>
+      <div style="text-align: center">
+        <div class="bubble">
+          <p id="name" class="bubble"></p>
+          <p id="size" class="bubble"></p>
         </div>
-        <div class="row">
-            <p style="text-align:center;"><b>Warning:</b> Estimate based on visual acuity - actual range will depend on other factors including weather conditions and background clutter</p>
-            
+        <p id="dist" class="bubble"></p>
+        <div class="bubble">
+          <p id="rad" class="bubble"></p>
+          <p id="rad2" class="bubble"></p>
         </div>
-        <h2>Explanation</h2>
-        <p style="text-align:center;"><em>The standard definition of normal visual acuity (20/20 vision) is the ability to resolve a spatial pattern separated by a visual angle of 1 arc minute (1/60 of a degree). </em></p>
-        
-        <div class="row">
-            <div class="col-sm-3"></div>
-            <div class="col-sm-6">
-                <p>Visual angle is calculated as the angle between the max points of the drone at a given distance and altitude. This app calculates the size of the viewing plane of a drone (given the drone's horizontal and vertical dimensions) to find the distance and altitude that corresponds to 1 arc minute (maximum distance of human acuity), 3 arc minutes (recommended maximum distance) and 6 arc minutes (generally safe distance)</p>
-            <div class="thumbnail">
-                <a href="diagram.png" target="_blank">
-                  <img src="diagram.png" alt="Lights" style="width:100%">
-                  <div class="caption">
-                    
-                  </div>
-                </a>
-              </div>
-            </div>
-            <div class="col-sm-3"></div>
-        </div>
-        </div>
-    </body>
-    <script>
-    const ctx = document.getElementById('myChart');
-    const ctx2 = document.getElementById('myChart2');
-    
-    var alt_idx = Array(40+1).fill().map((_,index) => index*10);
-    
+
+      </div>
+    </div>
+    <div class="col-sm-8">
+      <canvas id="myChart"></canvas>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-sm-4"></div>
+    <div class="col-sm-8">
+      <p id="Warning" class="bubble">
+        <b class="bubble">Warning:</b> Estimate based on visual acuity - actual range will
+        depend on other factors including weather conditions and background
+        clutter
+      </p>
+    </div>
+  </div>
+<article>
+
+<div class="collapsible-container">
+  <div class="collapsible-wrapper">
+    <button type="button" class="collapsible" data-target="vlos">Visual Line of Sight</button>
+    <div class="content" id="vlos">
+      <div class="col-sm-5">
+        <p style="margin-bottom: 0 !important;">
+          The standard definition of normal visual acuity (20/20 vision) is the
+          ability to resolve a spatial pattern separated by a visual angle of 1
+          arc minute (1/60 of a degree). Visual angle is calculated as the angle between the max points of
+          the drone at a given distance and altitude. This app calculates the
+          size of the viewing plane of a drone (given the drone's horizontal
+          and vertical dimensions) to find the distance and altitude that
+          corresponds to 1 arc minute (maximum distance of human acuity), 3
+          arc minutes (recommended maximum distance) and 6 arc minutes
+          (generally safe distance)
+        </p>
+      </div>
+      <div class="col-sm-7">
+        <img class="images" src="vlos_diagram.jpg" alt="Visual Line of Sight">
+      </div>
+    </div>
+  </div>
+</div>
+<div class="collapsible-container">
+  <div class="collapsible-wrapper">
+    <button type="button" class="collapsible" data-target="fresnel">Fresnel Zone</button>
+    <div class="content" id="fresnel">
+      <div class="col-sm-5">
+        <p style="margin-bottom: 0 !important;">
+          In point to point wireless communications, it is important for the
+          visual line of sight between two wireless systems to be free from any
+          obstruction (terrain, vegetation, buildings, wind farms and a host of other
+          obstructions). As any interference or obstruction in the VLOS can result in a
+          loss of signal. While installing a wireless communication system, it is important to keep
+          an elliptical region between the transmit antenna and the receive antenna free
+          from any obstruction for the proper functioning of the system. This 3D elliptical
+          region between the transmit antenna and the receive antenna is called the Fresnel
+          Zone. The size of the ellipse is determined by the frequency of operation and the
+          distance between the two sites.
+        </p>
+      </div>
+      <div class="col-sm-7">
+        <img class="images" src="fresnel zone image.gif" alt="Fresnel Zone">
+      </div>
+    </div>
+  </div>
+</div>
+</article>
+</section>
+  <footer>
+  </footer>
+</div>
+  <script>
+
+function openCollapsible(event, id) {
+  event.preventDefault(); // Prevent default anchor behavior
+
+  var collapsibleButton = document.querySelector('.collapsible[data-target="' + id + '"]');
+  var collapsibleContent = document.getElementById(id);
+
+  if (collapsibleButton && collapsibleContent) {
+    collapsibleButton.classList.toggle('active'); // Toggle the 'active' class
+    collapsibleContent.style.display = collapsibleContent.style.display === 'block' ? 'none' : 'block'; // Toggle display style
+
+    // Scroll to the collapsible content
+    if (collapsibleContent.style.display === 'block') {
+      collapsibleContent.scrollIntoView({ behavior: 'smooth' });
+    }
+  }
+}
+
+// Add event listeners to all collapsible buttons
+var coll = document.getElementsByClassName("collapsible");
+for (var i = 0; i < coll.length; i++) {
+  coll[i].addEventListener("click", function () {
+    var content = this.nextElementSibling;
+    this.classList.toggle("active");
+    if (content.style.display === "block") {
+      content.style.display = "none";
+    } else {
+      content.style.display = "block";
+      content.scrollIntoView({ behavior: 'smooth' });
+    }
+  });
+}
+
+    const ctx = document.getElementById("myChart");
+
     let maxVis = [];
     let effVis = [];
     let safVis = [];
-    
-    
-    var data ={
-        
-        datasets:[
-            {
-                label: 'Limit of Average Human Vision',
-                data: maxVis,
-                //fill: false,
-                borderColor: 'rgb(210, 43, 43)',
-                backgroundColor: 'rgba(210,43,43,0.5)',
-                showLine: true,
-                
-            },
-            {
-                label: 'Recommended Maximum Distance',
-                data: effVis,
-                //fill: false,
-                borderColor: 'rgb(84, 225, 83)',
-                backgroundColor: 'rgba(84, 225, 83,0.5)',
-                showLine: true,
-                
-            },
-			{
-                label: 'Safe Distance',
-                data: safVis,
-                //fill: false,
-                borderColor: 'rgb(84, 83, 225)',
-                backgroundColor: 'rgba(84, 83, 225,0.5)',
-                showLine: true,
-                
-            },
-            
-            
-        ]
+
+    var data = {
+      datasets: [
+        {
+          label: "Limit of Average Human Vision",
+          data: maxVis,
+          borderColor: "rgb(210, 43, 43)",
+          backgroundColor: "rgba(210,43,43,0.5)",
+          showLine: true,
+        },
+        {
+          label: "Recommended Maximum Distance",
+          data: effVis,
+          borderColor: "rgb(84, 225, 83)",
+          backgroundColor: "rgba(84, 225, 83,0.5)",
+          showLine: true,
+        },
+        {
+          label: "Safe Distance",
+          data: [safVis],
+          borderColor: "rgb(84, 83, 225)",
+          backgroundColor: "rgba(84, 83, 225,0.5)",
+          showLine: true,
+        },
+        {
+          label: "Fresnel Zone 1",
+          data: [],
+          borderColor: "rgba(169, 169, 169, 1)",
+          showLine: true,
+          fill: false,
+          backgroundColor: "rgba(169, 169, 169, 0.2)",
+        },
+        {
+          label: "Fresnel Zone 2",
+          data: [],
+          borderColor: "rgba(186, 149, 101, 1)",
+          showLine: true,
+          fill: false,
+          backgroundColor: "rgba(186, 149, 101, 0.2)",
+        },
+      ],
     };
-    
+
     var config = {
-            type: 'scatter',
-            data: data,
-            options: {
-                responsive: true,
-                plugins: {
-                    legend: {
-                        position: 'top',
-                        },
-                    title: {
-                        display: true,
-                        text: 'Visual Line of Sight Range',
-                    },
-                    tooltip: {
-                        enabled: false,
-                    },
-                   
-                },
-                
-                scales: {
-                    x: {min:0,
-                        title: {
-                            display: true,
-                            text: "Lateral Distance (ft)",
-                        }
-                    },
-                    
-                    y: {
-                        max: 400,
-                        min: 0,
-                        title: {
-                            display: true,
-                            text: "Altitude (ft)"
-                        }
-                        
-                    }
-                }
-                
-            }
-        };
-        
-    const myChart = new Chart(ctx, config
-    );
-    
-    
-    var droneList = { 
-    Mavic:	{name: "Mavic Series",
-			x:4.2,
-            y:11.3},
-    Mini: 	{name: "Mini Series",
-            x:2.2,
-            y:6.5},
-    M100: 	{name: "Matrice 100 Series",
-            x:9,
-            y:18.0},
-    M200: 	{name: "Matrice 200 Series",
-            x:15,
-            y:35.0},
-    M300: 	{name: "Matrice 300 Series",
-            x:17,
-            y:31.8},
-    M600: 	{name: "Matrice 600 Series",
-            x: 21,
-            y: 44.6},
-    P4: 	{name: "Phantom 4 Series",
-			x: 8.66,
-			y: 12.8},
-    EBEE: 	{name: "Sensefly Ebee Series",
-			x: 4.3,
-			y: 45.7},
-    ANAFI: 	{name: "Parrot Anafi Series",
-			x: 2.5,
-			y: 9.4},
-    I2: 	{name: "DJI Inspire Series",
-			x: 12.4,
-			y: 16.8},
-    AutelEvo: {name: "Autel Evo Series",
-			x: 4.33,
-			y: 13.9},
-    Skydio: {name: "Skydio 2/2+",
-			x: 3.0,
-			y: 9.0},
-	Wingtra: {name: "Wingtra One",
-			x: 4.7,
-			y: 50.4}
-	};
-    
+      type: "scatter",
+      data: data,
+      options: {
+        responsive: true,
+        plugins: {
+          legend: {
+            position: "top",
+          },
+          title: {
+            display: true,
+            text: "Visual Line of Sight Range",
+          },
+          tooltip: {
+            enabled: false,
+          },
+        },
+
+        scales: {
+          x: {
+            min: 0,
+            title: {
+              display: true,
+              text: "Lateral Distance (ft)",
+            },
+          },
+
+          y: {
+            title: {
+              display: true,
+              text: "Altitude (ft)",
+            },
+            min: 0,
+            max: 400,
+            ticks: {
+              stepSize: 50,
+            },
+          },
+        },
+      },
+    };
+
+    const myChart = new Chart(ctx, config);
+
+    var droneList = {
+      Mavic: {name: "Mavic Series", x: 4.2, y: 11.3},
+      Mini: {name: "Mini Series", x: 2.2, y: 6.5},
+      M100: {name: "Matrice 100 Series", x: 9, y: 18.0},
+      M200: {name: "Matrice 200 Series", x: 15, y: 35.0},
+      M300: {name: "Matrice 300 Series", x: 17, y: 31.8},
+      M600: {name: "Matrice 600 Series", x: 21, y: 44.6},
+      P4: {name: "Phantom 4 Series", x: 8.66, y: 12.8},
+      EBEE: {name: "Sensefly Ebee Series", x: 4.3, y: 45.7},
+      ANAFI: {name: "Parrot Anafi Series", x: 2.5, y: 9.4},
+      I2: {name: "DJI Inspire Series", x: 12.4, y: 16.8},
+      AutelEvo: {name: "Autel Evo Series", x: 4.33, y: 13.9},
+      Skydio: {name: "Skydio 2/2+", x: 3.0, y: 9.0},
+      Wingtra: {name: "Wingtra One", x: 4.7, y: 50.4},
+    };
+
     const pbt = document.getElementById("pbt");
     const rbt = document.getElementById("rbt");
-    const sizeText = document.getElementById('size');
-    const nameText = document.getElementById('name');
-    const distText = document.getElementById('dist');
-    
-    pbt.onclick= function(){
-        
-        selectElement = document.querySelector('#sel');
-        output = selectElement.value;  
-        var drone = droneList[output];
-        nameText.innerHTML = "<b>Drone:</b> " + drone.name;
-        sizeText.innerHTML = "Size: " + drone.y+"in wide by " + drone.x +"in tall"; 
-        calcData(drone.x,drone.y);
-        
-        
+    const sizeText = document.getElementById("size");
+    const nameText = document.getElementById("name");
+    const distText = document.getElementById("dist");
+    const radText = document.getElementById("rad");
+    const radText2 = document.getElementById("rad2");
+
+    pbt.onclick = function () {
+      var frequencyValue = 2.4;
+      selectElement = document.querySelector("#sel");
+      output = selectElement.value;
+      var drone = droneList[output];
+      nameText.innerHTML = "<b class = 'bubble'>Drone:</b> " + drone.name;
+      sizeText.innerHTML = "<b class = 'bubble'>Size: </b>" + drone.y + "in wide by " + drone.x + "in tall";
+      calcData(drone.x, drone.y);
+      updateGraph(frequencyValue);
+      myChart.update();
+    };
+
+    rbt.onclick = function () {
+      config.data.datasets[0].data = [];
+      config.data.datasets[1].data = [];
+      config.data.datasets[2].data = [];
+      config.data.datasets[3].data = [];
+      config.data.datasets[4].data = [];
+      myChart.update();
+      sizeText.innerHTML = "";
+      nameText.innerHTML = "";
+      distText.innerHTML = "";
+      radText.innerHTML = "";
+      radText2.innerHTML = "";
+    };
+
+    function calcData(x, y) {
+      var minD_1 = [];
+      var minD_2 = [];
+      var minD_3 = [];
+      const alt_idx = Array(40 + 1).fill().map((_, index) => index * 10);
+      for (let i in alt_idx) {
+        let alt = alt_idx[i];
+        minD_1[i] = calc_minVis(x, y, alt, 1 / 60);
+        minD_2[i] = calc_minVis(x, y, alt, 3 / 60);
+        minD_3[i] = calc_minVis(x, y, alt, 6 / 60);
+      }
+      if (minD_1[0] === 0) {
+        minD_1[0] = minD_1[1];
+      }
+      if (minD_2[0] === 0) {
+        minD_2[0] = minD_2[1];
+      }
+      if (minD_3[0] === 0) {
+        minD_3[0] = minD_3[1];
+      }
+
+      maxVis = minD_1.map((v, i) => ({x: v, y: alt_idx[i]}));
+      effVis = minD_2.map((v, i) => ({x: v, y: alt_idx[i]}));
+      safVis = minD_3.map((v, i) => ({x: v, y: alt_idx[i]}));
+
+      let txt =
+        "<b class = 'bubble'>Safe Distance:</b> " +
+        Math.max.apply(Math, safVis.map(function (o) {
+          return o.x;
+        })) +
+        "ft <br>";
+      txt =
+        txt +
+        "<b class = 'bubble'>Recommended Max Distance:</b> " +
+        Math.max.apply(Math, effVis.map(function (o) {
+          return o.x;
+        })) +
+        "ft <br>";
+      txt =
+        txt +
+        "<b class = 'bubble'>Limit of Human Vision</b>: " +
+        Math.max.apply(Math, maxVis.map(function (o) {
+          return o.x;
+        })) +
+        "ft";
+
+      distText.innerHTML = txt;
+
+      config.data.datasets[0].data = maxVis;
+      config.data.datasets[1].data = effVis;
+      config.data.datasets[2].data = safVis;
+
     }
-    rbt.onclick=function(){
-        sizeText.innerHTML = "";
-        nameText.innerHTML = "";
-        distText.innerHTML = "";
+
+    function calc_minVis(x, y, alt, range) {
+      let minT = (3.1415 / 180) * range;
+      let theta_c = 2;
+      let d = -10;
+
+      x = x / 12;
+      y = y / 12;
+
+      do {
+        d = d + 10;
+        let num1 = (d - y / 2) * (d + y / 2) + (alt + x / 2) * (alt - x / 2);
+        let den1 =
+          ((d - y / 2) ** 2 + (alt + x / 2) ** 2) ** 0.5 *
+          ((d + y / 2) ** 2 + (alt - x / 2) ** 2) ** 0.5;
+        theta_c = Math.acos(num1 / den1);
+      } while (theta_c > minT);
+      return d;
     }
-    
-    
-    function calcData(x,y) {
-        var minD_1 = [];
-        var minD_2 = [];
-		var minD_3 = [];
-        const alt_idx = Array(40+1).fill().map((_,index) => index*10);
-        for (let i in alt_idx) {
-            let alt = alt_idx[i];
-            minD_1[i] = calc_minVis(x,y,alt,1/60);
-            minD_2[i] = calc_minVis(x,y,alt,3/60);
-            minD_3[i] = calc_minVis(x,y,alt,6/60);
-        }
-        if (minD_1[0]===0) {
-            minD_1[0] = minD_1[1];
-        }
-        if (minD_2[0]===0) {
-            minD_2[0] = minD_2[1];
-        }
-		if (minD_3[0]===0) {
-            minD_3[0] = minD_3[1];
-        }
-        
-        let maxVis = minD_1.map( (v,i) => ({x:v, y:alt_idx[i]}));
-        let effVis = minD_2.map( (v,i) => ({x:v, y:alt_idx[i]}));
-	let safVis = minD_3.map( (v,i) => ({x:v, y:alt_idx[i]}));
-        
-        
-        let txt="<b>Safe Distance:</b> " + Math.max.apply(Math, safVis.map(function(o) {return o.x} )) + "ft <br>";
-	txt = txt + "<b>Recommended Max Distance:</b> " + Math.max.apply(Math, effVis.map(function(o) {return o.x} )) + "ft <br>";
-        txt = txt + "<b>Limit of Human Vision</b>: " + Math.max.apply(Math, maxVis.map(function(o) {return o.x} )) + "ft";
-        
-        distText.innerHTML = txt;
-        
-        config.data.datasets[0].data = maxVis;
-        config.data.datasets[1].data = effVis;
-	config.data.datasets[2].data = safVis;
-        myChart.update();
-        
+
+    function updateGraph(frequencyValue) {
+      const C = 299792458;
+      const scale = 3.28084;
+      const f_hz = frequencyValue * 1e9;
+
+      const calculateRn = (d1, D_m, lambda_f) => {
+        return d1.map((i) => {
+          const value = ((i * (D_m - i)) / D_m) * lambda_f;
+          return value > 0 ? Math.sqrt(value) : NaN;
+        }).filter(value => !isNaN(value) && value > 0);
+      };
+
+
+      // Fresnel Zone 1
+      const D_ft = safVis[10].x;
+      const Alt_ft = safVis[10].y;
+      const D_m = D_ft / scale;
+      const Alt_m = Alt_ft / scale;
+      const azi = Math.atan2(Alt_m, D_m);
+      const steps = 26;
+      const d1 = Array.from({length: steps}, (_, i) => i * (D_m / (steps - 1)));
+      const d2 = d1.map((d) => D_m - d);
+      const n = 1;
+      const lambda_f = C / f_hz;
+      const rn = calculateRn(d1, D_m, lambda_f);
+      const maxDiameter_ft = (Math.min(...rn) * 2) * 3.281;
+      const rotz = [
+        [Math.cos(azi), -Math.sin(azi)],
+        [Math.sin(azi), Math.cos(azi)],
+      ];
+      const pts_top_rot = d1.map((d, i) => [
+        rotz[0][0] * d + rotz[0][1] * rn[i],
+        rotz[1][0] * d + rotz[1][1] * rn[i],
+      ]);
+      const pts_bot_rot = d1.map((d, i) => [
+        rotz[0][0] * d + rotz[0][1] * -rn[i],
+        rotz[1][0] * d + rotz[1][1] * -rn[i],
+      ]);
+      const topEllipseData = pts_top_rot.map(([x, y]) => ({
+        x: x * scale,
+        y: y * scale,
+      }));
+      const bottomEllipseData = pts_bot_rot.map(([x, y]) => ({
+        x: x * scale,
+        y: y * scale,
+      }));
+      const closedEllipseData = [
+        ...topEllipseData,
+        topEllipseData[0],
+        ...bottomEllipseData.reverse(),
+      ];
+
+      closedEllipseData.splice(0, 1);
+      closedEllipseData.splice(25, 3);
+
+      radText.innerHTML = "<b class='bubble'>Minimum Fresnel Diameter: </b>" + Math.round(maxDiameter_ft) + " ft";
+      config.data.datasets[3].data = closedEllipseData;
+
+      // Fresnel Zone 2
+      const D_ft2 = maxVis[10].x;
+      const Alt_ft2 = maxVis[10].y;
+      const D_m2 = D_ft2 / scale;
+      const Alt_m2 = Alt_ft2 / scale;
+      const azi2 = Math.atan2(Alt_m2, D_m2);
+      const d1_2 = Array.from({length: steps}, (_, i) => i * (D_m2 / (steps - 1)));
+      const d2_2 = d1_2.map((d2) => D_m2 - d2);
+      const rn2 = d1_2.map((i) => Math.sqrt(n * ((i * (D_m2 - i)) / D_m2) * lambda_f));
+      const maxDiameter_ft2 = (Math.max(...rn2) * 2) * 3.281;
+      const rotz2 = [
+        [Math.cos(azi2), -Math.sin(azi2)],
+        [Math.sin(azi2), Math.cos(azi2)],
+      ];
+      const pts_top_rot2 = d1_2.map((d2, i) => [
+        rotz2[0][0] * d2 + rotz2[0][1] * rn2[i],
+        rotz2[1][0] * d2 + rotz2[1][1] * -rn2[i],
+      ]);
+      const pts_bot_rot2 = d1_2.map((d2, i) => [
+        rotz2[0][0] * d2 + rotz2[0][1] * -rn2[i],
+        rotz2[1][0] * d2 + rotz2[1][1] * rn2[i],
+      ]);
+      const topEllipseData2 = pts_top_rot2.map(([x, y]) => ({
+        x: x * scale + 2,
+        y: y * scale,
+      }));
+      const bottomEllipseData2 = pts_bot_rot2.map(([x, y]) => ({
+        x: x * scale + 2,
+        y: y * scale,
+      }));
+      const closedEllipseData2 = [
+        ...topEllipseData2,
+        topEllipseData2[0],
+        ...bottomEllipseData2.reverse(),
+      ];
+
+      closedEllipseData2.splice(26, 1);
+      radText2.innerHTML = "<b class='bubble'>Maximum Fresnel Diameter:</b> " + Math.round(maxDiameter_ft2) + " ft";
+      config.data.datasets[4].data = closedEllipseData2;
+
     }
-    
-    
-    function calc_minVis(x,y,alt,range){
-        let minT = 3.1415/180*range;
-        let theta_c = 2;
-        let d = -10;
-        
-        x = x/12;
-        y = y/12;
-        
-        do {
-            d = d+10;
-            let num1 = (d-y/2)*(d+y/2)+(alt+x/2)*(alt-x/2);
-            let den1 = ( ( ( (d-y/2)**2) + ( (alt+x/2)**2) )**.5) * ( ( ( (d+y/2)**2) + ( (alt-x/2)**2))**.5);
-            theta_c = Math.acos(num1/den1);   
-        }
-        while (theta_c>minT);
-        return d
-    }
-    
-    
-    
-    </script> 
+  </script>
+</body>
+
 </html>
