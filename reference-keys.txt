@@ -12,9 +12,9 @@ advanced-drone-operations
 uc-uas-policy
 ch-training
 beginner-training
-advanced-training
 cinematography-flight-training
 drone-flight-instruction
+more-resources-for-developing-training
 short-drone-guides
 ch-FAQs
 ch-resources
