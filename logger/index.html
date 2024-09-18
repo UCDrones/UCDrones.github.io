@@ -1,0 +1,140 @@
+<html>
+
+<style>
+.button {
+  background-color: #04AA6D; /* Green */
+  border: none;
+  color: white;
+  padding: 15px 32px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+  margin: 4px 2px;
+  cursor: pointer;
+}
+
+.button2 {background-color: #008CBA;} /* Blue */
+.button3 {background-color: #f44336;} /* Red */ 
+
+</style>
+
+<body>
+   <h2> Visual Line of Sight Experiment Logger </h2>
+   <label for="Mname"> Enter Mission Name: </label><br>
+   <input type="text" id="Mname" name="Mname" value="eBee">
+   <br/>
+   <label for="VOname"> Enter Visual Observer: </label><br>
+   <input type="text" id="VOname" name="VOname" value="Tim">
+   <br/>
+   <p id="MN">Unnammed</p>
+   <p id="VO">NoName</p>
+   <p id="LM">Key</p>
+   <button class="button" onclick = "startFile()">Config</button>
+   <button class="button button2" onclick = "launchStart()">Launch</button>
+   <button class="button button2" onclick = "vlosBut()">VLOS </button>
+   <button class="button button2" onclick = "bvlosBut()">BVLOS</button>
+   <button class="button button3" onclick = "downloadFile()">Landed</button>
+   <br>
+   <br>
+   <button class="button button3" onclick = "resetE()">RESET</button>
+   
+   
+   
+   
+   
+   
+   
+   
+   <script>
+   let content = "Forgot to click Launch";
+   let file_name = "No Date Set";
+   let config_set = false;
+   
+   let startFile = () => {
+	content = "Mission";
+	const tf = document.getElementById("Mname").value;
+	const VOD = document.getElementById("VOname").value;
+	var today = new Date();
+	var dd = String(today.getDate()).padStart(2, '0');
+	var mm = String(today.getMonth() + 1).padStart(2, '0'); //January is 0!
+	var yyyy = today.getFullYear();
+	var ctoday = yyyy + '/' + mm + '/' + dd;
+	var ctime = today.toLocaleTimeString();
+	
+	file_name = tf + '-'+ctoday+'-'+String(today.getHours()).padStart(2,'0')+String(today.getMinutes()).padStart(2,'0')+String(today.getSeconds()).padStart(2,'0')+".txt";
+	
+	
+	var disp = tf+"\n"+ctoday + ' ' + ctime;
+	document.getElementById("VO").innerHTML = VOD;
+	document.getElementById("MN").innerHTML = disp;
+	content = content + ' - ' + tf + '\nVO: ' + VOD + '\nConfig Setup: ' + ctoday + ' - ' + ctime + "\n" + "-------------\n";
+	config_set = true;
+   };
+   
+   let launchStart = () => {
+	if (config_set == true) {
+		var today = new Date();
+		var ctime = today.toLocaleTimeString();
+		var newLine = ctime + " -- Launch \n";
+		document.getElementById("LM").innerHTML = newLine;
+		content = content + newLine;
+	} else {
+		alert("Flight Not Configured");
+	}
+   };
+   
+   let vlosBut = () => {
+	if (config_set == true) {
+		var today = new Date();
+		var ctime = today.toLocaleTimeString();
+		var newLine = ctime + " -- VLOS \n";
+		document.getElementById("LM").innerHTML = newLine;
+		content = content + newLine;
+	} else {
+		alert("Flight Not Configured");
+	}
+   };
+   
+   let bvlosBut = () => {
+	if (config_set == true) {
+		var today = new Date();
+		var ctime = today.toLocaleTimeString();
+		var newLine = ctime + " -- BVLOS \n";
+		document.getElementById("LM").innerHTML = newLine;
+		content = content + newLine;
+	} else {
+		alert("Flight Not Configured");
+	}
+   };
+   
+   let downloadFile = () => {
+	if (config_set == true) {
+		var today = new Date();
+		var ctime = today.toLocaleTimeString();
+		var newLine = ctime + " -- LAND \n";
+		document.getElementById("LM").innerHTML = newLine;
+		content = content + newLine;
+		
+		const link = document.createElement("a");
+		const file = new Blob([content], { type: 'text/plain' });
+		link.href = URL.createObjectURL(file);
+		link.download = file_name;
+		link.click();
+		URL.revokeObjectURL(link.href);
+	} else {
+		alert("Flight Not Configured");
+	}
+   };
+   
+   let resetE = () => {
+	content = "Forgot to click Config";
+	file_name = "No Date Set";
+	document.getElementById("MN").innerHTML = document.getElementById("Mname").value;
+	document.getElementById("VO").innerHTML = document.getElementById("VOname").value;
+	document.getElementById("LM").innerHTML = "Reset";
+	config_set = false;
+   };
+   </script>
+</body>
+</html>
