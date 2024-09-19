@@ -55,6 +55,7 @@
 	content = "Mission";
 	const tf = document.getElementById("Mname").value;
 	const VOD = document.getElementById("VOname").value;
+	var VOD_cl = VOD.trim().replace(/\s/g,'-');
 	var today = new Date();
 	var dd = String(today.getDate()).padStart(2, '0');
 	var mm = String(today.getMonth() + 1).padStart(2, '0'); //January is 0!
@@ -62,13 +63,13 @@
 	var ctoday = yyyy + '/' + mm + '/' + dd;
 	var ctime = today.toLocaleTimeString();
 	
-	file_name = tf + '-'+ctoday+'-'+String(today.getHours()).padStart(2,'0')+String(today.getMinutes()).padStart(2,'0')+String(today.getSeconds()).padStart(2,'0')+".txt";
+	file_name = tf + '-' + VOD_cl + '-' + ctoday+'-'+String(today.getHours()).padStart(2,'0')+String(today.getMinutes()).padStart(2,'0')+String(today.getSeconds()).padStart(2,'0')+".txt";
 	
 	
 	var disp = tf+"\n"+ctoday + ' ' + ctime;
-	document.getElementById("VO").innerHTML = VOD;
+	document.getElementById("VO").innerHTML = VOD_cl;
 	document.getElementById("MN").innerHTML = disp;
-	content = content + ' - ' + tf + '\nVO: ' + VOD + '\nConfig Setup: ' + ctoday + ' - ' + ctime + "\n" + "-------------\n";
+	content = content + ' - ' + tf + '\nVO: ' + VOD_cl + '\nConfig Setup: ' + ctoday + ' - ' + ctime + "\n" + "-------------\n";
 	config_set = true;
    };
    
