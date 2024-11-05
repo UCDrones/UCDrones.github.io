@@ -1,0 +1,484 @@
+<!DOCTYPE html>
+<html>
+
+<style>
+body {
+  margin: 20px;
+}
+
+  .wrapper {
+    display: grid;
+    gap: 10px;
+    grid-template-columns: 250px 200px 250px 150px ;
+    grid-template-rows: 60px 250px 100px 75px;
+    background-color: #fff;
+    color: #444;
+  }
+
+  .box {
+    background-color: #444;
+    color: #fff;
+    border-radius: 5px;
+    padding: 20px;
+    font-size: 100%;
+
+  }
+
+  .box .box {
+    background-color: #ccc;
+    color: #444;
+  }
+
+  .topbar {
+	padding: 5px;
+	vertical-align: middle;
+    grid-column: 1 / 4;
+  }
+
+  .signal {
+    grid-column: 4 ;
+	padding: 5px;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+  }
+
+  .config {
+    grid-column: 1;
+    grid-row: 2 / 4;
+
+  }
+  
+  .foot {
+   grid-column: 1/5;
+   grid-row: 4'
+   }
+
+  .d{
+    
+    grid-column: 2 / 5;
+    grid-row: 2 / 4;
+    display: grid;
+    grid-template-columns: subgrid;
+    grid-template-rows: subgrid;
+  }
+
+  .e {
+    grid-row: 1 / 2;
+    grid-column: 1/3 ;
+  }
+
+  .f {
+    grid-row: 1/3;
+    grid-column: 3 / 4;
+  }
+  
+  .fiddle {
+	grid-row: 2;
+	grid-column: 1/3;
+  }
+
+
+.button {
+  display: inline-block;
+  padding: 10px 15px;
+  cursor: pointer;
+  text-align: center;
+  text-decoration: none;
+  outline: none;
+  color: #fff;
+  background-color: #007256;
+  border: none;
+  border-radius: 15px;
+  box-shadow: 0px 4px #999;
+}
+
+.button:hover {background-color: #3e8e41}
+.button:active {
+  background-color: #3e8e41;
+  box-shadow: 0px 1px #666;
+  transform: translateY(4px);
+}
+
+.redb {background-color: #bd1e24}
+.redb:hover {background-color: #e34f54}
+.redb:active{
+  background-color: #841518;
+  box-shadow: 0px 1px #666;
+  transform: translateY(4px);
+}
+
+.skip {background-color: #007256}
+.skip:hover {background-color: #009973}
+.skip:active{
+  background-color: #003326;
+  box-shadow: 0px 1px #666;
+  transform: translateY(4px);
+}
+
+.wifi {
+	background-color: #007256;
+	padding: 5px 5px;
+}
+.wifi:hover {background-color: #009973}
+.wifi:active{
+  background-color: #1f5e1b;
+  box-shadow: 0px 1px #666;
+  transform: translateY(2px);
+}
+
+
+
+  
+.lbutton {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+}
+  
+.launch {
+	background-color: #f44336;
+	align-self: center;
+}
+
+
+.btn-group .button1 {
+  background-color: #0067a7; /*blue*/
+  color: white;
+  padding: 10px 15px;
+  text-align: center;
+  text-decoration: none;
+  display: block;
+  font-size: 14px;
+  cursor: pointer;
+  width: 90px;
+}
+
+.btn-group .button1:not(:last-child) {
+  border-bottom: none; /* Prevent double borders */
+}
+
+.btn-group .button1:hover {
+  background-color: #009dff;
+}
+
+.btn-group .button1:active{
+  background-color: #004f80;
+  transform: translateY(2px);
+}
+
+#circle {
+  height: 50px;
+  width: 50px;
+  background-color: #a80000;
+  border-radius: 50%;
+  display: none;
+}
+
+</style>
+
+<body>
+
+<div class="wrapper">
+  <div class="box topbar">
+  <h2> Monitoring Task Experiment Logger </h2>
+  </div>
+  <div class="box signal">
+  <span id ="btest">WIFI</span>
+  </div>
+  <div class="box config">
+  <label for="Mname"> Enter Mission Name: </label><br>
+   <input type="text" id="Mname" name="Mname" value="Stairwell1">
+   <br/>
+   <label for="VOname"> Enter Visual Observer: </label><br>
+   <input type="text" id="VOname" name="VOname" value="Tim">
+   <br/>
+   <div class="lbutton">
+   <button class="button redb" onclick = "startFile()">Config</button>
+   </div>
+   <p id="MN">Unnammed</p>
+   <p id="VO">NoName</p>
+   <div class ="lbutton">
+		<button class="button redb" onclick = "launchStart()">Launch</button>
+   </div>
+   
+  </div>
+  <div class="box d">
+    <div class="box e">
+		<p id="LM">Key</p>
+	</div>
+    <div class="box f">
+		<br/>
+		<br/>
+		<br/>
+		<br/>
+		<div class="btn-group">
+		<button class="button1 cam" onclick = "PICBut()">PICTURE</button>
+		<button class="button1 vid" onclick = "RECBut()">RECORD</button>
+		</div>
+		<p style="clear:both">
+		<br/>
+		</p>
+		<div class = "lbutton">
+			<div id = "circle">
+			</div>
+		</div>
+		<br/>
+		
+		
+   </div>
+   <div class="box fiddle">
+		<div class="lbutton">
+			<button class="button skip" onclick = "vlosBut()">SKIP DETECTED</button>
+		</div>
+   </div>
+  </div>
+  <div class="box foot lbutton">
+	<button class="button redb" onclick = "downloadFile()">SAVE FILE</button>
+	<button class="button skip" onclick = "resetE()">RESET</button>
+  </div>
+</div>
+
+
+<script>
+
+let content = "Forgot to click Launch";
+let file_name = "No Date Set";
+let config_set = false;
+let flag_record = false;
+let flag_launch = false;
+let flag_wifi = true;
+let history = 7;
+
+
+let startFile = () => {
+content = "Mission";
+	const tf = document.getElementById("Mname").value;
+	const VOD = document.getElementById("VOname").value;
+	var VOD_cl = VOD.trim().replace(/\s/g,'-');
+	var today = new Date();
+	var dd = String(today.getDate()).padStart(2, '0');
+	var mm = String(today.getMonth() + 1).padStart(2, '0'); //January is 0!
+	var yyyy = today.getFullYear();
+	var ctoday = yyyy + '/' + mm + '/' + dd;
+	var ctime = today.toLocaleTimeString();
+	
+	file_name = tf + '-' + VOD_cl + '-' + ctoday+'-'+String(today.getHours()).padStart(2,'0')+String(today.getMinutes()).padStart(2,'0')+String(today.getSeconds()).padStart(2,'0')+".txt";
+	
+	
+	var disp = tf+"\n"+ ' ' + ctime;
+	document.getElementById("VO").innerHTML = VOD_cl;
+	document.getElementById("MN").innerHTML = disp;
+	content = content + ' - ' + tf + '\nVO: ' + VOD_cl + '\nConfig Setup: ' + ctoday + ' - ' + ctime + "\n" + "-------------\n";
+	config_set = true;
+   };
+   
+   let launchStart = () => {
+	if (config_set == true) {
+		var today = new Date();
+		var ctime = today.toLocaleTimeString() + " " + today.getMilliseconds();
+		var newLine = ctime + " -- Launch \n";
+		document.getElementById("LM").innerHTML = newLine;
+		content = content + newLine;
+		flag_launch = true;
+	} else {
+		alert("Flight Not Configured");
+	}
+   };
+
+   let vlosBut = () => {
+	if (config_set == true) {
+	if (flag_launch == true) {
+		var today = new Date();
+		var ctime = today.toLocaleTimeString() + " " + today.getMilliseconds();
+		var newLine = ctime + " -- SKIP DETECTED \n";
+		var oldLine = document.getElementById("LM").innerHTML.trim().replace("<br><br>","<br>").split("<br>");
+		var nle = oldLine.length;
+		console.log(oldLine);
+		if (oldLine.length >= history ){oldLine = oldLine.slice(1,history);	}
+		var text = '';
+		for (j = 0; j <oldLine.length; j++){
+			text += oldLine[j] + "<br>";
+		}
+		document.getElementById("LM").innerHTML = text + "<br>" + newLine;
+		content = content + newLine;
+		} else {
+			alert("No Launch");
+		}
+	} else {
+		alert("Flight Not Configured");
+	}
+   };
+   
+   let PICBut = () => {
+	if (config_set == true) {
+		var today = new Date();
+		var ctime = today.toLocaleTimeString() + " " + today.getMilliseconds();
+		var newLine = ctime + " -- PICTURE \n";
+		var oldLine = document.getElementById("LM").innerHTML.trim().replace("<br><br>","<br>").split("<br>");
+		var nle = oldLine.length;
+		console.log(oldLine);
+		if (oldLine.length >= history ){oldLine = oldLine.slice(1,history);	}
+		var text = '';
+		for (j = 0; j <oldLine.length; j++){
+			text += oldLine[j] + "<br>";
+		}
+		document.getElementById("LM").innerHTML = text + "<br>" + newLine;
+		content = content + newLine;
+	} else {
+		alert("Flight Not Configured");
+	}
+   };
+   
+   let RECBut = () => {
+	if (config_set == true) {
+		var today = new Date();
+		var ctime = today.toLocaleTimeString() + " " + today.getMilliseconds();
+		var newLine = ctime;
+		if (flag_record == false) {
+			newLine = ctime + " -- Start Recording \n";
+			flag_record = true;
+			var x = document.getElementById("circle")
+			x.style.display = "block";
+		} else {
+			newLine = ctime + " -- Stop Recording \n";
+			var x = document.getElementById("circle")
+			x.style.display = "none";
+			flag_record = false;
+		}
+		var oldLine = document.getElementById("LM").innerHTML.trim().replace("<br><br>","<br>").split("<br>");
+		var nle = oldLine.length;
+		console.log(oldLine);
+		if (oldLine.length >= history ){oldLine = oldLine.slice(1,history);	}
+		var text = '';
+		for (j = 0; j <oldLine.length; j++){
+			text += oldLine[j] + "<br>";
+		}
+		document.getElementById("LM").innerHTML = text + "<br>" + newLine;
+		content = content + newLine;
+	} else {
+		alert("Flight Not Configured");
+	}
+   };
+
+   let resetE = () => {
+	content = "Forgot to click Config";
+	file_name = "No Date Set";
+	document.getElementById("MN").innerHTML = document.getElementById("Mname").value;
+	document.getElementById("VO").innerHTML = document.getElementById("VOname").value;
+	document.getElementById("LM").innerHTML = "Reset";
+	config_set = false;
+	flag_launch = false;
+	flag_record = false;
+	flag_wifi = true;
+   };
+
+function hideGreeting() {
+	var today = new Date();
+	var ctime = today.toLocaleTimeString() + " " + today.getMilliseconds();
+	var newLine = ctime + " -- WIFI FIXED \n";
+	var oldLine = document.getElementById("LM").innerHTML.trim().replace("<br><br>","<br>").split("<br>");
+	var nle = oldLine.length;
+	console.log(oldLine);
+	if (oldLine.length >= history ){oldLine = oldLine.slice(1,history);	}
+	var text = '';
+	for (j = 0; j <oldLine.length; j++){
+		text += oldLine[j] + "<br>";
+	}
+	document.getElementById("LM").innerHTML = text + "<br>" + newLine;
+	content = content + newLine;
+	document.getElementById("btest").innerHTML = "WIFI";
+	flag_wifi = true;
+}
+
+
+let downloadFile = () => {
+	if (config_set == true) {
+	if (flag_launch == true) {
+		var today = new Date();
+		var ctime = today.toLocaleTimeString() + " " + today.getMilliseconds();
+		var newLine = ctime + " -- LAND \n";
+		document.getElementById("LM").innerHTML = newLine;
+		content = content + newLine;
+		
+		const link = document.createElement("a");
+		const file = new Blob([content], { type: 'text/plain' });
+		link.href = URL.createObjectURL(file);
+		link.download = file_name;
+		link.click();
+		URL.revokeObjectURL(link.href);
+		} else {
+		alert("No Launch");
+		}
+	} else {
+		alert("Flight Not Configured");
+	}
+   };
+
+function myGreeting(rand) {
+	var today = new Date();
+	var ctime = today.toLocaleTimeString() + " " + today.getMilliseconds();
+	var newLine = ctime + " -- SIGNAL DOWN \n";
+	var oldLine = document.getElementById("LM").innerHTML.trim().replace("<br><br>","<br>").split("<br>");
+	var nle = oldLine.length;
+	console.log(oldLine);
+	if (oldLine.length >= history ){oldLine = oldLine.slice(1,history);	}
+	var text = '';
+	for (j = 0; j <oldLine.length; j++){
+		text += oldLine[j] + "<br>";
+	}
+	document.getElementById("LM").innerHTML = text + "<br>" + newLine;
+	content = content + newLine;
+	document.getElementById("btest").innerHTML = "<button class='button skip' onclick='hideGreeting()'>FIX WIFI</button>";
+}
+
+function heartbeat(){
+	var today = new Date();
+	var ctime = today.toLocaleTimeString() + " " + today.getMilliseconds();
+	var newLine = ctime + " -- Condition GOOD \n";
+	var oldLine = document.getElementById("LM").innerHTML.trim().replace("<br><br>","<br>").split("<br>");
+	var nle = oldLine.length;
+	console.log(oldLine);
+	if (oldLine.length >= history ){oldLine = oldLine.slice(1,history);	}
+	var text = '';
+	for (j = 0; j <oldLine.length; j++){
+		text += oldLine[j] + "<br>";
+	}
+	document.getElementById("LM").innerHTML = text + "<br>" + newLine;
+	content = content + newLine;
+}
+
+(function loop1() {
+	let rand = Math.round(Math.random() * 120);
+	setTimeout( () => {
+			if (config_set==true){
+				if (flag_launch == true){
+					if (flag_wifi == true) {
+						myGreeting(rand);
+						console.log(`Delayed ${rand} secs`);
+						flag_wifi = false;
+					}
+				}
+			}
+            loop1();  
+	}, rand*1000);
+}());
+
+(function loop2() {
+	setTimeout( () => {
+		if (config_set==true) {
+			if (flag_launch = true) {
+				heartbeat()
+			}
+		}
+		loop2();
+	}, 10000);
+}());
+
+
+
+
+</script>
+
+</body>
+</html>
