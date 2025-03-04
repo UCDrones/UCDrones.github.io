@@ -17,9 +17,9 @@
     <li><a class="active" href="">Home</a></li>
     <li><a href="#vlos" onclick="openCollapsible(event, 'vlos')">Visual Line of Sight</a></li>
     <li><a href="#fresnel" onclick="openCollapsible(event, 'fresnel')">Fresnel Zone</a></li>
-    <img class="logo" src="uc-coe_Unmanned-aircraft-system-safety-color_update-01 (1).png" alt="UC UAS Safety Logo">
+    <!--<img class="logo" src="uc-coe_Unmanned-aircraft-system-safety-color_update-01 (1).png" alt="UC UAS Safety Logo">-->
   </ul>
-    <h1>Estimate the Safest Flight Path</h1>
+    <h1>Estimate Visual Line of Sight</h1>
   <section>
   <div class="container-fluid">
   <div class="row">
@@ -39,6 +39,7 @@
           <option value="M300">DJI Matrice 300 Series</option>
           <option value="M600">DJI Matrice 600 Series</option>
           <option value="Mavic">DJI Mavic Series</option>
+		  <option value="Air">DJI Air Series</option>
           <option value="Mini">DJI Mini Series</option>
           <option value="P4">DJI Phantom 4 Series</option>
           <option value="ANAFI">Parrot Anafi</option>
@@ -275,6 +276,7 @@ for (var i = 0; i < coll.length; i++) {
       AutelEvo: {name: "Autel Evo Series", x: 4.33, y: 13.9},
       Skydio: {name: "Skydio 2/2+", x: 3.0, y: 9.0},
       Wingtra: {name: "Wingtra One", x: 4.7, y: 50.4},
+	  Air: {name: "DJI Air Series", x: 3.0 ,y: 9.9},
     };
 
     const pbt = document.getElementById("pbt");
