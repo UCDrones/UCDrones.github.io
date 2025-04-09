@@ -70,6 +70,15 @@ footer {
   color: #333;
 }
 
+.results-text {
+  text-align: center;
+  margin-top: 10px;
+  margin-bottom: 20px;
+  font-size: 18px;
+  color: #333;
+  font-weight: bold;
+}
+
 h1 {
   font-size: 28px;
   margin-bottom: 20px;
@@ -100,6 +109,9 @@ h1 {
     <input type="number" class="form-control" id="fresnel" placeholder="Enter Fresnel clearance" min="0" value="24">
 
     <button id="calculateBtn" class="btn btn-success w-100">Calculate and Visualize</button>
+	
+	<p id="results-out" class="results-text"></p>
+	
   </div>
 
   <div class="canvas-wrapper">
@@ -138,6 +150,8 @@ button.addEventListener("click", () => {
   const minAngle = Math.atan((altitude - fresnel - height) / length);
   const distance = (height + fresnel) / Math.tan(minAngle);
   drawVisualization(height, length, altitude, fresnel, distance, minAngle);
+  document.getElementById("results-out").innerText =
+    "Minimum Distance: " + distance.toFixed(1) + " ft";
 });
 
 function drawVisualization(
@@ -151,11 +165,11 @@ function drawVisualization(
   ctx.clearRect(0, 0, canvas.width, canvas.height);
 
   let scaleFactor = 1;
-  if (distance>canvas.width/2) { 
-    scaleFactor = canvas.width/(2*(distance+10)); // scale factor to fit the values into canvas
+  if (distance > canvas.width / 2) {
+    scaleFactor = canvas.width / (2 * (distance + 10)); // scale factor to fit the values into canvas
   }
-  if (length>canvas.width/2){
-    scaleFactor = canvas.width/(2*(length+20));
+  if (length > canvas.width / 2) {
+    scaleFactor = canvas.width / (2 * (length + 20));
   }
   const buildingWidth = length * scaleFactor;
   const buildingHeight = height * scaleFactor;
@@ -166,24 +180,26 @@ function drawVisualization(
   const canvasCenterX = canvas.width / 2;
   const groundLevelY = canvas.height - 50;
 
+  ctx.lineWidth = 1;
+
   // Draw building
   ctx.fillStyle = "#A9A9A9";
   ctx.fillRect(
-    canvasCenterX-buildingWidth,
+    canvasCenterX - buildingWidth,
     groundLevelY - buildingHeight,
     buildingWidth,
     buildingHeight
   );
-  
+
   // add ground
   ctx.fillStyle = "#8B4513";
   ctx.fillRect(0, groundLevelY, canvas.width, canvas.height - groundLevelY);
-  
+
   // Draw fresnel
   ctx.setLineDash([5, 3]); // 5 pixels line, 3 pixels gap
-  ctx.strokeStyle = '#000';
+  ctx.strokeStyle = "#262";
   ctx.strokeRect(
-    canvasCenterX-buildingWidth,
+    canvasCenterX - buildingWidth,
     groundLevelY - buildingHeight - fresnel_d,
     buildingWidth,
     fresnel_d
@@ -191,24 +207,56 @@ function drawVisualization(
 
   // Draw drone
   ctx.fillStyle = "#1E90FF";
-  const droneX = canvasCenterX-buildingWidth;
+  const droneX = canvasCenterX - buildingWidth;
   const droneY = groundLevelY - droneAltitude;
-  ctx.beginPath();
-  ctx.arc(droneX, droneY, 10, 0, 2 * Math.PI);
-  ctx.fill();
 
   // Draw clearance line
   ctx.strokeStyle = "orange";
   ctx.beginPath();
-  ctx.moveTo(canvasCenterX+line_distance, groundLevelY);
+  ctx.moveTo(canvasCenterX + line_distance, groundLevelY);
   ctx.lineTo(droneX, droneY);
   ctx.stroke();
+
+  ctx.beginPath();
+  ctx.arc(droneX, droneY, 10, 0, 2 * Math.PI);
+  ctx.fill();
+
+  // Draw distance line
+  ctx.strokeStyle = "black";
+  ctx.lineWidth = 4;
+  ctx.beginPath();
+  ctx.moveTo(canvasCenterX + line_distance, groundLevelY + 10);
+  ctx.lineTo(canvasCenterX, groundLevelY + 10);
+  ctx.stroke();
+
+  // Draw left vertical line (| at start)
+  ctx.beginPath();
+  ctx.moveTo(canvasCenterX, groundLevelY);
+  ctx.lineTo(canvasCenterX, groundLevelY + 20);
+  ctx.stroke();
+
+  // Draw right vertical line (| at end)
+  ctx.beginPath();
+  ctx.moveTo(canvasCenterX + line_distance, groundLevelY);
+  ctx.lineTo(canvasCenterX + line_distance, groundLevelY + 20);
+  ctx.stroke();
+
+  // Draw Pilot
+  ctx.fillStyle = "#FF6F1E";
+  const pilotX = canvasCenterX + line_distance;
+  const pilotY = groundLevelY;
+  ctx.beginPath();
+  ctx.arc(pilotX, pilotY, 10, 0, 2 * Math.PI);
+  ctx.fill();
 
   // Draw labels
   ctx.fillStyle = "black";
   ctx.font = "16px Arial";
-  ctx.fillText(`Required Distance: ${distance.toFixed(1)}ft`, 10, 20);
-  
+  ctx.fillText(
+    `Minimum Distance: ${distance.toFixed(1)}ft`,
+    canvasCenterX,
+    groundLevelY + 40
+  );
 }
 </script>
 </body>
