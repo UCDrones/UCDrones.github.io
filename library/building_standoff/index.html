@@ -146,9 +146,13 @@ button.addEventListener("click", () => {
     alert("Please enter valid positive numbers.");
     return;
   }
+  if ((altitude)<(height+fresnel)) {
+	alert("Drone Altitude must be greater than building height and buffer");
+	return;
+  }
 
-  const minAngle = Math.atan((altitude - fresnel - height) / length);
-  const distance = (height + fresnel) / Math.tan(minAngle);
+  const minAngle = Math.atan((altitude - fresnel - height) / (length + fresnel) );
+  const distance = (height + fresnel) / Math.tan(minAngle) + fresnel;
   drawVisualization(height, length, altitude, fresnel, distance, minAngle);
   document.getElementById("results-out").innerText =
     "Minimum Distance: " + distance.toFixed(1) + " ft";
@@ -202,6 +206,26 @@ function drawVisualization(
     canvasCenterX - buildingWidth,
     groundLevelY - buildingHeight - fresnel_d,
     buildingWidth,
+    fresnel_d
+  );
+  
+  // Draw fresnel 
+  ctx.setLineDash([5, 3]); // 5 pixels line, 3 pixels gap
+  ctx.strokeStyle = "#262";
+  ctx.strokeRect(
+    canvasCenterX,
+    groundLevelY - buildingHeight,
+    fresnel_d,
+    buildingHeight
+  );
+  
+  // Draw fresnel
+  ctx.setLineDash([5, 3]); // 5 pixels line, 3 pixels gap
+  ctx.strokeStyle = "#262";
+  ctx.strokeRect(
+    canvasCenterX,
+    groundLevelY - buildingHeight -fresnel_d,
+    fresnel_d,
     fresnel_d
   );
 
