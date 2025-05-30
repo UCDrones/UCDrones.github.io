@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="en" >
+<head>
+  <meta charset="UTF-8">
+  <title>Certificate Generator</title>
+  <script src="https://unpkg.com/pdf-lib/dist/pdf-lib.min.js"></script>
+  <style>
+  /* Base typography & layout */
+body {
+  font-family: "Open Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
+  color: #333333;
+  background-color: #ffffff;
+  margin: 0;
+  padding: 2rem;
+  box-sizing: border-box;
+}
+.container {
+  max-width: 600px;
+  margin: 0 auto;
+}
+h1 {
+  font-size: 1.75rem;
+  font-weight: 600;
+  margin-bottom: 1.5rem;
+}
+
+/* Form elements */
+label {
+  display: block;
+  font-size: 1rem;
+  margin-bottom: 0.5rem;
+}
+input[type="text"] {
+  width: 100%;
+  padding: 0.75rem 1rem;
+  font-size: 1rem;
+  line-height: 1.4;
+  color: #333333;
+  background-color: #f9f9f9;
+  border: 1px solid #cccccc;
+  border-radius: 4px;
+  margin-bottom: 1.5rem;
+  box-sizing: border-box;
+}
+
+/* Rise-style button */
+button {
+  font-family: inherit;
+  font-size: 1rem;
+  font-weight: 600;
+  background-color: #285F9F;
+  color: #ffffff;
+  border: none;
+  border-radius: 4px;
+  padding: 0.75rem 1.5rem;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+}
+button:hover {
+  background-color: #537FB2;
+}
+
+/* Output text */
+#output {
+  margin-top: 2rem;
+  font-size: 1rem;
+  color: #555555;
+  line-height: 1.5;
+}
+  </style>
+
+</head>
+<body>
+<!-- partial:index.partial.html -->
+<h1>Print Your Certificate</h1>
+
+<label for="nameInput">Enter your name:</label>
+<input type="text" id="nameInput" placeholder="Your Name" />
+
+<button id="printBtn">Print</button>
+
+<div id="output">Download and save the file for your records</div>
+<!-- partial -->
+  <script>
+  // 1. grab references
+const nameInput = document.getElementById("nameInput");
+const btn = document.getElementById("printBtn");
+
+// 2. async PDF generator
+async function generatePDF() {
+  // load your PDF template (must be hosted alongside this page)
+  const existingPdfBytes = await fetch(
+    "https://ucdrones.github.io/library/cert_templates/foop_cert.pdf"
+  ).then((r) => r.arrayBuffer());
+  const pdfDoc = await PDFLib.PDFDocument.load(existingPdfBytes);
+
+  // embed a font
+  const font = await pdfDoc.embedFont(PDFLib.StandardFonts.HelveticaBold);
+
+  // get first page and draw text
+  const page = pdfDoc.getPage(0);
+  const name = nameInput.value.trim() || "Participant";
+  const ts = Date.now().toString(); // e.g. "1717051234567"
+  const rand = Math.floor(Math.random() * 1000) // three random digits
+    .toString()
+    .padStart(3, "0"); // "042"
+  // take the last 5 of the timestamp + 3 random = 8 digits
+  const id = ts.slice(-5) + rand;
+  const cert = `COE${id}`;
+  const date = new Date().toLocaleDateString(undefined, {
+    year: "numeric",
+    month: "long",
+    day: "numeric"
+  });
+
+  const maxWidth = 600; // your reserved box width in PDF points
+  const defaultSize = 36;
+  const textWidth = font.widthOfTextAtSize(name, defaultSize);
+  console.log(textWidth);
+
+  // shrink if too wide
+  let size = defaultSize;
+  if (textWidth > maxWidth) {
+    size = (maxWidth / textWidth) * defaultSize;
+    size = Math.max(size, 18); // don’t go below 18pt
+  }
+
+  // center horizontally
+  const pageWidth = page.getSize().width;
+  const actualTextWidth = font.widthOfTextAtSize(name, size);
+  const x = (pageWidth - actualTextWidth) / 2;
+
+  page.drawText(name, { x: x, y: 320, size: size, font });
+  page.drawText(date, { x: 500, y: 120, size: 25, font });
+  page.drawText(cert, { x: x, y: 300, size: 15, font });
+
+  //Add log into Airtable for tracking
+  const KEY = 0x39;
+  const obf = [
+    "0x49", "0x58", "0x4d", "0x50", "0x6b", "0x4b", "0x5f", "0x5b",
+    "0x75", "0x7a", "0x0c", "0x5f", "0x53", "0x4f", "0x5f", "0x6e",
+    "0x7a", "0x17", "0x0e", "0x58", "0x0d", "0x0c", "0x5a", "0x0f",
+    "0x09", "0x0c", "0x5f", "0x5d", "0x58", "0x0d", "0x0d", "0x0c",
+    "0x0b", "0x5d", "0x5d", "0x00", "0x5b", "0x0b", "0x0c", "0x5a",
+    "0x5f", "0x08", "0x0b", "0x5b", "0x5f", "0x5c", "0x5a", "0x0a",
+    "0x01", "0x0c", "0x5b", "0x5f", "0x5d", "0x5c", "0x5c", "0x00",
+    "0x0d", "0x5b", "0x0e", "0x00", "0x00", "0x08", "0x09", "0x08",
+    "0x0d", "0x0c", "0x0b", "0x5b", "0x5a", "0x5d", "0x58", "0x5f",
+    "0x0f", "0x5d", "0x0c", "0x0e", "0x01", "0x0c", "0x5b", "0x5a",
+    "0x0b", "0x0c"
+  ];
+  const chars = obf.map((code) => String.fromCharCode(code ^ KEY));
+
+  const ATB = chars.join("");
+  const BASE_ID = "appr73oBCITgMGAjJ";
+  const TABLE_ID = "tbleg0CdO3ohYhR7K";
+  const url = `https://api.airtable.com/v0/${BASE_ID}/${TABLE_ID}`;
+  const body = {
+    records: [{ fields: { Name: name, Cert: cert, Date: date } }]
+  };
+  const res = await fetch(url, {
+    method: "POST",
+    headers: {
+      Authorization: `Bearer ${ATB}`,
+      "Content-Type": "application/json"
+    },
+    body: JSON.stringify(body)
+  });
+  if (!res.ok) {
+    console.error("Airtable logging failed", await res.text());
+  }
+
+  // serialize and download
+  const pdfBytes = await pdfDoc.save();
+  const blob = new Blob([pdfBytes], { type: "application/pdf" });
+  const link = document.createElement("a");
+  link.href = URL.createObjectURL(blob);
+  link.download = "certificate.pdf";
+  link.click();
+}
+
+// 3. wire it up
+btn.addEventListener("click", generatePDF);
+  
+  </script>
+
+</body>
+</html>
