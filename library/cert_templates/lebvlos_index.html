@@ -71,19 +71,20 @@ button:hover {
 
 </head>
 <body>
-<!-- partial:index.partial.html -->
 <h1>Print Your Certificate</h1>
 
-<label for="nameInput">Enter your name:</label>
-<input type="text" id="nameInput" placeholder="Your Name" />
+<label for="nameInput">Type your name to sign:</label>
+<input type="text" id="nameInput" placeholder="Name" />
+<label for="emailInput">Enter your email address</label>
+<input type="text" id="emailInput" placeholder="email@campus.edu"/>
 
 <button id="printBtn">Print</button>
 
 <div id="output">Download and save the file for your records</div>
-<!-- partial -->
   <script>
-  // 1. grab references
+// 1. grab references
 const nameInput = document.getElementById("nameInput");
+const emailInput = document.getElementById("emailInput");
 const btn = document.getElementById("printBtn");
 
 // 2. async PDF generator
@@ -96,10 +97,12 @@ async function generatePDF() {
 
   // embed a font
   const font = await pdfDoc.embedFont(PDFLib.StandardFonts.HelveticaBold);
-
+  console.log("test");
   // get first page and draw text
   const page = pdfDoc.getPage(0);
   const name = nameInput.value.trim() || "Participant";
+  const email = emailInput.value.trim();
+
   const ts = Date.now().toString(); // e.g. "1717051234567"
   const rand = Math.floor(Math.random() * 1000) // three random digits
     .toString()
@@ -116,7 +119,6 @@ async function generatePDF() {
   const maxWidth = 600; // your reserved box width in PDF points
   const defaultSize = 36;
   const textWidth = font.widthOfTextAtSize(name, defaultSize);
-  console.log(textWidth);
 
   // shrink if too wide
   let size = defaultSize;
@@ -135,52 +137,125 @@ async function generatePDF() {
   page.drawText(cert, { x: x, y: 300, size: 15, font });
 
   //Add log into Airtable for tracking
-  const KEY = 0x39;
+  const KEY = 0xa2;
+
   const obf = [
-    "0x49", "0x58", "0x4d", "0x50", "0x6b", "0x4b", "0x5f", "0x5b",
-    "0x75", "0x7a", "0x0c", "0x5f", "0x53", "0x4f", "0x5f", "0x6e",
-    "0x7a", "0x17", "0x0e", "0x58", "0x0d", "0x0c", "0x5a", "0x0f",
-    "0x09", "0x0c", "0x5f", "0x5d", "0x58", "0x0d", "0x0d", "0x0c",
-    "0x0b", "0x5d", "0x5d", "0x00", "0x5b", "0x0b", "0x0c", "0x5a",
-    "0x5f", "0x08", "0x0b", "0x5b", "0x5f", "0x5c", "0x5a", "0x0a",
-    "0x01", "0x0c", "0x5b", "0x5f", "0x5d", "0x5c", "0x5c", "0x00",
-    "0x0d", "0x5b", "0x0e", "0x00", "0x00", "0x08", "0x09", "0x08",
-    "0x0d", "0x0c", "0x0b", "0x5b", "0x5a", "0x5d", "0x58", "0x5f",
-    "0x0f", "0x5d", "0x0c", "0x0e", "0x01", "0x0c", "0x5b", "0x5a",
-    "0x0b", "0x0c"
+    "0xd2", "0xc3", "0xd6", "0x96",
+    "0xcb", "0x93", "0xf7", "0xd3",
+    "0x96", "0xc9", "0xfb", "0xe4",
+    "0xe3", "0xe8", "0xee", "0xc3",
+    "0x95", "0x8c", "0xc4", "0xc3",
+    "0x90", "0x95", "0x92", "0x94",
+    "0xc7", "0x9a", "0xc0", "0xc7",
+    "0x92", "0x90", "0x97", "0x9b",
+    "0xc4", "0xc0", "0xc1", "0xc6",
+    "0x9a", "0xc3", "0xc1", "0xc1",
+    "0xc3", "0xc7", "0x90", "0xc4",
+    "0xc1", "0xc3", "0xc7", "0x91",
+    "0x95", "0x92", "0x91", "0x94",
+    "0xc3", "0x96", "0xc6", "0xc1",
+    "0x95", "0xc1", "0x94", "0x9b",
+    "0x92", "0xc1", "0x97", "0x9b",
+    "0x9b",    "0x92",     "0x97",    "0xc6",
+    "0x90",    "0x9b",     "0x94",    "0xc7",
+    "0xc3",    "0x92",     "0xc1",    "0xc7",
+    "0x97",    "0x92",     "0x91",    "0xc0",
+    "0x91",    "0x93"
   ];
   const chars = obf.map((code) => String.fromCharCode(code ^ KEY));
 
   const ATB = chars.join("");
-  const BASE_ID = "appr73oBCITgMGAjJ";
-  const TABLE_ID = "tbleg0CdO3ohYhR7K";
-  const url = `https://api.airtable.com/v0/${BASE_ID}/${TABLE_ID}`;
-  const body = {
-    records: [{ fields: { Name: name, Cert: cert, Date: date } }]
-  };
-  const res = await fetch(url, {
-    method: "POST",
+
+  const BASE_ID = "appnfJIx0ablxDGWe";
+  const TABLE_ID_DB = "tblH89aQSfn9tuiOG";
+  const TABLE_ID_LOG = "tbl4GB5KyH3enqPoh";
+  const field = "email";
+  const maxRecords = 2;
+
+  //Find record ID
+  const url_search = new URL(
+    `https://api.airtable.com/v0/${BASE_ID}/${TABLE_ID_DB}`
+  );
+  
+  url_search.searchParams.set(
+    'filterByFormula',
+    `{${field}}="${email.replace(/"/g, '\\"')}"`
+  );
+  
+  url_search.searchParams.set("maxRecords", maxRecords);
+  
+  let records
+  try {
+      const res = await fetch(url_search, {
+        method: 'GET',
+        headers: {
+          'Authorization': `Bearer ${ATB}`,
+          'Accept':        'application/json'
+        },
+        // mode: 'cors',     // usually not needed; enable if you hit CORS errors
+      });
+
+      if (!res.ok) {
+        const txt = await res.text();
+        throw new Error(`Airtable HTTP ${res.status}: ${txt}`);
+      }
+
+      const json  = await res.json();
+      records = json.records;
+      console.log(`Retrieved ${records.length} records:`);
+      records.forEach(r => console.log(r.id, r.fields));
+    } catch (err) {
+      console.error('Fetch FAILED');
+      console.error('• Name:   ', err.name);
+      console.error('• Message:', err.message);
+      console.error('• Stack:  ', err.stack);
+    }
+  
+  
+  let record_id
+  if (records && records.length > 0) {
+    record_id = records[0].id;
+    // Post the new results
+  
+    const url_post = `https://api.airtable.com/v0/${BASE_ID}/${TABLE_ID_LOG}`;
+    const body = {
+      records: [{ fields: { Pilot: [record_id], "Training Type": "Waiver Training", Cert: cert,   Date: date } }]
+    };
+  
+    const res = await fetch(url_post, {
+    method: "POST", 
     headers: {
       Authorization: `Bearer ${ATB}`,
       "Content-Type": "application/json"
-    },
+      },
     body: JSON.stringify(body)
-  });
-  if (!res.ok) {
-    console.error("Airtable logging failed", await res.text());
+    });
+  
+    if (!res.ok) {
+      console.error("Airtable logging failed", await res.text());
+    }
+    
+    // Generate PDF
+    // serialize and download
+    const pdfBytes = await pdfDoc.save();
+    const blob = new Blob([pdfBytes], { type: "application/pdf" });
+    const link = document.createElement("a");
+    link.href = URL.createObjectURL(blob);
+    link.download = "certificate.pdf";
+    link.click();
+    
+  } else {
+    document.getElementById("output").textContent = 'No Records Found. Please enter a correct email address.';
+    
   }
 
-  // serialize and download
-  const pdfBytes = await pdfDoc.save();
-  const blob = new Blob([pdfBytes], { type: "application/pdf" });
-  const link = document.createElement("a");
-  link.href = URL.createObjectURL(blob);
-  link.download = "certificate.pdf";
-  link.click();
+  // Empty - moved pdf printing to only when a record exists
+  
 }
 
 // 3. wire it up
 btn.addEventListener("click", generatePDF);
+
   
   </script>
 
