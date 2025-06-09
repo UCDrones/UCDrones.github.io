@@ -91,7 +91,7 @@ const btn = document.getElementById("printBtn");
 async function generatePDF() {
   // load your PDF template (must be hosted alongside this page)
   const existingPdfBytes = await fetch(
-    "https://ucdrones.github.io/library/cert_templates/foop_cert.pdf"
+    "https://ucdrones.github.io/library/cert_templates/leBVLOS_cert.pdf"
   ).then((r) => r.arrayBuffer());
   const pdfDoc = await PDFLib.PDFDocument.load(existingPdfBytes);
 
