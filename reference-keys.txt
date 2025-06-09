@@ -61,6 +61,7 @@ counter-uas
 uas-threat-best-practices
 other-resources
 regulatory-updates
+white-house-executive-orders---662025
 billNDAA2025
 faa-reauthorization-bill-of-2024
 billNDAA2024
