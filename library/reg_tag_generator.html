@@ -1,0 +1,300 @@
+<!DOCTYPE html>
+<html lang="en" >
+<head>
+  <meta charset="UTF-8">
+  <title>Print UAS Registration Tag</title>
+  <script src="https://unpkg.com/pdf-lib/dist/pdf-lib.min.js"></script>
+  
+  <style>
+  /* Visually hidden (screen-reader only) */
+    .sr-only {
+      position: absolute;
+      width: 1px;
+      height: 1px;
+      padding: 0;
+      margin: -1px;
+      overflow: hidden;
+      clip: rect(0, 0, 0, 0);
+      white-space: nowrap;
+      border: 0;
+    }
+
+    body {
+      font-family: "Open Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
+      color: #333333;
+      background-color: #ffffff;
+      margin: 0;
+      padding: 2rem;
+      box-sizing: border-box;
+    }
+
+    .container {
+      max-width: 600px;
+      margin: 0 auto;
+    }
+
+    h1 {
+      font-size: 1.75rem;
+      font-weight: 600;
+      margin-bottom: 1.5rem;
+    }
+
+    label {
+      display: block;
+      font-size: 1rem;
+      margin-bottom: 0.5rem;
+    }
+
+    input[type="text"], select {
+      width: 100%;
+      padding: 0.75rem 1rem;
+      font-size: 1rem;
+      line-height: 1.4;
+      color: #333333;
+      background-color: #f9f9f9;
+      border: 1px solid #cccccc;
+      border-radius: 4px;
+      margin-bottom: 1.5rem;
+      box-sizing: border-box;
+      appearance: none;
+    }
+
+    select {
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 10 6' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M0 0l5 6 5-6z' fill='%23333'/%3E%3C/svg%3E");
+      background-repeat: no-repeat;
+      background-position: right 1rem center;
+      background-size: 0.65rem;
+    }
+
+    input:focus, select:focus, button:focus {
+      outline: 2px solid #285F9F;
+      outline-offset: 2px;
+    }
+
+    button {
+      font-family: inherit;
+      font-size: 1rem;
+      font-weight: 600;
+      background-color: #285F9F;
+      color: #ffffff;
+      border: none;
+      border-radius: 4px;
+      padding: 0.75rem 1.5rem;
+      cursor: pointer;
+      margin-right: 1rem;
+      transition: background-color 0.2s ease;
+    }
+
+    button:hover {
+      background-color: #537FB2;
+    }
+
+    #output {
+      margin-top: 2rem;
+      font-size: 1rem;
+      color: #2c2c2c;
+      line-height: 1.5;
+    }
+
+    #error {
+      color: red;
+      font-size: 1rem;
+      margin-top: 1rem;
+    }
+
+    a.skip-link {
+      position: absolute;
+      top: -40px;
+      left: 0;
+      background: #000;
+      color: #fff;
+      padding: 8px;
+      z-index: 100;
+    }
+
+    a.skip-link:focus {
+      top: 0;
+    }
+.button-group {
+  margin-top: 1.5rem;
+}
+</style>
+
+</head>
+<body>
+
+<a href="#mainform" class="skip-link">Skip to form</a>
+
+<div class="container" role="form" aria-labelledby="formTitle">
+  <h1 id="formTitle">Drone Registration Tag</h1>
+
+  <form id="mainform" onsubmit="handleSubmit(event)" aria-describedby="formInstructions">
+    <p id="formInstructions" class="sr-only">
+      Complete this form by entering your drone's nickname, selecting a campus, and providing a valid FAA registration number.
+    </p>
+
+    <fieldset aria-labelledby="detailsLegend">
+      <legend id="detailsLegend" class="sr-only">Drone Tag Details</legend>
+
+      <label for="nickname">Drone Nickname <span id="nicknameCount" aria-live="polite">(25 characters remaining)</span></label>
+<input type="text" id="nickname" name="nickname" maxlength="25" required aria-required="true" />
+
+      <label for="campus">Campus Location</label>
+      <select id="campus" name="campus" required aria-required="true">
+        <option value="" disabled selected>Select a campus</option>
+        <option value="ANR">UC ANR</option>
+        <option value="BERKELEY">UC Berkeley</option>
+        <option value="DAVIS">UC Davis</option>
+        <option value="IRVINE">UC Irvine</option>
+        <option value="LOS ANGELES">UCLA</option>
+        <option value="MERCED">UC Merced</option>
+        <option value="RIVERSIDE">UC Riverside</option>
+        <option value="SAN DIEGO">UC San Diego</option>
+        <option value="SAN FRANCISCO">UC San Francisco</option> <!-- Graduate/Professional only -->
+        <option value="SANTA BARBARA">UC Santa Barbara</option>
+        <option value="SANTA CRUZ">UC Santa Cruz</option>
+        
+      </select>
+
+      <label for="regNumber"> 
+        FAA Registration Number 
+        <span id="regCount" aria-live="polite">(8 characters remaining)</span>
+      </label>
+      <input type="text" id="regNumber" name="regNumber"
+       placeholder="e.g., FA12345678" required aria-required="true"
+       maxlength="10" />
+      <small id="regHelp">Must begin with "FA", e.g., FA1234567.</small>
+
+<div class="button-group">
+  <button type="submit" aria-label="Generate drone tag PDF" title="Generate PDF for drone tag">Generate PDF</button>
+  <button type="reset" aria-label="Clear form and reset all fields" title="Reset the form">Reset Form</button>
+</div>
+    </fieldset>
+
+    <div id="error" aria-live="assertive" role="alert"></div>
+    <div id="output" aria-live="polite" role="status"></div>
+  </form>
+</div>
+
+  <script>
+  const nicknameInput = document.getElementById("nickname");
+const nicknameCount = document.getElementById("nicknameCount");
+const maxNicknameLength = 25;
+
+nicknameInput.addEventListener("input", () => {
+  const remaining = maxNicknameLength - nicknameInput.value.length;
+  nicknameCount.textContent = `(${remaining} characters remaining)`;
+});
+
+const regInput = document.getElementById("regNumber");
+const regCount = document.getElementById("regCount");
+
+  regInput.addEventListener("input", () => {
+    // Always start with "FA"
+    if (!regInput.value.toUpperCase().startsWith("FA")) {
+      regInput.value = "FA";
+    }
+
+    // Enforce uppercase
+    regInput.value = regInput.value.toUpperCase();
+
+    const afterFA = regInput.value.slice(2);
+    if (afterFA.length > 8) {
+      regInput.value = "FA" + afterFA.slice(0, 8);
+    }
+
+    const remaining = 8 - regInput.value.slice(2).length;
+    regCount.textContent = `(${remaining} characters remaining)`;
+  });
+
+function formatRegistration(input) {
+  // Ensure input starts with FA and is at least 10 characters
+  if (!/^FA[A-Z0-9]{8}$/.test(input)) return input; // return unchanged if invalid format
+
+  return `FA-${input.slice(2, 5)}-${input.slice(5, 8)}-${input.slice(8)}`;
+}
+
+// 2. async PDF generator
+async function generateDroneTagPDF(nickname, campus, regNumber) {
+  // load your PDF template (must be hosted alongside this page)
+  const existingPdfBytes = await fetch(
+    "https://ucdrones.github.io/library/UAS_Tag_2.pdf"
+  ).then((r) => r.arrayBuffer());
+  const pdfDoc = await PDFLib.PDFDocument.load(existingPdfBytes);
+
+  // embed a font
+  const font = await pdfDoc.embedFont(PDFLib.StandardFonts.HelveticaBold);
+
+  // get first page and draw text
+  const page = pdfDoc.getPage(0);
+  //console.log(regNumber);
+  const formatted = formatRegistration(regNumber);
+  //console.log(formatted);
+
+  const maxWidth = 180; // your reserved box width in PDF points
+  const defaultSize = 26;
+  const textWidth = font.widthOfTextAtSize(nickname, defaultSize);
+  //console.log(textWidth);
+
+  // shrink if too wide
+  let size = defaultSize;
+  if (textWidth > maxWidth) {
+    size = (maxWidth / textWidth) * defaultSize;
+    size = Math.max(size, 10); // don’t go below 18pt
+  }
+
+  // center horizontally
+  const pageWidth = page.getSize().width;
+  const actualTextWidth = font.widthOfTextAtSize(nickname, size);
+  const x = (pageWidth - actualTextWidth) / 2;
+
+  page.drawText(nickname, { x: x, y: 80, size: size, font });
+  page.drawText(campus, { x: 23, y: 40, size: 20, font });
+  page.drawText(formatted, { x: 23, y: 10, size: 20, font });
+  
+  // serialize and download
+  const pdfBytes = await pdfDoc.save();
+  const blob = new Blob([pdfBytes], { type: "application/pdf" });
+  const link = document.createElement("a");
+  link.href = URL.createObjectURL(blob);
+  link.download = "registration_tag.pdf";
+  link.click();
+}
+
+
+function handleSubmit(event) {
+    event.preventDefault();
+    const nickname = document.getElementById("nickname").value.trim();
+    const campus = document.getElementById("campus").value;
+    const regNumber = document.getElementById("regNumber").value.trim();
+    const errorBox = document.getElementById("error");
+    const outputBox = document.getElementById("output");
+    errorBox.textContent = "";
+    outputBox.textContent = "";
+
+    if (!nickname || !campus || !regNumber || !regNumber.startsWith("FA")) {
+      errorBox.textContent = "Please complete all fields. Registration number must begin with 'FA'.";
+      return;
+    }
+  
+    // Validate registration number
+    const regMatch = /^FA[A-Z0-9]{8}$/;
+    if (!regMatch.test(regNumber)) {
+      errorBox.textContent = "FAA Registration must start with 'FA' followed by up to 8 letters or numbers.";
+      return;
+    }
+
+    // Replace this with your actual PDF generation logic
+    generateDroneTagPDF(nickname, campus, regNumber);
+
+    outputBox.textContent = `Generated tag for ${nickname} at ${campus} with ID ${regNumber}.`;
+}
+
+document.getElementById("mainform").addEventListener("reset", () => {
+  document.getElementById("output").textContent = "Form has been cleared.";
+  document.getElementById("error").textContent = "";
+  });
+  </script>
+
+</body>
+</html>
