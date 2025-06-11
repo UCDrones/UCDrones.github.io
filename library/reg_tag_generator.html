@@ -211,7 +211,7 @@ function formatRegistration(input) {
   // Ensure input starts with FA and is at least 10 characters
   if (!/^FA[A-Z0-9]{8}$/.test(input)) return input; // return unchanged if invalid format
 
-  return `FA-${input.slice(2, 5)}-${input.slice(5, 8)}-${input.slice(8)}`;
+  return `FA-${input.slice(2, 5)}-${input.slice(5, 7)}-${input.slice(7)}`;
 }
 
 // 2. async PDF generator
