@@ -85,6 +85,7 @@ button:hover {
   // 1. grab references
 const nameInput = document.getElementById("nameInput");
 const btn = document.getElementById("printBtn");
+const endpoint = "https://airtable-api-hazel.vercel.app/api/foop-log";
 
 // 2. async PDF generator
 async function generatePDF() {
@@ -140,41 +141,26 @@ async function generatePDF() {
   page.drawText(date, { x: 500, y: 120, size: 25, font });
   page.drawText(cert, { x: x, y: 300, size: 15, font });
 
-  //Add log into Airtable for tracking
-  const KEY = 0x39;
-  const obf = [
-    "0x49", "0x58", "0x4d", "0x50", "0x6b", "0x4b", "0x5f", "0x5b",
-    "0x75", "0x7a", "0x0c", "0x5f", "0x53", "0x4f", "0x5f", "0x6e",
-    "0x7a", "0x17", "0x0e", "0x58", "0x0d", "0x0c", "0x5a", "0x0f",
-    "0x09", "0x0c", "0x5f", "0x5d", "0x58", "0x0d", "0x0d", "0x0c",
-    "0x0b", "0x5d", "0x5d", "0x00", "0x5b", "0x0b", "0x0c", "0x5a",
-    "0x5f", "0x08", "0x0b", "0x5b", "0x5f", "0x5c", "0x5a", "0x0a",
-    "0x01", "0x0c", "0x5b", "0x5f", "0x5d", "0x5c", "0x5c", "0x00",
-    "0x0d", "0x5b", "0x0e", "0x00", "0x00", "0x08", "0x09", "0x08",
-    "0x0d", "0x0c", "0x0b", "0x5b", "0x5a", "0x5d", "0x58", "0x5f",
-    "0x0f", "0x5d", "0x0c", "0x0e", "0x01", "0x0c", "0x5b", "0x5a",
-    "0x0b", "0x0c"
-  ];
-  const chars = obf.map((code) => String.fromCharCode(code ^ KEY));
+  // ✉️ Submit to secure Vercel serverless function
+  try {
+      const res = await fetch(endpoint, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ name, cert, date })
+      });
+      const data = await res.json();
 
-  const ATB = chars.join("");
-  const BASE_ID = "appr73oBCITgMGAjJ";
-  const TABLE_ID = "tbleg0CdO3ohYhR7K";
-  const url = `https://api.airtable.com/v0/${BASE_ID}/${TABLE_ID}`;
-  const body = {
-    records: [{ fields: { Name: name, Cert: cert, Date: date } }]
-  };
-  const res = await fetch(url, {
-    method: "POST",
-    headers: {
-      Authorization: `Bearer ${ATB}`,
-      "Content-Type": "application/json"
-    },
-    body: JSON.stringify(body)
-  });
-  if (!res.ok) {
-    console.error("Airtable logging failed", await res.text());
+      if (!res.ok) {
+        console.error("🚫 Submission error:", data);
+        alert("Failed to submit log to server.");
+        return;
+      }
+  } catch (err) {
+      console.error("❌ Network error:", err);
+      alert("Could not connect to the server.");
+      return;
   }
+
 
   // serialize and download
   const pdfBytes = await pdfDoc.save();
