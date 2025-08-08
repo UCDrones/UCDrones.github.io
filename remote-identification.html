@@ -1,125 +1,240 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="" xml:lang="">
 <head>
-<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-<title>Chapter 12 Remote Identification | UC Drones Knowledge Portal</title>
-<meta name="author" content="UC Center of Excellence on UAS Safety">
-<meta name="description" content="Remote Identification functionality will be required by March 16, 2024. Latest news - FAA Extends Remote ID Enforcement Date Six Months  12.1 What is Remote Identification? Remote identification...">
-<meta name="generator" content="bookdown 0.43 with bs4_book()">
-<meta property="og:title" content="Chapter 12 Remote Identification | UC Drones Knowledge Portal">
-<meta property="og:type" content="book">
-<meta property="og:description" content="Remote Identification functionality will be required by March 16, 2024. Latest news - FAA Extends Remote ID Enforcement Date Six Months  12.1 What is Remote Identification? Remote identification...">
-<meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Chapter 12 Remote Identification | UC Drones Knowledge Portal">
-<meta name="twitter:description" content="Remote Identification functionality will be required by March 16, 2024. Latest news - FAA Extends Remote ID Enforcement Date Six Months  12.1 What is Remote Identification? Remote identification...">
-<!-- JS --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/fuse.js/6.4.6/fuse.js" integrity="sha512-zv6Ywkjyktsohkbp9bb45V6tEMoWhzFzXis+LrMehmJZZSys19Yxf1dopHx7WzIKxr5tK2dVcYmaCk2uqdjF4A==" crossorigin="anonymous"></script><script src="https://kit.fontawesome.com/6ecbd6c532.js" crossorigin="anonymous"></script><script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-<link href="libs/bootstrap-4.6.0/bootstrap.min.css" rel="stylesheet">
-<script src="libs/bootstrap-4.6.0/bootstrap.bundle.min.js"></script><script src="libs/bs3compat-0.9.0/transition.js"></script><script src="libs/bs3compat-0.9.0/tabs.js"></script><script src="libs/bs3compat-0.9.0/bs3compat.js"></script><link href="libs/bs4_book-1.0.0/bs4_book.css" rel="stylesheet">
-<script src="libs/bs4_book-1.0.0/bs4_book.js"></script><link href="libs/htmltools-fill-0.5.8.1/fill.css" rel="stylesheet">
-<script src="libs/htmlwidgets-1.6.4/htmlwidgets.js"></script><link href="libs/datatables-css-0.0.0/datatables-crosstalk.css" rel="stylesheet">
-<script src="libs/datatables-binding-0.33/datatables.js"></script><link href="libs/dt-core-1.13.6/css/jquery.dataTables.min.css" rel="stylesheet">
-<link href="libs/dt-core-1.13.6/css/jquery.dataTables.extra.css" rel="stylesheet">
-<script src="libs/dt-core-1.13.6/js/jquery.dataTables.min.js"></script><link href="libs/nouislider-7.0.10/jquery.nouislider.min.css" rel="stylesheet">
-<script src="libs/nouislider-7.0.10/jquery.nouislider.min.js"></script><link href="libs/selectize-0.12.0/selectize.bootstrap3.css" rel="stylesheet">
-<script src="libs/selectize-0.12.0/selectize.min.js"></script><link href="libs/crosstalk-1.2.1/css/crosstalk.min.css" rel="stylesheet">
-<script src="libs/crosstalk-1.2.1/js/crosstalk.min.js"></script><!-- Global site tag (gtag.js) - Google Analytics --><script async src="https://www.googletagmanager.com/gtag/js?id=UA-171022398-1"></script><script>
-      window.dataLayer = window.dataLayer || [];
-      function gtag(){dataLayer.push(arguments);}
-      gtag('js', new Date());
 
-      gtag('config', 'UA-171022398-1');
-    </script><script src="https://cdnjs.cloudflare.com/ajax/libs/autocomplete.js/0.38.0/autocomplete.jquery.min.js" integrity="sha512-GU9ayf+66Xx2TmpxqJpliWbT5PiGYxpaG8rfnBEk1LL8l1KGkRShhngwdXK1UgqhAzWpZHSiYPc09/NwDQIGyg==" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/mark.js/8.11.1/mark.min.js" integrity="sha512-5CYOlHXGh6QpOFA/TeTylKLWfB3ftPsde7AnmhuitiTX4K5SqCLBeKro6sPS8ilsz1Q4NRx3v8Ko2IBiszzdww==" crossorigin="anonymous"></script><!-- CSS --><style type="text/css">
-    
-    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
-  </style>
-<link rel="stylesheet" href="style.css">
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title>Remote Identification | UC Drones Knowledge Portal</title>
+  <meta name="description" content="Remote Identification | UC Drones Knowledge Portal" />
+  <meta name="generator" content="bookdown 0.36 and GitBook 2.6.7" />
+
+  <meta property="og:title" content="Remote Identification | UC Drones Knowledge Portal" />
+  <meta property="og:type" content="book" />
+  
+  <meta property="og:description" content="Remote Identification | UC Drones Knowledge Portal" />
+  
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="Remote Identification | UC Drones Knowledge Portal" />
+  
+  <meta name="twitter:description" content="Remote Identification | UC Drones Knowledge Portal" />
+  
+
+<meta name="author" content="UC Center of Excellence on UAS Safety" />
+
+
+
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+  
+  
+<link rel="prev" href="need-to-pick-a-drone.html"/>
+<link rel="next" href="regulatory-updates.html"/>
+<script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-clipboard.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+<link href="libs/anchor-sections-1.1.0/anchor-sections.css" rel="stylesheet" />
+<link href="libs/anchor-sections-1.1.0/anchor-sections-hash.css" rel="stylesheet" />
+<script src="libs/anchor-sections-1.1.0/anchor-sections.js"></script>
+<script src="libs/htmlwidgets-1.6.3/htmlwidgets.js"></script>
+<link href="libs/datatables-css-0.0.0/datatables-crosstalk.css" rel="stylesheet" />
+<script src="libs/datatables-binding-0.30/datatables.js"></script>
+<link href="libs/dt-core-1.13.4/css/jquery.dataTables.min.css" rel="stylesheet" />
+<link href="libs/dt-core-1.13.4/css/jquery.dataTables.extra.css" rel="stylesheet" />
+<script src="libs/dt-core-1.13.4/js/jquery.dataTables.min.js"></script>
+<link href="libs/nouislider-7.0.10/jquery.nouislider.min.css" rel="stylesheet" />
+<script src="libs/nouislider-7.0.10/jquery.nouislider.min.js"></script>
+<link href="libs/selectize-0.12.0/selectize.bootstrap3.css" rel="stylesheet" />
+<script src="libs/selectize-0.12.0/selectize.min.js"></script>
+<link href="libs/crosstalk-1.2.1/css/crosstalk.min.css" rel="stylesheet" />
+<script src="libs/crosstalk-1.2.1/js/crosstalk.min.js"></script>
+<!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-171022398-1"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'UA-171022398-1');
+</script>
+
+
+
+<style type="text/css">
+  
+  div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+</style>
+
+<link rel="stylesheet" href="style.css" type="text/css" />
 </head>
-<body data-spy="scroll" data-target="#toc">
 
-<div class="container-fluid">
-<div class="row">
-  <header class="col-sm-12 col-lg-3 sidebar sidebar-book"><a class="sr-only sr-only-focusable" href="#content">Skip to main content</a>
+<body>
 
-    <div class="d-flex align-items-start justify-content-between">
-      <h1>
-        <a href="index.html" title="">UC Drones Knowledge Portal</a>
-      </h1>
-      <button class="btn btn-outline-primary d-lg-none ml-2 mt-1" type="button" data-toggle="collapse" data-target="#main-nav" aria-expanded="true" aria-controls="main-nav"><i class="fas fa-bars"></i><span class="sr-only">Show table of contents</span></button>
-    </div>
 
-    <div id="main-nav" class="collapse-lg">
-      <form role="search">
-        <input id="search" class="form-control" type="search" placeholder="Search" aria-label="Search">
-</form>
 
-      <nav aria-label="Table of contents"><h2>Table of contents</h2>
-        <ul class="book-toc list-unstyled">
-<li><a class="" href="index.html">Welcome</a></li>
-<li class="book-part">General Information</li>
-<li><a class="" href="ch-DLA.html"><span class="header-section-number">2</span> Campus Points of Contact</a></li>
-<li><a class="" href="ch-manuals.html"><span class="header-section-number">3</span> Operation Manuals and Guidance</a></li>
-<li><a class="" href="ch-training.html"><span class="header-section-number">4</span> Training Modules</a></li>
-<li><a class="" href="ch-FAQs.html"><span class="header-section-number">5</span> Policy Frequently Asked Questions</a></li>
-<li><a class="" href="ch-resources.html"><span class="header-section-number">6</span> Resources</a></li>
-<li><a class="" href="ch-insurance.html"><span class="header-section-number">7</span> Insurance</a></li>
-<li class="book-part">Latest Updates</li>
-<li><a class="" href="ch-cybersecurity.html"><span class="header-section-number">9</span> Cybersecurity Concerns</a></li>
-<li><a class="" href="dji-drones.html"><span class="header-section-number">10</span> DJI Drones</a></li>
-<li><a class="" href="pickdrone.html"><span class="header-section-number">11</span> Need to Pick a Drone?</a></li>
-<li><a class="active" href="remote-identification.html"><span class="header-section-number">12</span> Remote Identification</a></li>
-<li><a class="" href="counter-uas.html"><span class="header-section-number">13</span> Counter UAS</a></li>
-<li><a class="" href="regulatory-updates.html"><span class="header-section-number">14</span> Regulatory Updates</a></li>
-<li class="book-part">About Us</li>
-<li><a class="" href="ch-aboutus.html">About the UC CoE on UAS Safety</a></li>
-<li><a class="" href="ch-conduct.html">Code of Conduct</a></li>
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li><a href="./">UC Drones</a></li>
+
+<li class="divider"></li>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i>Home Page</a>
+<ul>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html#uc-drone-web-app"><i class="fa fa-check"></i>UC Drone Web App</a></li>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html#connect-with-us"><i class="fa fa-check"></i>Connect with Us</a></li>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html#quick-links"><i class="fa fa-check"></i>Quick Links</a></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="ch-DLA.html"><a href="ch-DLA.html"><i class="fa fa-check"></i>Campus Points of Contact</a></li>
+<li class="chapter" data-level="" data-path="ch-manuals.html"><a href="ch-manuals.html"><i class="fa fa-check"></i>Operation Manuals and Guidance</a>
+<ul>
+<li class="chapter" data-level="" data-path="ch-manuals.html"><a href="ch-manuals.html#new-user-guide"><i class="fa fa-check"></i>New User Guide</a></li>
+<li class="chapter" data-level="" data-path="ch-manuals.html"><a href="ch-manuals.html#basic-drone-operations"><i class="fa fa-check"></i>Basic Drone Operations</a></li>
+<li class="chapter" data-level="" data-path="ch-manuals.html"><a href="ch-manuals.html#advanced-drone-operations"><i class="fa fa-check"></i>Advanced Drone Operations</a></li>
+<li class="chapter" data-level="" data-path="ch-manuals.html"><a href="ch-manuals.html#uc-uas-policy"><i class="fa fa-check"></i>UC UAS Policy</a></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="ch-training.html"><a href="ch-training.html"><i class="fa fa-check"></i>Training Modules</a>
+<ul>
+<li class="chapter" data-level="" data-path="ch-training.html"><a href="ch-training.html#beginner-training"><i class="fa fa-check"></i>Beginner Training</a></li>
+<li class="chapter" data-level="" data-path="ch-training.html"><a href="ch-training.html#advanced-training"><i class="fa fa-check"></i>Advanced Training</a></li>
+<li class="chapter" data-level="" data-path="ch-training.html"><a href="ch-training.html#cinematography-flight-training"><i class="fa fa-check"></i>Cinematography Flight Training</a></li>
+<li class="chapter" data-level="" data-path="ch-training.html"><a href="ch-training.html#drone-flight-instruction"><i class="fa fa-check"></i>Drone Flight Instruction</a></li>
+<li class="chapter" data-level="" data-path="ch-training.html"><a href="ch-training.html#short-drone-guides"><i class="fa fa-check"></i>Short Drone Guides</a></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="ch-FAQs.html"><a href="ch-FAQs.html"><i class="fa fa-check"></i>Policy Frequently Asked Questions</a></li>
+<li class="chapter" data-level="" data-path="ch-resources.html"><a href="ch-resources.html"><i class="fa fa-check"></i>Resources</a>
+<ul>
+<li class="chapter" data-level="" data-path="ch-resources.html"><a href="ch-resources.html#online-resources"><i class="fa fa-check"></i>Online Resources</a></li>
+<li class="chapter" data-level="" data-path="ch-resources.html"><a href="ch-resources.html#planning-documents-and-template-checklists"><i class="fa fa-check"></i>Planning Documents and Template Checklists</a></li>
+<li class="chapter" data-level="" data-path="ch-resources.html"><a href="ch-resources.html#other-links"><i class="fa fa-check"></i>Other links</a></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="ch-insurance.html"><a href="ch-insurance.html"><i class="fa fa-check"></i>Insurance</a>
+<ul>
+<li class="chapter" data-level="" data-path="ch-insurance.html"><a href="ch-insurance.html#s-UC-liability"><i class="fa fa-check"></i>Liability Coverage</a>
+<ul>
+<li class="chapter" data-level="" data-path="ch-insurance.html"><a href="ch-insurance.html#ss-personally-owned-UAS-coverage"><i class="fa fa-check"></i>Personally Owned Unmanned Aircraft Used for University Business</a></li>
+<li class="chapter" data-level="" data-path="ch-insurance.html"><a href="ch-insurance.html#ss-campus-police-coverage"><i class="fa fa-check"></i>Coverage for Campus Police</a></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="ch-insurance.html"><a href="ch-insurance.html#s-UC-physical-damage"><i class="fa fa-check"></i>Physical Damage Coverage</a>
+<ul>
+<li class="chapter" data-level="" data-path="ch-insurance.html"><a href="ch-insurance.html#filing-a-claim"><i class="fa fa-check"></i>Filing a Claim</a></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="ch-insurance.html"><a href="ch-insurance.html#rd-party-insurance-minimum"><i class="fa fa-check"></i>3rd Party Insurance Minimum</a></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="ch-cybersecurity.html"><a href="ch-cybersecurity.html"><i class="fa fa-check"></i>Cybersecurity Concerns</a>
+<ul>
+<li class="chapter" data-level="" data-path="ch-cybersecurity.html"><a href="ch-cybersecurity.html#cybersecurity-risk"><i class="fa fa-check"></i>Cybersecurity Risk</a></li>
+<li class="chapter" data-level="" data-path="ch-cybersecurity.html"><a href="ch-cybersecurity.html#mitigation-strategies"><i class="fa fa-check"></i>Mitigation Strategies</a></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="dji-drones.html"><a href="dji-drones.html"><i class="fa fa-check"></i>DJI Drones</a>
+<ul>
+<li class="chapter" data-level="" data-path="dji-drones.html"><a href="dji-drones.html#frequently-asked-questions"><i class="fa fa-check"></i>Frequently Asked Questions</a></li>
+<li class="chapter" data-level="" data-path="dji-drones.html"><a href="dji-drones.html#timeline-of-events"><i class="fa fa-check"></i>Timeline of Events</a></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="need-to-pick-a-drone.html"><a href="need-to-pick-a-drone.html"><i class="fa fa-check"></i>Need to Pick a Drone?</a>
+<ul>
+<li class="chapter" data-level="" data-path="need-to-pick-a-drone.html"><a href="need-to-pick-a-drone.html#cheap-drones"><i class="fa fa-check"></i>Cheap Drones</a></li>
+<li class="chapter" data-level="" data-path="need-to-pick-a-drone.html"><a href="need-to-pick-a-drone.html#drones-for-multimedia"><i class="fa fa-check"></i>Drones for Multimedia</a></li>
+<li class="chapter" data-level="" data-path="need-to-pick-a-drone.html"><a href="need-to-pick-a-drone.html#drones-for-mapping"><i class="fa fa-check"></i>Drones for Mapping</a></li>
+<li class="chapter" data-level="" data-path="need-to-pick-a-drone.html"><a href="need-to-pick-a-drone.html#the-best-drones"><i class="fa fa-check"></i>The Best Drones</a></li>
+<li class="chapter" data-level="" data-path="need-to-pick-a-drone.html"><a href="need-to-pick-a-drone.html#high-security-drones"><i class="fa fa-check"></i>High Security Drones</a></li>
+<li class="chapter" data-level="" data-path="need-to-pick-a-drone.html"><a href="need-to-pick-a-drone.html#dronelist"><i class="fa fa-check"></i>Full Table of Drones</a></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="remote-identification.html"><a href="remote-identification.html"><i class="fa fa-check"></i>Remote Identification</a>
+<ul>
+<li class="chapter" data-level="" data-path="remote-identification.html"><a href="remote-identification.html#what-is-remote-identification"><i class="fa fa-check"></i>What is Remote Identification?</a>
+<ul>
+<li class="chapter" data-level="" data-path="remote-identification.html"><a href="remote-identification.html#standard-remote-identification"><i class="fa fa-check"></i>Standard Remote Identification</a></li>
+<li class="chapter" data-level="" data-path="remote-identification.html"><a href="remote-identification.html#broadcast-remote-identification"><i class="fa fa-check"></i>Broadcast Remote Identification</a></li>
+<li class="chapter" data-level="" data-path="remote-identification.html"><a href="remote-identification.html#faa-recognized-identification-area-fria"><i class="fa fa-check"></i>FAA Recognized Identification Area (FRIA)</a></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="remote-identification.html"><a href="remote-identification.html#standard-remote-id-drones"><i class="fa fa-check"></i>Standard Remote ID Drones</a></li>
+<li class="chapter" data-level="" data-path="remote-identification.html"><a href="remote-identification.html#broadcast-remote-id-modules"><i class="fa fa-check"></i>Broadcast Remote ID Modules</a>
+<ul>
+<li class="chapter" data-level="" data-path="remote-identification.html"><a href="remote-identification.html#available-broadcast-remote-id-modules"><i class="fa fa-check"></i>Available Broadcast Remote ID Modules</a></li>
+<li class="chapter" data-level="" data-path="remote-identification.html"><a href="remote-identification.html#update"><i class="fa fa-check"></i>Updating your Registration</a></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="remote-identification.html"><a href="remote-identification.html#frequently-asked-questions-1"><i class="fa fa-check"></i>Frequently Asked Questions</a></li>
+<li class="chapter" data-level="" data-path="remote-identification.html"><a href="remote-identification.html#reading-remote-identification"><i class="fa fa-check"></i>Reading Remote Identification</a>
+<ul>
+<li class="chapter" data-level="" data-path="remote-identification.html"><a href="remote-identification.html#mobile-devices"><i class="fa fa-check"></i>Mobile Devices</a></li>
+<li class="chapter" data-level="" data-path="remote-identification.html"><a href="remote-identification.html#drone-broadcasting"><i class="fa fa-check"></i>Drone Broadcasting</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="regulatory-updates.html"><a href="regulatory-updates.html"><i class="fa fa-check"></i>Regulatory Updates</a>
+<ul>
+<li class="chapter" data-level="" data-path="regulatory-updates.html"><a href="regulatory-updates.html#faa-reauthorization-bill-of-2023"><i class="fa fa-check"></i>FAA Reauthorization Bill of 2023</a></li>
+<li class="chapter" data-level="" data-path="regulatory-updates.html"><a href="regulatory-updates.html#ca-ab1016-pest-control-operations-aircraft-operations-private-applicator"><i class="fa fa-check"></i>CA AB1016 Pest control operations: aircraft operations: private applicator</a></li>
+<li class="chapter" data-level="" data-path="regulatory-updates.html"><a href="regulatory-updates.html#the-recreational-uas-safety-test-trust"><i class="fa fa-check"></i>The Recreational UAS Safety Test (TRUST)</a></li>
+<li class="chapter" data-level="" data-path="regulatory-updates.html"><a href="regulatory-updates.html#nasa-aviation-safety-reporting-system-asrs"><i class="fa fa-check"></i>NASA Aviation Safety Reporting System (ASRS)</a></li>
+<li class="chapter" data-level="" data-path="regulatory-updates.html"><a href="regulatory-updates.html#regulations-update-2021-quick-answers"><i class="fa fa-check"></i>Regulations Update 2021 Quick Answers</a></li>
+<li class="chapter" data-level="" data-path="regulatory-updates.html"><a href="regulatory-updates.html#catDrones"><i class="fa fa-check"></i>The Categories of Drones</a></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="ch-conduct.html"><a href="ch-conduct.html"><i class="fa fa-check"></i>Code of Conduct</a></li>
+<li class="divider"></li>
+<li><a href="https://ucdrones.github.io/ch-resources.html" target="blank">Resources and Templates</a></li>
+<li><a href="https://ucdrones.github.io/map" target="blank">Drone Map of California</a></li>
+<li><small><a href="https://github.com/rstudio/bookdown" target="blank">Published with bookdown</small></a></li>
+
 </ul>
 
-        <div class="book-extra">
-          
-        </div>
       </nav>
-</div>
-  </header><main class="col-sm-12 col-md-9 col-lg-7" id="content"><div id="remote-identification" class="section level1" number="12">
-<h1>
-<span class="header-section-number">12</span> Remote Identification<a class="anchor" aria-label="anchor" href="#remote-identification"><i class="fas fa-link"></i></a>
-</h1>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">UC Drones Knowledge Portal</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="remote-identification" class="section level1 hasAnchor">
+<h1>Remote Identification<a href="remote-identification.html#remote-identification" class="anchor-section" aria-label="Anchor link to header"></a></h1>
 <p>Remote Identification functionality will be required by March 16, 2024. Latest news - <a href="https://www.faa.gov/newsroom/faa-extends-remote-id-enforcement-date-six-months">FAA Extends Remote ID Enforcement Date Six Months</a></p>
-<div id="what-is-remote-identification" class="section level2" number="12.1">
-<h2>
-<span class="header-section-number">12.1</span> What is Remote Identification?<a class="anchor" aria-label="anchor" href="#what-is-remote-identification"><i class="fas fa-link"></i></a>
-</h2>
+<div id="what-is-remote-identification" class="section level2 hasAnchor">
+<h2>What is Remote Identification?<a href="remote-identification.html#what-is-remote-identification" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <p>Remote identification technology broadcasts information about a drone’s flight, location, and operator. This information can be picked up and viewed by anyone with the proper receiver, and is therefore public knowledge. It exists to notify nearby bystanders of a drone’s presence, and to aid law enforcement with monitoring and tracking down UAS in national airspace.</p>
 <p>For more information about Remote Identification, please visit the FAA’s website <a href="https://www.faa.gov/uas/getting_started/remote_id">here</a></p>
-<div id="standard-remote-identification" class="section level3" number="12.1.1">
-<h3>
-<span class="header-section-number">12.1.1</span> Standard Remote Identification<a class="anchor" aria-label="anchor" href="#standard-remote-identification"><i class="fas fa-link"></i></a>
-</h3>
+<div id="standard-remote-identification" class="section level3 hasAnchor">
+<h3>Standard Remote Identification<a href="remote-identification.html#standard-remote-identification" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p>Most drones manufactured after December 2022 have RID already built-in to the drone’s firmware. Standard RID displays the drone’s location, altitude and speed, as well as the location and altitude of it’s operation station.</p>
 </div>
-<div id="broadcast-remote-identification" class="section level3" number="12.1.2">
-<h3>
-<span class="header-section-number">12.1.2</span> Broadcast Remote Identification<a class="anchor" aria-label="anchor" href="#broadcast-remote-identification"><i class="fas fa-link"></i></a>
-</h3>
+<div id="broadcast-remote-identification" class="section level3 hasAnchor">
+<h3>Broadcast Remote Identification<a href="remote-identification.html#broadcast-remote-identification" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p>For drones that don’t have RemoteID built in, pilots must install a Remote ID broadcast module. This is a a small and lightweight component that can be added externally to a drone. It functions the same as standard remote identification, minus the ability to broadcast the location of the drone’s operator. Modules can only display the location of the drone’s takeoff point.</p>
 <center>
-<a href="https://www.faa.gov/sites/faa.gov/files/uas/getting_started/remote_id/industry/Remote_ID_Standard.pdf"><img src="images/RID_SRID.png" title="Standard Remote ID" width="300" alt="Standard Remote ID"></a>
-<a href="https://www.faa.gov/sites/faa.gov/files/uas/getting_started/remote_id/industry/Remote_ID_Broadcast_Module.pdf"><img src="images/RID_BRID.png" title="Broadcast Remote ID" width="300" alt="Broadcast Remote ID"></a>
+<a href="https://www.faa.gov/sites/faa.gov/files/uas/getting_started/remote_id/industry/Remote_ID_Standard.pdf"><img src="images/RID_SRID.png" title="Standard Remote ID" width="300" alt="Standard Remote ID" /></a>
+<a href="https://www.faa.gov/sites/faa.gov/files/uas/getting_started/remote_id/industry/Remote_ID_Broadcast_Module.pdf"><img src="images/RID_BRID.png" title="Broadcast Remote ID" width="300" alt="Broadcast Remote ID" /></a>
 </center>
 </div>
-<div id="faa-recognized-identification-area-fria" class="section level3" number="12.1.3">
-<h3>
-<span class="header-section-number">12.1.3</span> FAA Recognized Identification Area (FRIA)<a class="anchor" aria-label="anchor" href="#faa-recognized-identification-area-fria"><i class="fas fa-link"></i></a>
-</h3>
-<p>For drones that do not have RID capabilities, the FAA is allowing pilots to fly their drones only in FAA Recognized Identification Areas. As of now, only Educational institutions and FAA-recognized Community Based Organizations can apply for a FRIA.</p>
-<p>The Drone Map of California has been updated with all approved FRIAs in California: <a href="https://ucdrones.github.io/map/">Drone Map of California</a>.</p>
+<div id="faa-recognized-identification-area-fria" class="section level3 hasAnchor">
+<h3>FAA Recognized Identification Area (FRIA)<a href="remote-identification.html#faa-recognized-identification-area-fria" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>For drones that do not have RID capabilities, the FAA is allowing pilots to fly their drones only in FRIAs. Visit the FAA’s UAS Data Delivery Service (UDDS) website to find a map of all FRIAs in the United States. Educational institutions and FAA-recognized Community Based Organizations can apply for a FRIA.</p>
 </div>
 </div>
-<div id="standard-remote-id-drones" class="section level2" number="12.2">
-<h2>
-<span class="header-section-number">12.2</span> Standard Remote ID Drones<a class="anchor" aria-label="anchor" href="#standard-remote-id-drones"><i class="fas fa-link"></i></a>
-</h2>
+<div id="standard-remote-id-drones" class="section level2 hasAnchor">
+<h2>Standard Remote ID Drones<a href="remote-identification.html#standard-remote-id-drones" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <p>If your drone is equipped with remote ID or has the capabilities for it, then you are operating with standard remote ID. Make sure to keep your drone’s firmware up to date to receive the latest Remote ID updates. Remote ID functionality is typically seamless - simply switch on your drone and enter flight mode, and remote ID is required to automatically trigger and broadcast information up until the drone is turned off.</p>
 <p>Some common drones with Standard Remote ID include:</p>
 <ul>
@@ -134,13 +249,11 @@
 <li>AgEagle eBee</li>
 <li>Skydio 2+</li>
 </ul>
-<p>A full list of Standard Remote ID drones can be found in our <a href="pickdrone.html#dronelist">Full Table of Drones</a></p>
+<p>A full list of Standard Remote ID drones can be found in our <a href="need-to-pick-a-drone.html#dronelist">Full Table of Drones</a></p>
 <p>*excludes Mavic 2 Enterprise Zoom/Dual</p>
 </div>
-<div id="broadcast-remote-id-modules" class="section level2" number="12.3">
-<h2>
-<span class="header-section-number">12.3</span> Broadcast Remote ID Modules<a class="anchor" aria-label="anchor" href="#broadcast-remote-id-modules"><i class="fas fa-link"></i></a>
-</h2>
+<div id="broadcast-remote-id-modules" class="section level2 hasAnchor">
+<h2>Broadcast Remote ID Modules<a href="remote-identification.html#broadcast-remote-id-modules" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <p>Remote ID modules were created to act as a substitution for standard remote ID, specifically for older drones that are unable to comply with the new regulation. There are a few on the market, with the most popular being the Dronetag Beacon and the DroneBeacon db120. When looking for the best module to purchase, make sure to look at battery life, size of the device, and the signal’s range.</p>
 <p>Some common drones that need a Broadcast Remote ID module:</p>
 <ul>
@@ -151,124 +264,93 @@
 <li>DJI Matrice 100 Series</li>
 <li>Any drone built from parts or a kit</li>
 </ul>
-<div id="available-broadcast-remote-id-modules" class="section level3" number="12.3.1">
-<h3>
-<span class="header-section-number">12.3.1</span> Available Broadcast Remote ID Modules<a class="anchor" aria-label="anchor" href="#available-broadcast-remote-id-modules"><i class="fas fa-link"></i></a>
-</h3>
+<div id="available-broadcast-remote-id-modules" class="section level3 hasAnchor">
+<h3>Available Broadcast Remote ID Modules<a href="remote-identification.html#available-broadcast-remote-id-modules" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <ul>
-<li>
-<strong>Blue Mark DroneBeacon db120</strong> (Figure <a href="remote-identification.html#fig:db120">12.1</a>) is ideal for all applications, as it has the ability to broadcast signals through Bluetooth, Wi-Fi, or both. It is small and lightweight (25g), with a long battery life and even longer signal range. Available <a href="https://dronescout.co/product/dronebeacon-db120/">here</a> for <span class="math inline">\(\text{€}129\)</span>
-</li>
+<li><strong>Blue Mark DroneBeacon db120</strong> (Figure <a href="remote-identification.html#fig:db120">3</a>) is ideal for all applications, as it has the ability to broadcast signals through Bluetooth, Wi-Fi, or both. It is small and lightweight (25g), with a long battery life and even longer signal range. Available <a href="https://dronescout.co/product/dronebeacon-db120/">here</a> for <span class="math inline">\(\text{€}129\)</span></li>
 </ul>
-<div class="figure" style="text-align: center">
-<span style="display:block;" id="fig:db120"></span>
-<img src="images/db120mounted.png" alt="Blue Mark db120" width="25%"><p class="caption">
-Figure 12.1: Blue Mark db120
+<div class="figure" style="text-align: center"><span style="display:block;" id="fig:db120"></span>
+<img src="images/db120mounted.png" alt="Blue Mark db120" width="25%" />
+<p class="caption">
+Figure 3: Blue Mark db120
 </p>
 </div>
 <ul>
-<li>
-<strong>DroneTag Beacon</strong> (Figure <a href="remote-identification.html#fig:dtag">12.2</a>) is an even lighter option at 15g, better for small drones such as the DJI Mavic series, albeit at a slightly higher cost. Available <a href="https://shop.dronetag.cz/products/21-dronetag-beacon.html">here</a> for <span class="math inline">\(\text{€}199\)</span>. External bluetooth antenna does provide additional range, but is functional without.</li>
+<li><strong>DroneTag Beacon</strong> (Figure <a href="remote-identification.html#fig:dtag">4</a>) is an even lighter option at 15g, better for small drones such as the DJI Mavic series, albeit at a slightly higher cost. Available <a href="https://shop.dronetag.cz/products/21-dronetag-beacon.html">here</a> for <span class="math inline">\(\text{€}199\)</span>. External bluetooth antenna does provide additional range, but is functional without.</li>
 </ul>
-<div class="figure" style="text-align: center">
-<span style="display:block;" id="fig:dtag"></span>
-<img src="images/dtbeacon.png" alt="DroneTag Beacon" width="25%"><p class="caption">
-Figure 12.2: DroneTag Beacon
+<div class="figure" style="text-align: center"><span style="display:block;" id="fig:dtag"></span>
+<img src="images/dtbeacon.png" alt="DroneTag Beacon" width="25%" />
+<p class="caption">
+Figure 4: DroneTag Beacon
 </p>
 </div>
 <ul>
-<li>
-<strong>Spektrum SkyID</strong> Spektrum was the pioneer in 2.4GHZ RC systems, and now they’re the first to make a good RemoteID module for the average RC pilot. Just plug this into any of your servo ports on your receiver and you’re good to go. Compatible with just about any RC receiver. Available <a href="https://www.spektrumrc.com/product/skyid-remote-id-module/SPMA9500.html">here</a> for $99.99.</li>
+<li><strong>Spektrum SkyID</strong> Spektrum was the pioneer in 2.4GHZ RC systems, and now they’re the first to make a good RemoteID module for the average RC pilot. Just plug this into any of your servo ports on your receiver and you’re good to go. Compatible with just about any RC receiver. Available <a href="https://www.spektrumrc.com/product/skyid-remote-id-module/SPMA9500.html">here</a> for $99.99.</li>
 </ul>
-<div class="figure" style="text-align: center">
-<span style="display:block;" id="fig:skyID"></span>
-<img src="images/skyID.jpg" alt="Spektrum SkyID" width="25%"><p class="caption">
-Figure 12.3: Spektrum SkyID
+<div class="figure" style="text-align: center"><span style="display:block;" id="fig:skyID"></span>
+<img src="images/skyID.jpg" alt="Spektrum SkyID" width="25%" />
+<p class="caption">
+Figure 5: Spektrum SkyID
 </p>
 </div>
 </div>
-<div id="update" class="section level3" number="12.3.2">
-<h3>
-<span class="header-section-number">12.3.2</span> Updating your Registration<a class="anchor" aria-label="anchor" href="#update"><i class="fas fa-link"></i></a>
-</h3>
+<div id="update" class="section level3 hasAnchor">
+<h3>Updating your Registration<a href="remote-identification.html#update" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p>To complete the transition to Remote ID, all drone registrations must be updated on the FAA Drone Zone. Updating your UAS Registration is free and can be done at any time until December 31, 2023 - this date may be extended.</p>
 <ol style="list-style-type: decimal">
 <li>Log into FAA Drone Zone</li>
-<li>From your dashboard, enter your drone inventory.<br>
+<li>From your dashboard, enter your drone inventory.<br />
 </li>
 <li>Find the drone registration you want to update, and click the three vertical dots to open the menu.
 <ul>
 <li>Select ‘Edit’ from the dropdown menu.</li>
-</ul>
-</li>
+</ul></li>
 <li>In the new window, when it asks ‘Does your drone broadcast FAA Remote ID information?’ select ‘YES.’</li>
 </ol>
-<div class="figure" style="text-align: center">
-<span style="display:block;" id="fig:ridedit"></span>
-<img src="images/RID_edit.jpg" alt="Edit your UAS Registration" width="75%"><p class="caption">
-Figure 12.4: Edit your UAS Registration
+<div class="figure" style="text-align: center"><span style="display:block;" id="fig:ridedit"></span>
+<img src="images/RID_edit.jpg" alt="Edit your UAS Registration" width="75%" />
+<p class="caption">
+Figure 6: Edit your UAS Registration
 </p>
 </div>
 <ol start="5" style="list-style-type: decimal">
 <li>Update your UAS TYPE - the options will change when you select ‘YES’
 <ul>
 <li>Select either ‘Standard Remote ID’ or ‘Remote ID Broadcast Module’</li>
-</ul>
-</li>
+</ul></li>
 <li>Enter in the Remote ID Serial Number
 <ul>
 <li>If your drone has Remote ID built-in (ie, Standard Remote ID), use your drone’s serial number.</li>
 <li>If you are adding a Remote ID Broadcast Module, use the Remote ID Broadcast Module’s serial number.</li>
-</ul>
-</li>
+</ul></li>
 </ol>
-<div class="figure" style="text-align: center">
-<span style="display:block;" id="fig:rideupd"></span>
-<img src="images/RID_serial.jpg" alt="Update your Serial Number" width="75%"><p class="caption">
-Figure 12.5: Update your Serial Number
+<div class="figure" style="text-align: center"><span style="display:block;" id="fig:rideupd"></span>
+<img src="images/RID_serial.jpg" alt="Update your Serial Number" width="75%" />
+<p class="caption">
+Figure 7: Update your Serial Number
 </p>
 </div>
 </div>
 </div>
-<div id="frequently-asked-questions-1" class="section level2" number="12.4">
-<h2>
-<span class="header-section-number">12.4</span> Frequently Asked Questions<a class="anchor" aria-label="anchor" href="#frequently-asked-questions-1"><i class="fas fa-link"></i></a>
-</h2>
+<div id="frequently-asked-questions-1" class="section level2 hasAnchor">
+<h2>Frequently Asked Questions<a href="remote-identification.html#frequently-asked-questions-1" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <ol style="list-style-type: decimal">
-<li>
-<p><strong>Can I move my Broadcast Module between drones?</strong></p>
-<p>It is not recommended as of right now. In order to move broadcast modules between drones, you also need to update both drone’s serial number and remote ID serial number in their FAA registration to document the change. While it is currently free to do until December 2023*, afterwords it will be the equivalent of registering a new drone ($5).</p>
-</li>
-<li>
-<p><strong>I don’t like Remote Identification. Do I have to comply? Will the UC do anything to me?</strong></p>
-<p>Yes, it is required by law that all airborne drones need to be equipped with RID by March 16, 2024. If not, you may only fly your drone in a FRIA. Failure to comply with Federal Regulations is a violation of University Policy and may be subject to disciplinary actions.</p>
-</li>
-<li>
-<p><strong>Can I turn off RID while flying in a FRIA?</strong></p>
-<p>No. If your drone has the ability to broadcast RID, it must be on at all times while the drone is in flight.</p>
-</li>
-<li>
-<p><strong>Where can I buy a Broadcast RemoteID module?</strong></p>
-<p>We recommend: <a href="https://dronescout.co/product/dronebeacon-db120/">BlueMark db120, ~$140</a> or <a href="https://shop.dronetag.cz/products/21-dronetag-beacon.html">Dronetag Beacon, ~$220</a>. Network RemoteID is not required in the US.</p>
-</li>
-<li>
-<p><strong>Is it better to get a new drone with Standard Remote ID or get a Broadcast Remote ID module?</strong></p>
-<p>At this point, there is no major difference. After BVLOS regulations are published (TBD, est. 2025), only Standard RemoteID drones will be eligible for BVLOS operations. See our <a href="regulatory-updates.html#catDrones">table of regulations</a> for additional information.</p>
-</li>
-<li>
-<p><strong>After I buy a Broadcast Remote ID module, is there anything I need to do?</strong></p>
-<p>Once you receive it and install it on your drone (velcro works well), edit your drone’s FAA registration. See <a href="remote-identification.html#update">above</a> for instructions. Typically, no further configuration is necessary within the US. If you plan on taking this drone internationally, additional configuration may be necessary.</p>
-</li>
-<li>
-<p><strong>Will the UC set up FRIAs on its campuses?</strong></p>
-<p>Yes, the UC is allowed to setup a FRIA on its property. A FRIA may not cover the entire campus, but can be set up for a commonly used site suitable for regular drone flying. As of today, UC Merced has two FRIAs for development and testing, but other campuses are working towards establishing FRIAs. Contact the UC Center of Excellence on UAS Safety for more information on how to establish a FRIA on your campus.</p>
-</li>
+<li><p><strong>Can I move my Broadcast Module between drones?</strong></p>
+<p>It is not recommended as of right now. In order to move broadcast modules between drones, you also need to update both drone’s serial number and remote ID serial number in their FAA registration to document the change. While it is currently free to do until December 2023*, afterwords it will be the equivalent of registering a new drone ($5).</p></li>
+<li><p><strong>I don’t like Remote Identification. Do I have to comply? Will the UC do anything to me?</strong></p>
+<p>Yes, it is required by law that all airborne drones need to be equipped with RID by March 16, 2024. If not, you may only fly your drone in a FRIA. Failure to comply with Federal Regulations is a violation of University Policy and may be subject to disciplinary actions.</p></li>
+<li><p><strong>Can I turn off RID while flying in a FRIA?</strong></p>
+<p>No. If your drone has the ability to broadcast RID, it must be on at all times while the drone is in flight.</p></li>
+<li><p><strong>Where can I buy a Broadcast RemoteID module?</strong></p>
+<p>We recommend: <a href="https://dronescout.co/product/dronebeacon-db120/">BlueMark db120, ~$140</a> or <a href="https://shop.dronetag.cz/products/21-dronetag-beacon.html">Dronetag Beacon, ~$220</a>. Network RemoteID is not required in the US.</p></li>
+<li><p><strong>Is it better to get a new drone with Standard Remote ID or get a Broadcast Remote ID module?</strong></p>
+<p>At this point, there is no major difference. After BVLOS regulations are published (TBD, est. 2025), only Standard RemoteID drones will be eligible for BVLOS operations. See our <a href="regulatory-updates.html#catDrones">table of regulations</a> for additional information.</p></li>
+<li><p><strong>After I buy a Broadcast Remote ID module, is there anything I need to do?</strong></p>
+<p>Once you receive it and install it on your drone (velcro works well), edit your drone’s FAA registration. See <a href="remote-identification.html#update">above</a> for instructions. Typically, no further configuration is necessary within the US. If you plan on taking this drone internationally, additional configuration may be necessary.</p></li>
 </ol>
 </div>
-<div id="reading-remote-identification" class="section level2" number="12.5">
-<h2>
-<span class="header-section-number">12.5</span> Reading Remote Identification<a class="anchor" aria-label="anchor" href="#reading-remote-identification"><i class="fas fa-link"></i></a>
-</h2>
+<div id="reading-remote-identification" class="section level2 hasAnchor">
+<h2>Reading Remote Identification<a href="remote-identification.html#reading-remote-identification" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <p>One of the primary goals of Remote Identification is to provide information for law enforcement and other security personnel to assist in identifying aerial threats.</p>
 <p>Remote ID messages are relayed in two mechanisms with two versions:</p>
 <ul>
@@ -278,38 +360,28 @@ Figure 12.5: Update your Serial Number
 <li>WiFi Beacon</li>
 </ul>
 <p>The mechanism in which the Remote ID message is relayed is significant to whether they may be detected.</p>
-<div id="mobile-devices" class="section level3" number="12.5.1">
-<h3>
-<span class="header-section-number">12.5.1</span> Mobile Devices<a class="anchor" aria-label="anchor" href="#mobile-devices"><i class="fas fa-link"></i></a>
-</h3>
+<div id="mobile-devices" class="section level3 hasAnchor">
+<h3>Mobile Devices<a href="remote-identification.html#mobile-devices" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p>The intent behind Remote ID is to enable mobile devices to detect and receive messages in the field. However, this aspect of Remote ID is underdeveloped at this point.</p>
 <ul>
 <li>Android devices can receive RID messages over Bluetooth and Wi-Fi</li>
 <li>iOS devices can only receive RID messages over Bluetooth</li>
 </ul>
-<div id="available-apps" class="section level4" number="12.5.1.1">
-<h4>
-<span class="header-section-number">12.5.1.1</span> Available Apps<a class="anchor" aria-label="anchor" href="#available-apps"><i class="fas fa-link"></i></a>
-</h4>
+<div id="available-apps" class="section level4 hasAnchor">
+<h4>Available Apps<a href="remote-identification.html#available-apps" class="anchor-section" aria-label="Anchor link to header"></a></h4>
 <p>There are two apps available for reading Remote ID messages</p>
 <ul>
-<li>
-<strong>OpenDroneID</strong> - Available on <a href="https://play.google.com/store/apps/details?id=org.opendroneid.android_osm">Android</a>
-</li>
-<li>
-<strong>DroneScanner</strong> - Available on <a href="https://play.google.com/store/apps/details?id=cz.dronetag.dronescanner">Android</a> and <a href="https://apps.apple.com/gr/app/drone-scanner/id1644548782">iOS</a>
-</li>
+<li><strong>OpenDroneID</strong> - Available on <a href="https://play.google.com/store/apps/details?id=org.opendroneid.android_osm">Android</a></li>
+<li><strong>DroneScanner</strong> - Available on <a href="https://play.google.com/store/apps/details?id=cz.dronetag.dronescanner">Android</a> and <a href="https://apps.apple.com/gr/app/drone-scanner/id1644548782">iOS</a></li>
 </ul>
-<p><img src="images/RID_dronescanner.png" title="Drone Scanner" width="100" alt="Drone Scanner"><img src="images/RID_opendroneid.jpg" title="OpenDroneID" width="100" alt="OpenDroneID"></p>
+<p><img src="images/RID_dronescanner.png" title="Drone Scanner" width="100" alt="Drone Scanner" />
+<img src="images/RID_opendroneid.jpg" title="OpenDroneID" width="100" alt="OpenDroneID" /></p>
 </div>
-<div id="turn-off-wi-fi-scan-throttling" class="section level4" number="12.5.1.2">
-<h4>
-<span class="header-section-number">12.5.1.2</span> Turn off Wi-Fi scan throttling<a class="anchor" aria-label="anchor" href="#turn-off-wi-fi-scan-throttling"><i class="fas fa-link"></i></a>
-</h4>
+<div id="turn-off-wi-fi-scan-throttling" class="section level4 hasAnchor">
+<h4>Turn off Wi-Fi scan throttling<a href="remote-identification.html#turn-off-wi-fi-scan-throttling" class="anchor-section" aria-label="Anchor link to header"></a></h4>
 <p>By default, Android versions 8.0 and above prohibit frequent scans of Wi-Fi networks. To enable high-frequency scans necessary for Remote ID, you must disable Wi-Fi scan throttling.</p>
 <ol style="list-style-type: decimal">
-<li>
-<p><strong>Turn On Developer Mode</strong></p>
+<li><p><strong>Turn On Developer Mode</strong></p>
 <ul>
 <li>Go to “Settings”</li>
 <li>Tap “About Device” or “About Phone”</li>
@@ -317,25 +389,24 @@ Figure 12.5: Update your Serial Number
 <li>Tap “Build number” seven (7) times.</li>
 <li>Enter your pattern, PIN or password to enable the Developer options menu</li>
 <li>“Developer Options” menu will now appear in your Settings Menu</li>
-</ul>
-</li>
+</ul></li>
 <li><p><strong>Enter Developer Options</strong></p></li>
 <li><p><strong>Scroll Down to the Network category</strong></p></li>
 <li><p><strong>Turn Off Wi-Fi scan throttling</strong></p></li>
 </ol>
 </div>
 </div>
-<div id="drone-broadcasting" class="section level3" number="12.5.2">
-<h3>
-<span class="header-section-number">12.5.2</span> Drone Broadcasting<a class="anchor" aria-label="anchor" href="#drone-broadcasting"><i class="fas fa-link"></i></a>
-</h3>
+<div id="drone-broadcasting" class="section level3 hasAnchor">
+<h3>Drone Broadcasting<a href="remote-identification.html#drone-broadcasting" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p>Not all drones broadcast Remote ID in the same way. The following table depicts the mechanism for common drone manufactures use for Remote ID.</p>
-<div class="inline-table"><table class="table table-sm">
-<thead><tr class="header">
+<table>
+<thead>
+<tr class="header">
 <th></th>
 <th align="left">Bluetooth</th>
 <th align="left">Wi-Fi</th>
-</tr></thead>
+</tr>
+</thead>
 <tbody>
 <tr class="odd">
 <td>DJI Series</td>
@@ -368,65 +439,59 @@ Figure 12.5: Update your Serial Number
 <td align="left">X</td>
 </tr>
 </tbody>
-</table></div>
+</table>
 <p><em>iOS devices are currently only able to read RemoteID messages over Bluetooth.</em></p>
 
 </div>
 </div>
 </div>
-  <div class="chapter-nav">
-<div class="prev"><a href="pickdrone.html"><span class="header-section-number">11</span> Need to Pick a Drone?</a></div>
-<div class="next"><a href="counter-uas.html"><span class="header-section-number">13</span> Counter UAS</a></div>
-</div></main><div class="col-md-3 col-lg-2 d-none d-md-block sidebar sidebar-chapter">
-    <nav id="toc" data-toggle="toc" aria-label="On this page"><h2>On this page</h2>
-      <ul class="nav navbar-nav">
-<li><a class="nav-link" href="#remote-identification"><span class="header-section-number">12</span> Remote Identification</a></li>
-<li>
-<a class="nav-link" href="#what-is-remote-identification"><span class="header-section-number">12.1</span> What is Remote Identification?</a><ul class="nav navbar-nav">
-<li><a class="nav-link" href="#standard-remote-identification"><span class="header-section-number">12.1.1</span> Standard Remote Identification</a></li>
-<li><a class="nav-link" href="#broadcast-remote-identification"><span class="header-section-number">12.1.2</span> Broadcast Remote Identification</a></li>
-<li><a class="nav-link" href="#faa-recognized-identification-area-fria"><span class="header-section-number">12.1.3</span> FAA Recognized Identification Area (FRIA)</a></li>
-</ul>
-</li>
-<li><a class="nav-link" href="#standard-remote-id-drones"><span class="header-section-number">12.2</span> Standard Remote ID Drones</a></li>
-<li>
-<a class="nav-link" href="#broadcast-remote-id-modules"><span class="header-section-number">12.3</span> Broadcast Remote ID Modules</a><ul class="nav navbar-nav">
-<li><a class="nav-link" href="#available-broadcast-remote-id-modules"><span class="header-section-number">12.3.1</span> Available Broadcast Remote ID Modules</a></li>
-<li><a class="nav-link" href="#update"><span class="header-section-number">12.3.2</span> Updating your Registration</a></li>
-</ul>
-</li>
-<li><a class="nav-link" href="#frequently-asked-questions-1"><span class="header-section-number">12.4</span> Frequently Asked Questions</a></li>
-<li>
-<a class="nav-link" href="#reading-remote-identification"><span class="header-section-number">12.5</span> Reading Remote Identification</a><ul class="nav navbar-nav">
-<li><a class="nav-link" href="#mobile-devices"><span class="header-section-number">12.5.1</span> Mobile Devices</a></li>
-<li><a class="nav-link" href="#drone-broadcasting"><span class="header-section-number">12.5.2</span> Drone Broadcasting</a></li>
-</ul>
-</li>
-</ul>
+            </section>
 
-      <div class="book-extra">
-        <ul class="list-unstyled">
-          
-        </ul>
-</div>
-    </nav>
-</div>
-
-</div>
-</div> <!-- .container -->
-
-<footer class="bg-primary text-light mt-5"><div class="container"><div class="row">
-
-  <div class="col-12 col-md-6 mt-3">
-    <p>"<strong>UC Drones Knowledge Portal</strong>" was written by UC Center of Excellence on UAS Safety. It was last built on 2025-07-22.</p>
+          </div>
+        </div>
+      </div>
+<a href="need-to-pick-a-drone.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="regulatory-updates.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+    </div>
   </div>
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/clipboard.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-clipboard.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+"sharing": false,
+"fontsettings": null,
+"edit": null,
+"history": {
+"link": null,
+"text": null
+},
+"view": {
+"link": null,
+"text": null
+},
+"download": null,
+"search": false,
+"toc": {
+"collapse": "section",
+"scroll_highlight": true
+},
+"toolbar": {
+"position": "static"
+},
+"info": false
+});
+});
+</script>
 
-  <div class="col-12 col-md-6 mt-3">
-    <p>This book was built by the <a class="text-light" href="https://bookdown.org">bookdown</a> R package.</p>
-  </div>
-
-</div></div>
-</footer><!-- dynamically load mathjax for compatibility with self-contained --><script>
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
   (function () {
     var script = document.createElement("script");
     script.type = "text/javascript";
@@ -438,22 +503,7 @@ Figure 12.5: Update your Serial Number
     script.src = src;
     document.getElementsByTagName("head")[0].appendChild(script);
   })();
-</script><script type="text/x-mathjax-config">const popovers = document.querySelectorAll('a.footnote-ref[data-toggle="popover"]');
-for (let popover of popovers) {
-  const div = document.createElement('div');
-  div.setAttribute('style', 'position: absolute; top: 0, left:0; width:0, height:0, overflow: hidden; visibility: hidden;');
-  div.innerHTML = popover.getAttribute('data-content');
-
-  var has_math = div.querySelector("span.math");
-  if (has_math) {
-    document.body.appendChild(div);
-    MathJax.Hub.Queue(["Typeset", MathJax.Hub, div]);
-    MathJax.Hub.Queue(function() {
-      popover.setAttribute('data-content', div.innerHTML);
-      document.body.removeChild(div);
-    })
-  }
-}
 </script>
 </body>
+
 </html>
