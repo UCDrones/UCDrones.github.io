@@ -42,6 +42,7 @@ drones-for-mapping
 the-best-drones
 ndaa2024
 dronelist
+ndaa-compliance---common-drone-manufactures-to-avoid
 remote-identification
 what-is-remote-identification
 standard-remote-identification
