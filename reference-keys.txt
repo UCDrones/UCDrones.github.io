@@ -63,6 +63,7 @@ uas-threat-best-practices
 other-resources
 regulatory-updates
 fcc-updates-covered-list-to-add-certain-uas-and-uas-components---december-22-2025
+ndaa-2026-grants-state-and-local-law-enforcement-limited-counter-uas-authority
 notice-of-proposed-rulemaking---beyond-visual-line-of-sight-part-108---852025
 white-house-executive-orders---662025
 billNDAA2025
