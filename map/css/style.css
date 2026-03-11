@@ -1,13 +1,48 @@
-body {
-  width: 100vw;
-  height: 100vh;
-  color: rgb(255, 255, 255);
-  background-color: rgb(255, 255, 255);
-  margin: 0;
-  padding: 0;
-  font-family: Arial;
+/* =========================
+   Design tokens
+   ========================= */
+:root {
+  --color-primary: rgb(8, 100, 180);
+  --color-primary-hover: rgba(61, 145, 255, 0.74);
+  --color-on-primary: #ffffff;
+
+  --color-bg: #ffffff;
+  --color-text: #000000;
+  --color-text-muted: #555555;
+
+  --color-focus: #ffbf47;
+
+  --border-default: 2px solid #000000;
+  --border-neutral: 1px solid #c7c7c7;
+
+  --radius-default: 6px;
+  --radius-compact: 4px;
+
+  --font-base: Arial, sans-serif;
+
+  --hover-bg: #e6f0fa; /* esri-widget hover-ish */
 }
 
+/* =========================
+   Base
+   ========================= */
+html,
+body {
+  width: 100%;
+  height: 100%;
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  font-family: var(--font-base), sans-serif;
+  color: var(--color-text);
+  background-color: var(--color-bg);
+}
+
+/* =========================
+   Layout
+   ========================= */
 .wrapper {
   display: grid;
   grid-template-columns: repeat(10, 10vw);
@@ -16,117 +51,320 @@ body {
 
 .top_header {
   grid-row: 1;
-  grid-column: 1/11;
-  background-color: rgb(18, 149, 216);
-  margin: 0px;
-  padding: 0px;
-  font-family: Arial;
+  grid-column: 1 / 11;
+  background-color: var(--color-primary);
+  color: var(--color-on-primary);
   font-size: 2vh;
-
 }
 
+main#main {
+  grid-row: 2;
+  grid-column: 1 / 11;
+  display: flex;
+  flex-direction: row;
+  min-height: 0;
+}
+
+/* =========================
+   Header
+   ========================= */
+h1 {
+  margin: 0;
+  text-align: center;
+  font-size: x-large;
+}
+
+/* =========================
+   Dashboard / Aside
+   ========================= */
 .dash_window {
-  color: rgb(0, 0, 0);
-  background-color: rgb(255, 255, 255);
-  grid-row: 2;
-  grid-column: 1/3;
-  padding: 5px;
-  margin: 5px;
+  display: flex;
+  flex-direction: column;
+  min-height: 0;
 
+  background-color: var(--color-bg);
+  color: var(--color-text);
+
+  overflow-y: auto;
+  overflow-x: visible;
+
+  padding: 8px;
+  margin: 5px;
 }
 
+/* =========================
+   Map
+   ========================= */
 .map_window {
-  grid-row: 2;
-  grid-column: 3/11;
+  flex: 1 1 auto;
+  min-height: 0;
+}
+
+/* =========================
+   Buttons (Esri-aligned)
+   ========================= */
+button,
+.btn1 {
+  background: transparent;
+  color: var(--color-text);
+  border: none;
+  border-radius: var(--radius-default);
+  padding: 4px 6px;
+
+  font-family: inherit;
+  font-size: 0.95rem;
+  cursor: pointer;
+
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+}
+
+button:hover,
+.btn1:hover,
+button:focus-visible,
+.btn1:focus-visible {
+  background-color: var(--hover-bg);
+}
+
+button:focus-visible,
+.btn1:focus-visible {
+  outline: 2px solid var(--color-focus);
+  outline-offset: 2px;
+}
+
+/* =========================
+   Inputs (general)
+   ========================= */
+input[type="text"],
+.esri-input {
+  background-color: var(--color-bg);
+  color: var(--color-text);
+
+  border: var(--border-default);
+  border-radius: var(--radius-default);
+
+  padding: 6px 8px;
+  font-size: 8rem;
+  font-family: inherit;
+}
+
+input::placeholder,
+.esri-search__input::placeholder {
+  color: var(--color-text-muted);
+}
+
+input:focus-visible,
+.esri-search__input:focus-visible {
+  outline: 3px solid var(--color-focus);
+  outline-offset: -1px;
+}
+
+/* =========================
+   Coordinates block
+   ========================= */
+
+.coords{
+  display:grid;
+  grid-template-columns: max-content 16ch max-content; /* label | input | button */
+  column-gap: 12px;
+  row-gap: 6px;
+  align-items:center;
+}
+
+
+.coords label {
+  display: contents;
+}
+
+.coords span {
+  font-size: 1.2rem;
+}
+
+.coords input {
   width: 100%;
 }
 
+.coords button {
+  white-space: nowrap;
+  padding: 6px 8px;
+}
+
+.coords input[type="text"]:hover {
+  border-color: #9e9e9e;
+}
+
+.coords input[type="text"]:focus-visible {
+  border-color: #9e9e9e;
+  outline: 2px solid var(--color-focus);
+  outline-offset: -1px;
+}
+
+/* Compact style specifically for lat/lon inputs */
+.coords input[type="text"] {
+
+  width: 16ch;            /* try 8ch–12ch */
+  max-width: 100%;
+
+
+  border: 2px solid var(--color-primary);
+  border-radius: var(--radius-compact);
+
+  padding: 4px 6px;
+  font-size: 0.9rem;
+}
+
+/* =========================
+   ArcGIS widgets (scoped, safe)
+   ========================= */
+.dash_window .esri-widget {
+  background-color: #ffffff;
+  color: #000000;
+}
+
+.dash_window .esri-layer-list {
+  padding: 4px;
+}
+
+/* Restore ArcGIS icon button feel */
+.dash_window .esri-widget--button {
+  background: transparent;
+  color: #000000;
+  border: none;
+  padding: 4px;
+}
+
+.dash_window .esri-widget--button:hover,
+.dash_window .esri-widget--button:focus-visible {
+  background-color: var(--hover-bg);
+  outline: 2px solid var(--color-focus);
+  outline-offset: 2px;
+}
+
+/* =========================
+   Header Search (input group)
+   ========================= */
+#address-search .esri-search {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+
+  border: var(--border-neutral);
+  border-radius: var(--radius-compact);
+  padding: 4px;
+  background-color: #ffffff;
+}
+
+#address-search .esri-search__input {
+  flex: 1 1 auto;
+  border: 2px solid var(--color-primary);
+  outline: none;
+  font-size: 0.95rem;
+}
+
+#address-search .esri-search__submit-button {
+  width: 32px;
+  height: 32px;
+
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+
+  background: transparent;
+  border-radius: var(--radius-compact);
+}
+
+#address-search .esri-icon-search {
+  font-size: 16px;
+  line-height: 1;
+}
+
+#address-search .esri-search__submit-button:hover,
+#address-search .esri-search__submit-button:focus-visible {
+  background-color: var(--hover-bg);
+}
+
+#address-search .esri-search__submit-button:focus-visible {
+  outline: 2px solid var(--color-focus);
+  outline-offset: 2px;
+}
+
+/* =========================
+   Layers container
+   ========================= */
+#layers {
+  flex: 1 1 auto;
+  min-height: 0;
+  border-radius: var(--radius-compact);
+  padding: 4px;
+}
+
+/* =========================
+   Panel pattern
+   ========================= */
+.panel {
+  display: flex;
+  flex-direction: column;
+  min-height: 0;
+
+  border: var(--border-neutral);
+  border-radius: var(--radius-compact);
+  background-color: #ffffff;
+
+  margin-bottom: 12px;
+}
+
+.panel-header {
+  padding: 6px 8px;
+  font-size: 0.95rem;
+  font-weight: 600;
+
+  border-bottom: var(--border-neutral);
+  background-color: #f8f8f8;
+}
+
+.panel > *:not(.panel-header) {
+  padding: 8px;
+}
+
+/* =========================
+   Utilities
+   ========================= */
 .small-caption {
-	font-size: small;
-	font-style: italic;
-}
-
-
-#sites-filter {
-height: 240px;
-width: 200%;
-visibility: hidden;
-}
-
-.site-item {
-width: 100%;
-padding: 12px;
-text-align: center;
-vertical-align: baseline;
-cursor: pointer;
-height: 40px;
-}
-
-.site-item:focus {
-background-color: dimgrey;
-}
-
-.site-item:hover {
-background-color: dimgrey;
+  margin-top: 8px;
+  font-size: 0.85rem;
+  color: var(--color-text-muted);
 }
 
 .active {
-background-color: lightblue;
+  background-color: lightblue;
 }
 
-#layerToggle {
-top: 80px;
-right: 20px;
-position: absolute;
-z-index: 99;
-background-color: white;
-border-radius: 8px;
-padding: 10px;
-opacity: 0.90;
+/* =========================
+   Skip link
+   ========================= */
+.skip-link {
+  position: absolute;
+  top: -40px;
+  left: 0;
+
+  background: #ffffff;
+  color: #000000;
+  border: 2px solid #000000;
+
+  padding: 8px 12px;
+  z-index: 1000;
+  text-decoration: none;
 }
 
-.material-icons {
-  font-size: 2.3vw;
+.skip-link:focus {
+  top: 0;
 }
 
-.btnholder {
-  display: -webkit-box; /* OLD - iOS 6-, Safari 3.1-6, BB7 */
-  display: -ms-flexbox; /* TWEENER - IE 10 */
-  display: -webkit-flex; /* NEW - Safari 6.1+. iOS 7.1+, BB10 */
-  display: flex; /* NEW, Spec - Firefox, Chrome, Opera */
-  justify-content: center;
-}
 
-.btn1 {
-  background-color: DodgerBlue; /* Blue background */
-  border: none; /* Remove borders */
-  color: white; /* White text */
-  margin: 0.1vw;
-  padding: 2px 4px; /* Some padding */
-  /* font-size: 16px; Set a font size */
-  cursor: pointer; /* Mouse pointer on hover */
-}
-
-.btn1:hover {
-  margin: 0.3vw;
-  background-color: rgba(61, 145, 255, 0.74);
-  box-shadow: 0 12px 16px 0 rgba(0, 0, 0, 0.24),
-    0 17px 50px 0 rgba(0, 0, 0, 0.19);
-}
-
-.h1 {
-  text-align: center;
-}
-
-.h3 {
-	text-align: center;
-}
-
-.icon {
-  float: left;
-  /* display: inline-block; */
-  width: 5vh;
-  height: 5vh;
-  overflow: hidden;
-
+/* WCAG fix: layers invisible at current scale */
+.esri-layer-list__item-label[aria-checked="false"]
+.esri-layer-list__item-title {
+  color: #595959;       /* ~7:1 contrast on white */
+  opacity: 1;           /* override Esri dimming */
 }

@@ -1,23 +1,18 @@
 <!DOCTYPE html>
-<!--
-To change this license header, choose License Headers in Project Properties.
-To change this template file, choose Tools | Templates
-and open the template in the editor.
--->
-<html>
-    <head>
+<html lang="en">
+<head>
     <meta charset="utf-8" />
     <meta
-      name="viewport"
-      content="initial-scale=1, maximum-scale=1, user-scalable=no"
+            content="initial-scale=1, maximum-scale=1, user-scalable=no"
+            name="viewport"
     />
 
     <title>Drone Map of California</title>
 
     <!--Arcgis Stylesheet-->
     <link
-      rel="stylesheet"
-      href="https://js.arcgis.com/4.27/esri/themes/light/main.css"
+            href="https://js.arcgis.com/4.27/esri/themes/light/main.css"
+            rel="stylesheet"
     />
 
     <!--Custom Stylesheet-->
@@ -25,40 +20,63 @@ and open the template in the editor.
     <script src="https://js.arcgis.com/4.27/"></script>
 
     <!-- Map Javascript Content -->
-	<script type="text/javascript" src="scripts/symbols.js"></script>
-	<script type="text/javascript" src="scripts/labels.js"></script>
-	<script type="text/javascript" src="scripts/renderers.js"></script>
-	<script type="text/javascript" src="scripts/render_UC.js"></script>
-	<script type="text/javascript" src="scripts/arcade.js"></script>
-    <script type="text/javascript" src="scripts/map.js"></script>
+    <script src="scripts/symbols.js" type="text/javascript"></script>
+    <script src="scripts/labels.js" type="text/javascript"></script>
+    <script src="scripts/renderers.js" type="text/javascript"></script>
+    <script src="scripts/render_UC.js" type="text/javascript"></script>
+    <script src="scripts/arcade.js" type="text/javascript"></script>
+    <script src="scripts/map.js" type="text/javascript"></script>
 
     <!-- Logic Javascript Content -->
-    <script type="text/javascript" src="scripts/logic.js"></script>
-  </head>
+    <script src="scripts/logic.js" type="text/javascript"></script>
+</head>
 
-  <body>
-    <div id="content" class="wrapper">
-      <div id="header" class="top_header">
-        <p class="h1">Drone Map of California</p>
-      </div>
+<body>
+<a class="skip-link" href="#main">Skip to main content</a>
+<div class="wrapper" id="content">
+    <header class="top_header">
+        <h1>Drone Map of California</h1>
+    </header>
 
-      <div id="Map" class="map_window"></div>
-      <div id="DashBoard" class="dash_window">
-        <div class="LatLon">
-			<p class="h3">Latitude and Longitude</p>
-			<label for="flat">Lat:</label>
-			<input type="text" id="flat" name="flat" size="10">
-			<button onclick="copyTextBoxLat()">Copy</button>
-			<br><br>
-			<label for="flon">Lon:</label>
-			<input type="text" id="flon" name="flon" size="10">
-			<button onclick="copyTextBoxLon()">Copy</button>
-			<br>
-			<br>
-		  </div>
-		<div id="layers"></div>
-		<div class="small-caption">Missing information? Email us at <a href="mailto:UASsafety@ucmerced.edu">UASsafety@ucmerced.edu</a></div>
-      </div>
-    </div>
-  </body>
+    <main id="main" tabindex="-1">
+        <aside class="dash_window" id="DashBoard">
+            <div class="panel">
+                <div class="panel-header">Address Search</div>
+                <div id="address-search"
+                     aria-label="Find an address or location"
+                ></div>
+
+            </div>
+            <div class="panel">
+                <div class="panel-header">Layers</div>
+                <div id="layers"
+                     aria-label="Find an address or location"
+                ></div>
+
+            </div>
+
+            <div class="panel">
+                <div class="panel-header">Lat and Lon</div>
+
+                <div class="coords">
+                    <label for="flat">Lat:</label>
+                    <input id="flat" name="flat" type="text" inputmode="decimal">
+                    <button type="button" onclick="copyTextBoxLat()">Copy</button>
+
+                    <label for="flon">Lon:</label>
+                    <input id="flon" name="flon" type="text" inputmode="decimal">
+                    <button type="button" onclick="copyTextBoxLon()">Copy</button>
+                </div>
+            </div>
+
+
+            <br />
+            <div class="small-caption">Missing information? Email us at <a href="mailto:UASsafety@ucmerced.edu">UASsafety@ucmerced.edu</a></div>
+        </aside>
+        <div class="map_window" id="Map"></div>
+
+
+    </main>
+</div>
+</body>
 </html>
