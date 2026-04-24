@@ -48,3 +48,7 @@ pre code {
 .datatables {
     font-size: 12px;
 }
+
+a {
+  font-weight: bold;
+}
