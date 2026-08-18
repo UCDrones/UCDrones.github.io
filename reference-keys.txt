@@ -86,7 +86,7 @@ domestic-end-product
 critical-components
 toy-drone
 military-drone-proposed
-power-inverters-proposed
+power-inverters
 advanced-robotic-devices-proposed
 list-of-fcc-announcements
 part-about-us
