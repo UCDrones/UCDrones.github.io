@@ -1,0 +1,15 @@
+---
+title: "NDAA Compliant Drones"
+---
+
+::: callout-important
+**In late 2023, the National Defense Authorization Act introduced new regulations that prohibit the use of Federal Funds for any drone manufactured in China, or any drone utilizing critical components manufactured in China. Unfortunately, there aren't a lot of good options right now, but there are a couple worthy of investment for larger grants and contracts.**
+:::
+
+## NDAA Compliant Options
+
+- **Skydio X10** — [Skydio X10](https://www.skydio.com/), \~\$20k. Good camera and zoom. Main advantage is NDAA compliance itself. RGB-only mapping requires an additional subscription.
+- **WingtraOne Gen II** — [Wingtra](https://wingtra.com/mapping-drone-wingtraone/). Tail-sitter VTOL, up to an hour of flight time, good for tight takeoff spaces with large areas to cover. NDAA 848 compliant versions available.
+- **eBee X** — [eBee](https://ageagle.com/drones/ebee-x/), from \$11,000 (+\$4k–\$10k for payload). NDAA 848 and Class 3 (operations over people) compliant. Best for large open areas.
+- **Freefly Astro Max (NDAA/Blue)** — [Freefly Astro Max](https://store.freeflysystems.com/products/astro-max-mapping-essentials-blue), \$40k. Configurable medium-lift M300/350 replacement. No RTK support in the compliant version.
+- **Inspired Flight IF800** - [Inspired Flight IF800](), \$40k. Configurable medium-lift M300/350 replacement. A little more stable than the Astro, but otherwise very similar performance.

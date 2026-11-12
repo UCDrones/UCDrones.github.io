@@ -1,0 +1,23 @@
+---
+title: "Standard Operating Procedures and Guidance"
+---
+
+## New User Guide
+
+[New User Guide](https://ucdrones.github.io/New_User_Guide/)
+
+- Just getting started with Drones in the UC System? Start here! Includes registration and licensing information.
+
+## Basic Drone Operations
+
+Standard Operating Procedures for Basic UAS Operations
+
+- A short SOP for simple and low risk drone operations.
+
+## Advanced Drone Operations
+
+[Standard Operating Procedures for Advanced Drone Operations](https://ucdrones.github.io/Advanced_SOP/)
+
+- Required Standard Operating Procedures Manual for moderate to risky drone operations, or flight operations under special authorizations
+
+

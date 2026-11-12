@@ -1,0 +1,40 @@
+---
+title: "Operations Over People"
+format: html
+---
+
+In April 2021, the FAA updated Part 107 regulations for operations over people. Eligibility depends on both the aircraft's certification category and the type of Remote ID compliance in use.
+
+## Category Levels
+
+- **Category 0 — Not Eligible for Flights Over People.** The aircraft does not meet the requirements of any category below. Under the baseline Part 107 rule, it may only be flown over a person who is directly participating in the operation, located under a covered structure, or inside a stationary vehicle. "Cat 0" is not an FAA term; it is used on this page to label aircraft that fall outside the four official categories.
+
+- **Category 1 — Under 250 g including payload, with rotor protections.** The lowest-risk category. If the aircraft weighs 0.55 lb or less at takeoff, including any attached payload, and has no exposed rotating parts capable of lacerating skin, it qualifies automatically, with no FAA declaration required.
+
+- **Category 2 — FAA-certified, under 11 ft-lb kinetic energy, with rotor protections.** The aircraft (or aircraft-and-accessory combination) must be certified, through an FAA-accepted means of compliance, not to cause an injury more severe than the transfer of 11 foot-pounds of kinetic energy on impact with a rigid object.
+
+- **Category 3 — FAA-certified, under 25 ft-lb kinetic energy, with rotor protections.** Same certification approach as Category 2, at a higher kinetic-energy threshold. Category 3 aircraft carry additional operating limits: they may not fly over open-air assemblies of people, and are limited to access-controlled sites or brief, transient flights over individuals.
+
+- **Category 4 — FAA airworthiness certificate under Part 21.** The most demanding category, requiring a manned-aircraft-style airworthiness certificate rather than a declared means of compliance. This category is generally not applicable to typical Part 107 operations.
+
+## List of FAA-Certified Drones
+
+The FAA maintains a list of all drones certified for operations over people here: [Declaration of Compliance list](https://uasdoc.faa.gov/listDocs).
+
+::: callout-warning
+Most Category 2 and 3 declarations require a certified parachute recovery system. The parachute reduces the aircraft's terminal kinetic energy below the category threshold, and it is that combination, not the drone alone, that appears on the FAA's declaration.
+:::
+
+## The Categories of Drones
+
+|   | Standard Remote ID | Broadcast/Retrofit Remote ID | No Remote ID |
+|----|----|----|----|
+| **Cat 0** — Not Eligible for Flights Over People | No flights over people. BVLOS only with waiver. | No flights over people. VLOS only. | No flights over people. VLOS only. Recreational Exception under 250g or FRIA only |
+| **Cat 1** — \< 250 g + rotor protections | Flights over open-air assemblies of people. BVLOS only with waiver. | Flights over open-air assemblies of people. VLOS only. | Over some people allowed. No flights over open-air assemblies of people. VLOS only. Recreational Exception or FRIA only. |
+| **Cat 2** — FAA cert, \< 11 lb·ft KE + rotor protections | Flights over open-air assemblies of people. BVLOS only with waiver. | Flights over open-air assemblies of people. VLOS only. | Over some people allowed. No flights over open-air assemblies of people. FRIA only. |
+| **Cat 3** — FAA cert, \< 25 lb·ft KE + rotor protections | Flights over open-air assemblies of people in access-controlled locations. BVLOS only with waiver. | Flights over open-air assemblies of people in access-controlled locations. VLOS only. | Over some people allowed. No flights over open-air assemblies of people. VLOS only. FRIA only. |
+| **Cat 4** — FAA cert, Part 21 Airworthiness | Flights over open-air assemblies of people. BVLOS only with waiver. | Flights over open-air assemblies of people. VLOS only. | Over some people allowed. No flights over open-air assemblies of people. VLOS only. FRIA only. |
+
+For background on the category system itself, see [Part 107 Subpart D](https://www.ecfr.gov/current/title-14/chapter-I/subchapter-F/part-107/subpart-D) and the [FAA's summary of Operations Over People](https://www.faa.gov/uas/commercial_operators/operations_over_people).
+
+For Remote ID compliance options referenced in this table, see [Remote ID](remote-id.qmd).

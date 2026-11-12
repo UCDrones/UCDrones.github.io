@@ -1,0 +1,79 @@
+---
+title: "The EASA formula"
+description: "Where the dashed ALOS line in the VLOS estimator comes from, and how it compares to Part 107."
+editor: visual
+---
+
+The dashed black curve in the [VLOS estimator](index.qmd) comes from guidance published by the European Union Aviation Safety Agency (EASA). It is the only widely published formula that turns a drone's size into a VLOS distance, which makes it a useful reference point for the acuity model.
+
+## The formula
+
+EASA's *Guidelines for UAS operations in the open and specific category* (Issue 03, 17 July 2025) compute VLOS from two parameters and use the smaller one.
+
+**Attitude line of sight (ALOS)** is the farthest distance at which the pilot can still see the drone's position and orientation, based on its size:
+
+$$
+\text{ALOS}_{\text{multirotor}} = 327 \times CD + 20\ \text{m}
+\qquad
+\text{ALOS}_{\text{fixed-wing}} = 490 \times CD + 30\ \text{m}
+$$
+
+$CD$ is the *characteristic dimension* in meters, which EASA defines as the drone's maximum dimension. For a multirotor that is usually the prop-tip-to-prop-tip distance; for a fixed-wing it is usually the wingspan.
+
+**Detection line of sight (DLOS)** is the distance within which the pilot can spot other aircraft in time to avoid them:
+
+$$
+\text{DLOS} = 0.3 \times GV
+$$
+
+$GV$ is ground visibility. EASA recommends at least 5 km, which gives a DLOS of 1,500 m (about 4,920 ft).
+
+$$
+\text{VLOS} = \min(\text{ALOS},\ \text{DLOS})
+$$
+
+EASA's guidelines credit additional detail to a guidance document from Germany's Federal Aviation Office (LBA). They also state that the guidelines are not legally binding.
+
+::: callout-note
+## What the estimator shows
+
+The estimator plots ALOS only. For the drones on this page, ALOS is far below a 5 km DLOS, so DLOS would not change the result in good visibility. In poor visibility it can: at 1 km ground visibility, DLOS drops to 300 m (about 984 ft).
+:::
+
+## Straight-line vs. horizontal distance
+
+EASA measures VLOS as the straight-line distance between the pilot and the drone. The estimator's x-axis is horizontal distance, so the ALOS limit is converted at each altitude $a$:
+
+$$
+d_{\text{horizontal}} = \sqrt{\text{ALOS}^2 - a^2}
+$$
+
+That is why the dashed curve bends toward the y-axis as altitude increases. Drawing it as a vertical line would overstate how far the drone can go horizontally at altitude.
+
+## Worked examples
+
+| Drone | CD | ALOS | Horizontal at 400 ft AGL |
+|----|----|----|----|
+| EVO II Pro V3 (multirotor) | 0.558 m | 202.5 m (664 ft) | 530 ft |
+| eBee X (fixed-wing) | 1.161 m | 598.8 m (1,965 ft) | 1,923 ft |
+
+The EVO II's CD uses the largest dimension listed on retailer spec sheets. Measure your own aircraft if you can.
+
+## How this compares to Part 107
+
+US rules don't set a VLOS distance. 14 CFR 107.31 instead requires the pilot or visual observer to see the drone well enough to:
+
+1.  know its location;
+2.  determine its attitude, altitude, and direction of flight;
+3.  observe the airspace for other traffic or hazards; and
+4.  determine that it does not endanger people or property.
+
+EASA's two parameters map loosely onto these abilities. ALOS relates to item 2 (seeing attitude), and DLOS relates to item 3 (seeing other traffic). This is an interpretation for comparison, not an FAA position. Part 107 also sets a minimum flight visibility of 3 statute miles (about 4.8 km) in 14 CFR 107.51.
+
+## References
+
+- EASA, [*Guidelines for UAS operations in the open and specific category*](https://www.easa.europa.eu/en/downloads/139435/en), Issue 03, 17 July 2025. Section "Calculation of the VLOS distance."
+- [14 CFR 107.31](https://www.law.cornell.edu/cfr/text/14/107.31), Visual line of sight aircraft operation.
+- [14 CFR 107.51](https://www.law.cornell.edu/cfr/text/14/107.51), Operating limitations for small unmanned aircraft.
+
+[← Back to the estimator](index.qmd)

@@ -1,0 +1,13 @@
+---
+title: "Documents and Templates"
+format: html
+---
+
+Templates and checklists to support mission planning, risk evaluation, and pre-flight preparation. Download and customize as needed for your program.
+
+- [Mission Planning Template](/library/mission_planning_template.docx) (DOCX)
+- [Hazard and Risk Evaluation Template](/library/hazard_risk_checklist.docx) (DOCX)
+- [Pre-Flight Crew Briefing Template](/library/preflight_briefing_template.docx) (DOCX)
+- [Pre-Flight Checklist](/library/preflight_checklist.docx) (DOCX)
+- [Mission Checklist](/library/mission_checklist_template.docx) (DOCX)
+- [Emergency Procedures](/library/emergency_procedure_checklists.docx) (DOCX)

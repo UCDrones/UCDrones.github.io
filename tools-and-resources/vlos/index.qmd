@@ -1,0 +1,92 @@
+---
+title: "How far can you really see the drone?"
+resources:
+  - vlos.js
+editor: visual
+---
+
+# Introduction
+
+Maintaining visual line of sight (VLOS) of a drone is a fundamental requirement under 14 CFR Part 107, which governs the commercial use of small unmanned aircraft systems (sUAS) in the United States. According to these regulations, drone pilots (or their visual observers) must always be able to see their aircraft unaided by any device other than corrective lenses. 
+
+In practical terms, “visual line of sight” means that the operator or observer can clearly identify the drone’s orientation and location in real time. While this may sound straightforward, factors such as distance, weather conditions, obstacles, and lighting can all compromise VLOS. Consequently, ensuring VLOS compliance across varying operational scenarios is not always a simple task.
+
+Despite its importance, relatively little research has been dedicated to developing systematic methods to estimate or verify VLOS. Most current industry practices rely on manual observation and conservative flight planning to ensure the drone remains within sight, but these approaches can be subjective and prone to human error.
+
+# VLOS estimator
+
+Pick a drone from the list to load its dimensions, or choose **Custom** and enter your own. Editing any value on a preset switches the selector to Custom automatically, so you can start from a known drone and adjust it.
+
+```{=html}
+<script src="https://cdn.plot.ly/plotly-2.35.2.min.js" charset="utf-8"></script>
+
+<div class="vlos-panel">
+<div class="row g-2 align-items-end">
+  <div class="col-md">
+    <label for="vlos-preset" class="form-label small mb-1">Drone</label>
+    <select id="vlos-preset" class="form-select vlos-preset">
+      <option value="custom">Custom…</option>
+    </select>
+  </div>
+  <br>
+
+  <div class="col-md-auto">
+    <fieldset>
+      <legend class="form-label small mb-1">Type</legend>
+      <div class="btn-group w-100" role="group">
+        <input type="radio" class="btn-check" name="vlos-type" id="vlos-type-mr" value="multirotor" autocomplete="off" checked>
+        <label class="btn btn-outline-primary" for="vlos-type-mr">Multirotor</label>
+        <input type="radio" class="btn-check" name="vlos-type" id="vlos-type-fw" value="fixedwing" autocomplete="off">
+        <label class="btn btn-outline-primary" for="vlos-type-fw">Fixed-wing</label>
+      </div>
+    </fieldset>
+  </div>
+  <br>
+
+    <div class="col-12">
+    <div class="vlos-dims">
+      <div>
+        <label for="vlos-h" class="form-label small mb-1">Height</label>
+        <div class="input-group">
+          <input type="number" id="vlos-h" class="form-control" step="0.1" min="0.1" max="600" inputmode="decimal" aria-describedby="vlos-dims-help">
+          <span class="input-group-text">in</span>
+        </div>
+      </div>
+      <div>
+        <label for="vlos-w" class="form-label small mb-1">Width</label>
+        <div class="input-group">
+          <input type="number" id="vlos-w" class="form-control" step="0.1" min="0.1" max="600" inputmode="decimal" aria-describedby="vlos-dims-help">
+          <span class="input-group-text">in</span>
+        </div>
+      </div>
+      <div>
+        <label for="vlos-cd" class="form-label small mb-1">Max dimension</label>
+        <div class="input-group">
+          <input type="number" id="vlos-cd" class="form-control" step="0.1" min="0.1" max="600" inputmode="decimal" aria-describedby="vlos-dims-help">
+          <span class="input-group-text">in</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="col-12">
+    <div id="vlos-dims-help" class="form-text mt-0">
+      Height and width of the side profile, props or wings included. Max dimension is EASA's characteristic dimension: wingspan or diagonal motor distance. Type selects the EASA formula; Custom lets you enter your own drone.
+    </div>
+  </div>
+</div>
+</div>
+
+<div id="vlos-error" class="vlos-error text-danger small" role="alert" aria-live="polite"></div>
+<div id="vlos-plot"></div>
+<div id="vlos-summary" class="vlos-summary" aria-live="polite"></div>
+
+<script src="vlos.js"></script>
+```
+
+**How to read the plot.** Each colored curve shows how far away, horizontally, the drone can be at a given altitude before its angular size drops below that visual-acuity threshold. The dashed black curve is EASA's attitude-line-of-sight (ALOS) limit. EASA defines it as a straight-line distance, so it bends inward as altitude increases instead of being a vertical line.
+
+To learn more:
+
+- [How the estimate works](method.qmd): the geometry, the equation, and the acuity thresholds.
+- [The EASA formula](easa.qmd): where the ALOS line comes from and how it compares to Part 107.

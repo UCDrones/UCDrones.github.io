@@ -1,0 +1,61 @@
+---
+title: "Notice of Proposed Rulemaking - BVLOS"
+date: "2025-08-05"
+description: "BVLOS proposal finally released. Designed around Organizational Management"
+categories: [Regulations, BVLOS]
+image: /images/FAA.png
+draft: false
+---
+
+![](/images/FAA.png){alt="" width="30%" fig-align="center"}
+
+The FAA finally released their proposed regulations for BVLOS - https://www.faa.gov/newsroom/beyond-visual-line-sight-bvlos
+
+The regulations are a little different than what was expected, but could be a good step forward. 
+
+Some notable items:
+
+- Part 108 is designed around **Organizational management** and oversight rather than individual pilot operations. The University of California would be the Operator (permit/certificate holder) for Part 108.
+
+    - The 'Operator' in the regulations refer to the owner/management rather than the individual pilot. It's a relic of older terminology, like how a 'Person' is defined as an individual, firm, company, or governmental entity (14 CFR 1.1). Think 'Operator' like Delta Airlines is an Operator.
+    - Designation of **Operations Supervisor** (expected to be comparable to a Director of Aviation Operations)
+    - Designation of **Flight Coordinators** (expected to have more direct involvement in flight operations, like a RPIC)
+    - Both positions **exempt from FAA licensing or individual certifications**
+    - Significant **recordkeeping and reporting requirements**
+
+- Part 108 has two options: **Permits** and **Certificates**. Both have specific purpose types, each with their own specific restrictions.
+
+    - **Operating Permits** are the smaller in scale and scope. There are eight defined permit types:
+        1. Package Delivery
+        2. Agriculture (Spraying)
+        3. Aerial Surveying
+        4. Civit Interest (Law Enforcement/Emergency Response)
+        5. UAS Training
+        6. Demonstration
+        7. Recreational
+        8. Flight Test
+    - **Operating Certificates** have steeper requirements but are less limiting. There are four defined certificate types:
+        1. Package Delivery
+        2. Agirculture (Spraying)
+        3. Aerial Surveying
+        4. Civic Interest (Law Enforcement/Emergency Response)
+    - Operators may only have **one of each type** of Permit or Certificate. While most permits have limits on how many drones can be operated under each type (example: An Agriculture Permit only allows a fleet of 10), there are no fleet limits on certificates.
+
+- Aircraft operating under Part 108 are **not limited by Part 107 restrictions**. Part 108 allows drones up to 1,320 lbs, concurrent flight operations, and may operate over people.
+
+- Land zone restrictions and requirements based on **population density**. The FAA proposes to use LandScan as a source for population density, and drafted 5 Categories. For example, flight operations in Category 1 must be at least 50 ft away from any non-participant, while operations in Category 3 must not utilize unlicensed radio bands and are required to have an approved method of in-flight deconfliction. Different permit types also have limits on what Category zones they can operate over, for example, operations with an Aerial Surveying permit may only be allowed over people up to Category 3 zones. All UC campuses are in Category 4 zones.
+
+    - Quick map of the daytime zones in California [ArcGIS Online Map](https://www.arcgis.com/apps/mapviewer/index.html?webmap=799945edd9374e808ce5bbc76c377cf4)
+    - Flight operations over open-air assemblies would still be prohibited regardless of the land Category.
+
+ - The aircraft manufacturer is responsible for obtaining FAA authorization for Airworthiness Acceptance under Part 108. Only manufacturers within the US or a country with which the US has a Bilateral Airworthiness Agreement in place. There are **significant manufacturing requirements**, so it's likely only the major manufacturers would want to go through these lengths.
+ 
+    - Drones must be able to yield right of way to all aircraft broadcasting their position via ADS-B, necessitating some level of **aircraft and object detection system** either on-board or through other ground systems.
+ 
+ 
+ - Operators may also utilize **Automated Data Service Providers** to provide real-time intelligence to the drone regarding weather and other air traffic.
+
+
+We'll continue to track how this rulemaking progresses. Public comments to the legislation will be posted here [FAA Rulemaking Docket](https://www.regulations.gov/docket/FAA-2025-1908)
+
+[← Back to Recent News](../../recent-news.qmd)

@@ -1,0 +1,8 @@
+---
+title: "Drone Table"
+format: html
+---
+
+Full searchable list of drones, including MTOW, NDAA/Blue UAS status, and specs:
+
+[open in Airtable](https://airtable.com/appLmXVd3CNIGD5SG/shrlhugM5pCqBN4qX)

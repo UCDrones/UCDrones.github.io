@@ -1,0 +1,14 @@
+---
+title: "Drones for Multimedia"
+---
+
+Users seeking a drone for photography or videography do not need to consider mapping-software compatibility; camera quality and ease of operation are the primary factors.
+
+::: callout-important
+There are no drones for multimedia that are US-made or NDAA compliant. Please refer to [NDAA-Compliant Drones](ndaa-compliance.qmd).
+:::
+
+- **Air 3S** — [DJI Air 3S](https://www.dji.com/air-3s), \$1,099. 45-minute flight time, 50MP/48MP telephoto dual camera system, excellent flight performance.
+- **Mavic 4 Pro** — [DJI Mavic 4 Pro](https://www.bhphotovideo.com/c/product/1886938-REG/dji_cp_ma_00000848_01_mavic_4_pro_drone.html), \$2,899. The last and best DJI Mavic drone available in the US. Suberp performance in all categories.
+- **Antigravity A1** - [Antigravity A1](https://www.antigravity.tech/), \$1,599. 8K 360-degree camera drone with FPV headset. FreeMotion point-and-fly control, 249g, 24–39 min flight time.
+- **DJI Avata 360** — [DJI Avata 360](https://www.dronenerds.com/products/dji-avata-360-dji-rc-2), from \$719 (RC 2 combo) to \$979 (Fly More Combo). Dual 1-inch sensor 8K/60fps 360-degree FPV drone, 23-min flight time, reframe-after-flight capture.

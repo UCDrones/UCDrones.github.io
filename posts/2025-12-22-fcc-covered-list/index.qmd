@@ -1,0 +1,23 @@
+---
+title: "FCC Announces Ban on Foreign-Made Drones"
+date: "2025-12-22"
+description: "FCC adds all foreign-made drones to its covered list"
+categories: [Regulations, FCC]
+image: /images/FCC.png
+draft: false
+---
+
+![](/images/FCC.png){alt="" width="30%" fig-align="center"}
+
+In an unprecedented move, on December 22, 2025, the FCC declared that UAS and UAS critical component parts that are produced in foreign countries pose unacceptable risks to the national security of the United States and to the safety and security of U.S. persons, and should be included on the FCC's Covered List.
+
+- FCC Press Release and Fact Sheet [here](https://www.fcc.gov/document/fcc-updates-covered-list-add-certain-uas-and-uas-components-0)
+- The updated FCC Covered List can be found [here](https://www.fcc.gov/supplychain/coveredlist)
+
+::: {.callout-important title="Restrictions on foreign-made drones"}
+New foreign-made drones are prohibited from receiving FCC authorization and are therefore prohibited from being imported for use or sale in the U.S. This update to the Covered List does not prohibit the import, sale, or use of any existing device models the FCC previously authorized.
+:::
+
+This FCC action goes above and beyond the initial Section 1709 review that previously only targeted DJI and Autel. The final rule covers all foreign drones and components - not just those made in China, but all foreign countries including Canada, Switzerland, UK, and Germany. In addition, the updated definition for critical components now includes batteries and motors, in addition to the usual autopilots, controllers, and cameras.
+
+[← Back to Recent News](../../recent-news.qmd)

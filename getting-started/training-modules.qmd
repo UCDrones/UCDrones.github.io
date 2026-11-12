@@ -1,0 +1,26 @@
+---
+title: "Training Modules"
+---
+
+## Beginner Training
+
+- [How to be a good visual observer](/trainings/VisualObserver/index.html){target="_blank"}
+  - This is an introduction for learning how to be a good Visual Observers for novices of drone operations. Share this link with anyone who wants to be more prepared for drone operations.
+- [Fire Safety for Drones](/trainings/FireSafety/index.html){target="_blank"}
+  - Fire is an ever-present danger in California. Please go through this fire safety training before operating in any fire risk environments.
+
+## Cinematography Flight Training
+
+- [Basic Tips and Tricks for Cinematography with Drones](/trainings/BasicCinema/index.html){target="_blank"}
+  - This is a training for anyone getting started with using drones for cinematography or video production. In this training, we'll introduce how to start getting cinematic footage with your drone, how to do it safely and legally, and then some basic flight maneuvers to practice.
+
+## Drone Flight Instruction
+
+Learning how to fly a drone is easy - just don't crash! But if you need more help, take a look through our flight instruction curriculum here:
+
+- [Training for Flight Instructors](/trainings/FlightTraining/index.html){target="_blank"}
+  - Will you be teaching new pilots? Here's a new training just for you - Regulations, topics to cover, safety planning and best practices for flight instruction.
+- [Beginner Flight Packet (PDF)](/trainings/FlightInstruction/Beginner_Packet.pdf)
+- [Advanced Flight Packet (PDF)](/trainings/FlightInstruction/Advanced_Packet.pdf)
+- [Guide to Drone Flight Instruction (PDF)](/trainings/FlightInstruction/Guide_to_Drone_Flight_Instruction.pdf)
+

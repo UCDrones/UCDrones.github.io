@@ -1,0 +1,258 @@
+---
+title: "Experiment"
+description: "Field trials testing whether the estimator's angular-size model predicts when observers can see a drone."
+execute:
+  echo: false
+  warning: false
+  message: false
+---
+
+```{r setup}
+library(dplyr)
+library(ggplot2)
+library(knitr)
+
+obs_all <- read.csv("data/vlos_observations.csv")
+
+# Takeoff and landing happen close to the ground; leave them out.
+min_alt_ft <- 10
+obs <- filter(obs_all, alt_ft > min_alt_ft)
+
+drone_order  <- c("Mini", "Autel", "Inspire", "Ebee")
+drone_labels <- c(Mini = "DJI Mini 2", Autel = "Autel EVO II Pro V3",
+                  Inspire = "DJI Inspire 2", Ebee = "eBee")
+drone_colors <- c(Mini = "#CC79A7", Autel = "#E69F00",
+                  Inspire = "#009E73", Ebee = "#56B4E9")   # Okabe-Ito
+
+fmt  <- function(x, digits = 1) formatC(x, format = "f", digits = digits)
+fmtn <- function(x) format(x, big.mark = ",")
+
+# Psychometric curve with a lapse rate: visibility rises with angular size
+# but can level off below 100% when drones are missed for other reasons.
+fit_curve <- function(arcmin, visible) {
+  x <- log(arcmin)
+  y <- as.numeric(visible)
+  nll <- function(p) {
+    pr <- (1 - plogis(p[3])) * plogis(p[1] + p[2] * x)
+    pr <- pmin(pmax(pr, 1e-12), 1 - 1e-12)
+    -sum(y * log(pr) + (1 - y) * log(1 - pr))
+  }
+  p <- optim(c(-1, 3, -3), nll, control = list(maxit = 5000))$par
+  data.frame(b0 = p[1], b1 = p[2], lapse = plogis(p[3]))
+}
+
+predict_curve <- function(fit, arcmin) {
+  (1 - fit$lapse) * plogis(fit$b0 + fit$b1 * log(arcmin))
+}
+
+# Angle at which visibility reaches `target`; NA if the curve never gets there.
+angle_at <- function(fit, target) {
+  q <- target / (1 - fit$lapse)
+  ifelse(q < 1, exp((qlogis(pmin(q, 1 - 1e-9)) - fit$b0) / fit$b1), NA)
+}
+
+# Proportion visible in log-spaced bins, with Wilson 95% intervals.
+bin_breaks <- 2^seq(-2, 9, by = 0.5)
+wilson <- function(x, n, z = 1.96) {
+  p <- x / n
+  centre <- (p + z^2 / (2 * n)) / (1 + z^2 / n)
+  half <- z * sqrt(p * (1 - p) / n + z^2 / (4 * n^2)) / (1 + z^2 / n)
+  list(lo = centre - half, hi = centre + half)
+}
+bin_obs <- function(df) {
+  df |>
+    mutate(bin = cut(arcmin, bin_breaks)) |>
+    filter(!is.na(bin)) |>
+    group_by(bin, .add = TRUE) |>
+    summarise(arcmin = median(arcmin), n = n(), seen = sum(visible),
+              .groups = "drop") |>
+    mutate(p = seen / n,
+           lo = wilson(seen, n)$lo,
+           hi = wilson(seen, n)$hi)
+}
+
+# Fits
+pooled <- fit_curve(obs$arcmin, obs$visible)
+p50 <- angle_at(pooled, 0.5)
+p90 <- angle_at(pooled, 0.9)
+
+fits <- obs |>
+  group_by(drone) |>
+  group_modify(~ fit_curve(.x$arcmin, .x$visible)) |>
+  ungroup() |>
+  mutate(t50 = angle_at(list(b0 = b0, b1 = b1, lapse = lapse), 0.5),
+         t90 = angle_at(list(b0 = b0, b1 = b1, lapse = lapse), 0.9))
+
+# Moments when an observer lost or regained sight of the drone.
+events <- obs_all |>
+  arrange(sheet, row) |>
+  group_by(sheet) |>
+  mutate(changed = visible != lag(visible)) |>
+  ungroup() |>
+  filter(changed, alt_ft > min_alt_ft) |>
+  mutate(event = if_else(visible, "Reacquired", "Lost"),
+         slant_ft = sqrt(dist_ft^2 + alt_ft^2))
+
+loss_dist <- median(events$slant_ft[events$event == "Lost"])
+below_1   <- filter(obs, arcmin < 1)
+
+# Graphs show angles up to 8 arcmin; the fits still use every observation.
+x_view     <- c(0.5, 8)
+x_breaks   <- c(0.5, 1, 2, 4, 8)
+above_view <- round(100 * mean(obs$arcmin > x_view[2]))
+
+```
+
+## Purpose
+
+The [VLOS estimator](index.qmd) predicts how far away a drone stays visible, based on its angular size: how large it appears to the observer. These trials test that prediction directly.
+
+## Method
+
+### Drones
+
+Four drones were flown, ranging from a 249 g quadcopter to a fixed-wing mapping aircraft. Dimensions were measured on each aircraft.
+
+| Drone               | Type       | Width (in) | Height (in) |
+|---------------------|------------|------------|-------------|
+| DJI Mini 2          | Multirotor | 8.5        | 3.1         |
+| Autel EVO II Pro V3 | Multirotor | 15.2       | 4.4         |
+| DJI Inspire 2       | Multirotor | 16.7       | 12.2        |
+| eBee                | Fixed-wing | 45.7       | 5.5         |
+
+### Flights and observers
+
+The multirotor trials were flown between June 11 and June 20, 2025. `r n_distinct(obs$observer)` observers took part, with experience ranging from beginner to experienced pilot. Several observers watched the same flights at the same time, giving `r n_distinct(obs$sheet)` observer sessions in total. Each observer recorded whether they could see the drone, and those records were matched to the drone's flight log by time.
+
+### Angular size
+
+Each observation's angular size was computed from the drone's horizontal distance and altitude relative to the observer, using the same model as the estimator. The model treats the drone as seen from the side, so it is a conservative measure: it describes a drone flying straight toward or away from the observer. See [How the estimate works](method.qmd).
+
+### Measurement accuracy
+
+Angular size depends on distance, so errors matter in proportion to how far away the drone is: a distance error of ΔR changes the angle by about ΔR ÷ R.
+
+GPS positions from consumer drones and phones are typically accurate to a few meters, which is small compared with the hundreds of feet at which drones were lost.
+
+Timing is the larger risk. Devices were synchronized manually before each flight and checked against <https://www.time.gov/>. A 3-second error at 25 ft/s shifts the drone's position by up to 75 ft. Observers typically lost sight of the drone about `r fmtn(round(loss_dist, -1))` ft away, so that error would change the angle by roughly `r round(100 * 75 / loss_dist)`%, and only if the drone was flying straight toward or away from the observer.
+
+## Results
+
+```{r}
+summary_table <- obs |>
+  group_by(drone) |>
+  summarise(Sessions = n_distinct(sheet),
+            Observers = n_distinct(observer),
+            Observations = n(),
+            `Smallest angle (′)` = min(arcmin),
+            `Largest angle (′)` = max(arcmin)) |>
+  arrange(factor(drone, levels = drone_order)) |>
+  mutate(drone = drone_labels[drone]) |>
+  rename(Drone = drone)
+
+kable(summary_table, digits = 1, format.args = list(big.mark = ","),
+      caption = "Observations by drone")
+```
+
+### All drones together
+
+```{r}
+#| label: fig-all
+#| fig-cap: "Share of observations in which the drone was reported visible, by angular size. Points are binned observations (larger points have more data; bins with fewer than 20 observations are hidden) with 95% intervals. The curve is the fitted model; dashed lines mark where it reaches 50% and 90%."
+#| fig-alt: !expr paste0("Scatter plot with fitted curve. The share of observations reported visible rises from 0% below 1 arcminute to about 90% near ", fmt(p90), " arcminutes, crossing 50% at about ", fmt(p50), " arcminutes.")
+#| fig-width: 8
+#| fig-height: 5
+
+grid <- 10^seq(log10(min(obs$arcmin)), log10(max(obs$arcmin)), length.out = 300)
+pooled_curve <- data.frame(arcmin = grid, p = predict_curve(pooled, grid))
+bins_all <- bin_obs(obs) |> filter(n >= 20)
+
+ggplot(bins_all, aes(arcmin, p)) +
+  geom_vline(xintercept = c(p50, p90), linetype = "dashed", colour = "grey50") +
+  annotate("text", x = p50, y = 0.08, hjust = 1.1, size = 3.5,
+           label = paste0("50%: ", fmt(p50), " arcmin")) +
+  annotate("text", x = p90, y = 0.18, hjust = -0.1, size = 3.5,
+           label = paste0("90%: ", fmt(p90), " arcmin")) +
+  geom_line(data = pooled_curve, colour = "#0072B2", linewidth = 1) +
+  geom_linerange(aes(ymin = lo, ymax = hi), colour = "grey40") +
+  geom_point(aes(size = n), colour = "grey20") +
+  scale_x_log10(breaks = x_breaks) +
+  coord_cartesian(xlim = x_view) +
+  scale_y_continuous(limits = c(0, 1),
+                     labels = function(x) paste0(round(100 * x), "%")) +
+  scale_size_area(max_size = 6, name = "Observations") +
+  labs(x = "Angular size (arcminutes, log scale)", y = "Reported visible") +
+  theme_minimal(base_size = 13) +
+  theme(legend.position = "bottom")
+```
+
+Across all four drones, visibility crosses 50% at about **`r fmt(p50)`′** and reaches 90% at about **`r fmt(p90)`′**. Below 1′, observers reported the drone visible in `r sum(below_1$visible)` of `r fmtn(nrow(below_1))` observations. The smallest angle in the data is `r fmt(min(obs$arcmin), 2)`′, so the data says nothing about smaller angles.
+
+Even at large angles, visibility levels off at about `r round(100 * (1 - pooled$lapse))`% rather than 100%: some sightings were missed for reasons unrelated to size.
+
+### Drone by drone
+
+```{r}
+#| label: fig-drones
+#| fig-cap: "Fitted visibility curves for each drone, drawn over the range of angles observed for that drone. Points are binned observations with at least 20 observations each."
+#| fig-alt: "Four fitted curves, one per drone, rising from 0% to near 100% visible. The curves cross 50% at similar angular sizes."
+#| fig-width: 8
+#| fig-height: 5
+
+drone_curves <- obs |>
+  group_by(drone) |>
+  summarise(lo = min(arcmin), hi = max(arcmin)) |>
+  inner_join(fits, by = "drone") |>
+  group_by(drone) |>
+  reframe(arcmin = 10^seq(log10(lo), log10(hi), length.out = 200),
+          p = (1 - lapse) * plogis(b0 + b1 * log(arcmin)))
+
+bins_drone <- obs |>
+  group_by(drone) |>
+  bin_obs() |>
+  filter(n >= 20)
+
+ggplot(drone_curves, aes(arcmin, p, colour = drone)) +
+  geom_point(data = bins_drone, alpha = 0.6, size = 2) +
+  geom_line(linewidth = 1) +
+  scale_x_log10(breaks = x_breaks) +
+  coord_cartesian(xlim = x_view) +
+  scale_y_continuous(limits = c(0, 1),
+                     labels = function(x) paste0(round(100 * x), "%")) +
+  scale_colour_manual(values = drone_colors, labels = drone_labels,
+                      breaks = drone_order, name = NULL) +
+  labs(x = "Angular size (arcminutes, log scale)", y = "Reported visible") +
+  theme_minimal(base_size = 13) +
+  theme(legend.position = "bottom")
+```
+
+```{r}
+fits |>
+  arrange(factor(drone, levels = drone_order)) |>
+  transmute(Drone = drone_labels[drone],
+            `50% visible (′)` = fmt(t50),
+            `90% visible (′)` = ifelse(is.na(t90), "not reached", fmt(t90)),
+            `Missed at large angles` = paste0(round(100 * lapse), "%")) |>
+  kable(caption = "Fitted thresholds by drone")
+```
+
+The 50% points fall within a narrow range, from `r fmt(min(fits$t50))`′ to `r fmt(max(fits$t50))`′. 
+
+### Losing and regaining sight
+
+Each change in an observer's response marks a moment when they lost or regained sight of the drone. There are `r nrow(events)` such moments in the data.
+
+```{r}
+events |>
+  group_by(drone) |>
+  summarise(`Times lost` = sum(event == "Lost"),
+            `Median angle when lost (′)` = fmt(median(arcmin[event == "Lost"])),
+            `Median angle when reacquired (′)` = fmt(median(arcmin[event == "Reacquired"]))) |>
+  arrange(factor(drone, levels = drone_order)) |>
+  mutate(drone = drone_labels[drone]) |>
+  rename(Drone = drone) |>
+  kable(caption = "Angles at which observers lost and regained sight")
+```
+
+For every drone, observers needed a larger angle to find the drone again than to keep tracking it. Once a drone is lost, it has to come closer before it can be found again. Pilots who look away at a controller screen should expect the same.
+

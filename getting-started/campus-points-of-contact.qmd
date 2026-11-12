@@ -1,0 +1,18 @@
+---
+title: "Campus Points of Contact"
+---
+
+| Campus / Entity | Department | Website | Email |
+|----|----|----|----|
+| UC ANR | Informatics & GIS | [igis.ucanr.edu](http://igis.ucanr.edu) | [igis\@ucanr.edu](mailto:igis@ucanr.edu) |
+| UC Berkeley | Campus Police & Risk Services | [Campus Policy](https://oercs.berkeley.edu/policies/campus-policy-library/unmanned-aircraft-system-drone-policy) | [risk\@berkeley.edu](mailto:risk@berkeley.edu) |
+| UC Davis | Risk Services | [Safety Services](http://safetyservices.ucdavis.edu/article/unmanned-aircraft-systems) | [rms\@ucdavis.edu](mailto:rms@ucdavis.edu) |
+| UC Irvine | EH&S and Risk Services | [Campus Policy](https://www.policies.uci.edu/policies/procs/900-33.php) |  |
+| UC Los Angeles | Event Services | [Drone Procedures](https://www.events.ucla.edu/ucla-drone-procedures) | [events\@ucla.edu](mailto:events@ucla.edu) |
+| UC Merced | UC CoE on UAS Safety | [UAS Safety](http://uassafety.ucmerced.edu) | [uassafety\@ucmerced.edu](mailto:uassafety@ucmerced.edu) |
+| Lawrence Berkeley National Lab | EH&S | [Aviation Policy](https://commons.lbl.gov/display/rpm2/Aviation+Management+and+Safety+Policy) |  |
+| UC Riverside | EH&S | [Drone Safety](https://ehs.ucr.edu/safety/UAS/) | [ehs\@ucr.edu](mailto:ehs@ucr.edu) |
+| UC San Diego | EH&S | [Drone Safety](https://blink.ucsd.edu/safety/risk/uas-drones.html) | [ehsfaa\@ucsd.edu](mailto:ehsfaa@ucsd.edu) |
+| UC San Francisco | EH&S | [Drone Operations](https://ehs.ucsf.edu/drone-operations) | [Drones\@ucsf.edu](mailto:Drones@ucsf.edu) |
+| UC Santa Barbara | EH&S | [UAS & Drones](https://www.ehs.ucsb.edu/riskmanagement/unmanned-aerial-systems-drones) |  |
+| UC Santa Cruz | EH&S | [UAS/Drones](https://ehs.ucsc.edu/programs/research-safety/drones.html) | [uas\@ucsc.edu](mailto:uas@ucsc.edu) |

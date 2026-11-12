@@ -1,0 +1,22 @@
+---
+title: "Decision Support Tools"
+format: html
+---
+
+A set of interactive tools to support pre-flight planning and risk assessment. These are aids for thinking through a mission systematically — they don't replace a pilot's judgment or your organization's own safety procedures and regulatory compliance requirements.
+
+## UC Drones Toolset
+
+- [**UC Mission Risk Checker**](/library/risk_checker/) — Rate pilot, aircraft, location, flight plan, weather, ground crew, and organizational readiness to visualize an overall mission risk profile before flying.
+
+- [**Visual Line of Sight Estimator**](https://ucdrones-research.github.io/vlos_report/) — Estimates the maximum distance at which a given drone model remains visible to the naked eye, based on aircraft size and standard visual acuity thresholds.
+
+- [**Standoff Distance for Operations over Buildings**](/library/building_standoff/) — Calculates the minimum safe horizontal distance needed to maintain line of sight on a drone flying above a building, based on building height, length, and flight altitude.
+
+- [**Drone Map of California**](/library/map) — Map of UC properties, county/city regulations, and public lands relevant to flight planning.
+
+- [**UAS Registration Tag Generator**](/library/reg_tag_generator.html) — enter a drone nickname, campus, and FAA registration number to generate a printable tag PDF
+
+## Partner Tools
+
+- [**When2Fly**](https://digitalag.ucdavis.edu/decision-support-tools/when2fly) — Decision support tool from the Digital Agriculture Laboratory (Alireza Pourreza, UC Davis).

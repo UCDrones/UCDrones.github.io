@@ -1,0 +1,43 @@
+meta:
+  name: "UC Drones"   # informational only; Quarto doesn't use meta values
+
+logo:
+  images:
+    wordmark:
+      path: images/COE_logo.png
+      alt: "UC Drones"          # alt text for screen readers
+  # `small` is also used as the browser-tab favicon. A wide wordmark is
+  # unreadable at 16px, so swap in a square icon here if you have one.
+  small: wordmark
+  medium: wordmark              # used in the sidebar
+  large: wordmark
+
+color:
+  palette:
+    blue: "#1295D8"             # AA18 only (large/bold text), not used for links or body text
+    blue-dark: "#005581"        # full AA on white at any text size
+    blue-extra-dark: "#002033"
+    gold: "#FFB511"             # accent only: no light text on this color
+    teal: "#00778B"             # full AA with white text
+    orange: "#FF6E1B"           # requires dark text, not white
+    gray-extra-dark: "#171717"
+    gray-warm-1: "#DBD5CD"
+
+  primary: blue-dark            # also sets the navbar background
+  secondary: gold               # used by .btn-secondary etc.; never use as a text color on white
+  background: "#FFFFFF"
+  foreground: gray-extra-dark
+
+typography:
+  fonts:
+    - family: Arial
+      source: system
+
+  base:
+    family: Arial
+  headings:
+    family: Arial
+    weight: 600
+  link:
+    color: blue-dark
+    decoration: underline

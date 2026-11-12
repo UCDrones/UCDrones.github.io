@@ -1,0 +1,14 @@
+---
+title: "Updated Website"
+date: "2026-09-28"
+description: "Website refresh and WCAG 2.2 compliance"
+categories: [Site News]
+# image: thumbnail.jpg
+draft: false
+---
+
+It's been 5 years since the last webpage refresh, so I took the opportunity to move some things around and add a "Recent News" page.
+
+Some pages are still being updated. If you find an error, a broken link, or an accessibility issue, let me know.
+
+[← Back to Recent News](../../recent-news.qmd)

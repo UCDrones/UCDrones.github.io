@@ -1,0 +1,23 @@
+---
+title: "Reading Remote ID"
+format: html
+---
+
+One purpose of Remote ID is to give law enforcement and security personnel information for identifying aircraft. Broadcasts are transmitted by one of four methods: Bluetooth 4 Legacy Advertising, Bluetooth 5 Long Range Advertising, Wi-Fi Neighbor Awareness Network (NAN), or Wi-Fi Beacon. The method used determines which devices can detect a given broadcast.
+
+## Mobile Devices
+
+Android devices can receive Remote ID messages over Bluetooth and Wi-Fi.
+
+::: callout-warning
+iOS devices are currently only able to read RemoteID messages over Bluetooth.
+:::
+
+Available apps:
+
+- **OpenDroneID**, available on [Android](https://play.google.com/store/apps/details?id=org.opendroneid.android_osm)
+- **Drone Scanner**, available on [Android](https://play.google.com/store/apps/details?id=cz.dronetag.dronescanner) and [iOS](https://apps.apple.com/gr/app/drone-scanner/id1644548782)
+
+### Android Wi-Fi Scan Throttling
+
+Android 8.0 and later limit the frequency of Wi-Fi scans, which prevents reliable detection of Wi-Fi broadcasts. To disable throttling, enable Developer options (Settings, About phone, tap Build number seven times), then turn off "Wi-Fi scan throttling" under the Networking category. Menu names vary by device manufacturer.

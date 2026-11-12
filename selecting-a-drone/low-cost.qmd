@@ -1,0 +1,15 @@
+---
+title: "Low-Cost Drones"
+---
+
+The following options are suitable for users who want to begin flying without a large investment. These drones do not include mapping software or research-grade sensors.
+
+::: callout-important
+There are no low-cost drones that are US-made or NDAA compliant. Please refer to [NDAA-Compliant Drones](ndaa-compliance.qmd).
+:::
+
+- **Mini 4 Pro** — DJI's compact, affordable line. At 249g, it is well suited as a flight trainer and for casual media use. The current model is the [Mini 4 Pro](https://www.dji.com/mini-4-pro); the earlier [Mini 3](https://www.dji.com/mini-3) and [Mini 3 Pro](https://www.dji.com/mini-3-pro) remain viable options. The controller with a built-in screen (DJI RC/RC 2) offers the most portability.
+- **Aeroo Pro** — [Aeroo Pro](https://us.aeroodrones.com/products/aeroo-pro-combo), \$1,099. Provides a 45-minute flight time, 2.2 lb payload capacity, and a remote payload-release mechanism; some researchers have used it for small sensor deliveries.
+- **Potensic Atom 2** — [Potensic Atom 2](https://www.bhphotovideo.com/c/product/1887738-REG/potensic_apm2530121_atom_2_drone_standard.html), \$359. A lower-quality alternative to the DJI Mini 2. Not NDAA compliant, as it is manufactured in China.
+- **DJI Neo** — [DJI Neo](https://www.dji.com/neo), \~\$199. 135g micro-sized drone, 4K/30fps, \~18-min flight.
+- **DJI Neo 2** — [DJI Neo 2](https://www.bhphotovideo.com/c/product/1940934-REG/dji_cp_fp_00000272_01_dji_neo_2_fly.html), \~\$429. Newest model with extra functionality. 151g, omnidirectional obstacle avoidance, 4K/60fps, \~19-min flight.

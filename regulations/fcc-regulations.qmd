@@ -1,0 +1,80 @@
+---
+title: "FCC Regulations"
+format: html
+---
+
+# FCC Drone Regulations {#FCCregulations}
+
+In an unprecedented move, on December 22, 2025, the FCC declared that UAS and UAS critical component parts that are produced in foreign countries pose unacceptable risks to the national security of the United States and to the safety and security of U.S. persons, and should be included on the FCC's Covered List.
+
+- FCC Press Release and Fact Sheet [here](https://www.fcc.gov/document/fcc-updates-covered-list-add-certain-uas-and-uas-components-0)
+- The updated FCC Covered List can be found [here](https://www.fcc.gov/supplychain/coveredlist)
+
+::: {.callout-important title="Restrictions on foreign-made drones"}
+New foreign-made drones are prohibited from receiving FCC authorization and are therefore prohibited from being imported for use or sale in the U.S. This update to the Covered List does not prohibit the import, sale, or use of any existing device models the FCC previously authorized.
+:::
+
+This FCC action goes above and beyond the initial Section 1709 review that previously only targeted DJI and Autel. The final rule covers all foreign drones and components - not just those made in China, but all foreign countries including Canada, Switzerland, UK, and Germany. In addition, the updated definition for critical components now includes batteries and motors, in addition to the usual autopilots, controllers, and cameras.
+
+In the months following, the FCC continued to make significant changes and announcements. We have moved this information and the relevant definitions to this new page to help people keep track.
+
+::: {.callout-note}
+The FCC has opened a handful of opportunities for the public to comment on their proposals. To date, the FCC's response to the public on this matter and others have been to state "We disagree with the commenters."
+:::
+
+## FCC Exemptions
+
+The current list of FCC exemptions (Aug 18, 2026)
+
+1.  UAS and UAS components on the DoD Blue List are allowed to receive updates and introduce new components for FCC authorization until January 1, 2028
+2.  UAS and UAS components that qualify as \`domestic end products' under the Buy American Standard will continue to be eligible for FCC authorizations until January 1, 2028.
+3.  Specific devices that have been granted a Conditional Approval by DoD or DHS
+4.  Foreign-produces 'toy drones' and 'toy drones' that contain foreign-produced components
+
+Full list of [Conditional Approvals](https://www.fcc.gov/supplychain/coveredlist#conditional-approvals)
+
+**Update - Jan 21, 2026**
+
+The FCC has issued a [waiver of prohibitions on certain Class 1 permissive changes](https://www.fcc.gov/document/oet-waives-restrictions-class-i-changes-uas-components) to covered UAS and UAS critical components until January 1, 2027. This means that drones with already existing FCC approval may continue to receive certain software and firmware updates at least until then. The FCC remarks that they would re-evaluate prior to Jan 1, 2027 on whether to extend the waiver further.
+
+So for now, foreign-made drones can continue to issue updates, but may not at some point in the future.
+
+## Proposed Actions
+
+### DJI Petition For Reconsideration of Action in Proceeding - Jan 29, 2026 - Docket/RM 26-22
+
+DJI has taken a number of actions to respond and get unbanned. You can follow along their progress in this formal docket. [Link](https://www.fcc.gov/edocs/search-results?t=quick&dockets=26-22)
+
+### FCC Docket to revoke FCC authorization from foreign 'Military' Drones - July 21, 2026 - Docket/RM 26-189
+
+The FCC recently announced that they were proposing to remove FCC authorization to sell or market what they deem to be 'military' drones. Military drones in their definition includes drones over 55 lbs, drones with a LIDAR unit, and drones with a thermal imager. While certain DJI drones have been grandfathered in with existing FCC authorizations, this would remove them from being able to be sold in the US. The proposal would not ban their use - yet.
+
+As an example, the DJI Matrice 4E received its FCC authorization before the ban, but if this new proposal is enacted, the FCC would remove its authorization to be sold in the US.
+
+Comments to the FCC are due Sept 2, 2026
+
+- [Link to Announcement](https://www.fcc.gov/document/fcc-proposes-prohibit-import-marketing-covered-equipment-0)
+
+- [Link to Proceeding/Comment](https://www.fcc.gov/ecfs/search/docket-detail/26-189)
+
+## List of FCC Announcements
+
+| DA | Date | Subject |
+|------------------|------------------------|------------------------------|
+| [DA-25-1086](https://www.fcc.gov/document/fcc-updates-covered-list-add-certain-uas-and-uas-components) | Dec 22, 2025 | Adds UAS/Components to Covered List |
+| [DA-26-22](https://www.fcc.gov/document/fcc-adds-exemption-certain-uas-and-uas-components) | Jan 7, 2026 | Exempts Blue UAS |
+| [DA-26-253](https://www.fcc.gov/document/fcc-announces-first-uas-conditional-approvals) | Mar 17, 2026 | First Conditional Approvals |
+| [DA-26-351](https://www.fcc.gov/document/fcc-announces-routers-uas-conditional-approvals) | Apr 14, 2026 | sees.AI Conditional Approval |
+| [DA-26-437](https://www.fcc.gov/document/fcc-announces-conditional-approval-certain-uas-and-routers) | May 6, 2026 | Air6 System Conditional Approval |
+| [DA-26-489](https://www.fcc.gov/document/fcc-announces-conditional-approval-certain-uas-routers) | May 15, 2026 | Elevon Aerial AG Conditional Approval |
+| [DA-26-548](https://www.fcc.gov/document/fcc-announces-conditional-approval-certain-uas-and-routers-0) | Jun 4, 2026 | VEX AIR Conditional Approval |
+| [DA-26-585](https://www.fcc.gov/document/fcc-announces-conditional-approval-certain-uas-and-routers-1) | Jun 12, 2026 | L50 Conditional Approval |
+| [DA-26-588](https://www.fcc.gov/document/fcc-announces-removal-toy-drones-covered-list) | Jun 15, 2026 | Exempts 'Toy Drones' |
+| [DA-26-616](https://www.fcc.gov/document/fcc-announces-conditional-approvals-certain-uas-and-routers-0) | Jun 22, 2026 | HERA Tactical, Ceres Air Conditional Approval |
+| [DA-26-655](https://www.fcc.gov/document/fcc-supports-sltt-drone-efforts) | Jul 2, 2026 | Exemptions for C-UAS |
+| [DA-26-742](https://www.fcc.gov/document/fcc-proposes-prohibit-import-marketing-covered-equipment) | Jul 17, 2026 | Ban on Skyrover |
+| [DA-26-758](https://www.fcc.gov/document/fcc-proposes-prohibit-import-marketing-covered-equipment-0) | Jul 21, 2026 | Proposal to ban 'military' drones |
+| [DA-26-761](https://www.fcc.gov/document/fcc-announces-extension-conditional-approvals-certain-uas) | Jul 21, 2026 | Extends Conditional Approvals |
+| [DA-26-786](https://www.fcc.gov/document/fcc-adds-foreign-produced-power-inverters-and-robots-covered-list-0) | Jul 28, 2026 | FCC bans Foreign Power Inverters and Robots |
+| [DA-26-832](https://www.fcc.gov/document/fcc-proposes-prohibit-import-marketing-covered-equipment-1) | Aug 10, 2026 | Proposal to ban Anzu |
+| [DA-26-839](https://www.fcc.gov/document/fcc-revokes-equipment-authorizations-held-odyssey-robot-llc) | Aug 11, 2026 | Revokes Odysey Robot |

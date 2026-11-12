@@ -1,0 +1,37 @@
+project:
+  type: website
+  resources:
+    - trainings/**
+    - library/**
+
+website:
+  title: "UC Drones"
+  navbar:
+    logo: false
+  sidebar:
+    contents: 
+      - index.qmd
+      - recent-news.qmd
+      - auto: about-us
+      - auto: getting-started
+      - auto: selecting-a-drone
+      - auto: tools-and-resources
+      - auto: regulations
+  page-footer:
+    background: dark
+    left: "© 2026 UC Center of Excellence on UAS Safety<br>Last updated: {{< meta date-modified >}}"
+    right: |
+      [<i class="bi bi-envelope me-2" aria-hidden="true"></i>Email us](mailto:uassafety@ucmerced.edu)
+        
+
+format:
+  html:
+    theme: styles.scss
+    toc: true
+    include-after-body: a11y-fixes.html
+    axe: true
+
+editor: visual
+
+date-modified: last-modified
+date-format: "MMMM D, YYYY"

@@ -1,0 +1,54 @@
+<script>
+  document.addEventListener("DOMContentLoaded", () => {
+    // ---- Accessibility patches for Quarto's generated markup ----
+
+    // Sidebar expand/collapse controls are buttons, not navigation regions
+    // (covers both the arrows and the section headers)
+    document
+      .querySelectorAll('#quarto-sidebar [data-bs-toggle="collapse"][role="navigation"]')
+      .forEach((el) => el.setAttribute("role", "button"));
+
+    // Unique landmark names for the navbar and sidebar
+    const navbar = document.querySelector("nav.navbar");
+    if (navbar && !navbar.hasAttribute("aria-label")) {
+      navbar.setAttribute("aria-label", "Main");
+    }
+
+    const sidebar = document.getElementById("quarto-sidebar");
+    if (sidebar && !sidebar.hasAttribute("aria-label")) {
+      sidebar.setAttribute("aria-label", "Site sections");
+    }
+
+    // Right-hand margin column (category filter / table of contents)
+    const margin = document.getElementById("quarto-margin-sidebar");
+    if (margin && !margin.hasAttribute("role")) {
+      margin.setAttribute("role", "complementary");
+      margin.setAttribute("aria-label", "Page sidebar");
+    }
+
+    // Listing thumbnails without alt text: treat as decorative.
+    // The card's title link already goes to the same post, so hide this
+    // duplicate link from screen readers and the Tab order.
+    document
+      .querySelectorAll(".thumbnail > a img:not([alt])")
+      .forEach((img) => {
+        img.setAttribute("alt", "");
+        const link = img.closest("a");
+        link.setAttribute("aria-hidden", "true");
+        link.setAttribute("tabindex", "-1");
+      });
+
+    // ---- Navigation ----
+
+    // On blog posts, highlight "Recent News" in the sidebar
+    if (window.location.pathname.includes("/posts/")) {
+      const newsLink = document.querySelector(
+        '#quarto-sidebar a.sidebar-link[href$="recent-news.html"]'
+      );
+      if (newsLink) {
+        newsLink.classList.add("active");
+        newsLink.setAttribute("aria-current", "true");
+      }
+    }
+  });
+</script>

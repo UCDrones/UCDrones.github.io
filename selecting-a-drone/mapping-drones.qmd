@@ -1,0 +1,12 @@
+---
+title: "Drones for Mapping"
+---
+
+Producing high-resolution maps and elevation models requires a drone compatible with automated mapping software.
+
+::: callout-important
+There are no low-cost drones for mapping that are US-made or NDAA compliant. Please refer to [NDAA-Compliant Drones](ndaa-compliance.qmd).
+:::
+
+- **Matrice 4E** — [Matrice 4E](https://www.bhphotovideo.com/c/product/1884237-REG/dji_cp_en_00000574_02_matrice_4e_with_care.html), \$5,300. Part of DJI's enterprise Mavic-sized line, with Mavic 3-comparable performance, an improved camera, and enhanced autonomy.
+- **Autel EVO II Pro** — [Evo II Pro](https://shop.autelrobotics.com/collections/drones-evo-ii-series), \$2,500. A comparable alternative to the Mavic series with mapping functionality included, unlike comparable DJI models.

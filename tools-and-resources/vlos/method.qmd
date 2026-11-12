@@ -1,0 +1,82 @@
+---
+title: "How the estimate works"
+description: "The geometry and equation behind the visual-acuity curves in the VLOS estimator."
+editor: visual
+---
+
+The colored curves in the [VLOS estimator](index.qmd) answer one question for every altitude: how far away, horizontally, can the drone be before it looks smaller than a chosen visual-acuity threshold?
+
+## Geometry
+
+Picture the pilot and the drone from the side. The pilot's eye is at the origin. The drone's center is a horizontal distance $d$ away and at altitude $a$ above the eye. The drone's side profile is treated as a rectangle $w$ wide and $h$ tall.
+
+The model measures the angle $\theta$ that the rectangle's diagonal subtends at the eye, from the near top corner $A$ to the far bottom corner $B$:
+
+$$
+A = \left(d - \tfrac{w}{2},\; a + \tfrac{h}{2}\right), \qquad
+B = \left(d + \tfrac{w}{2},\; a - \tfrac{h}{2}\right)
+$$
+
+The angle between two vectors satisfies $\tan\theta = |A \times B| \,/\, (A \cdot B)$. Expanding both terms gives
+
+$$
+\tan\theta = \frac{w\,a + h\,d}{d^2 + a^2 - \tfrac{1}{4}\left(w^2 + h^2\right)}
+$$
+
+The numerator is the drone's extent perpendicular to the line of sight. The denominator is roughly the squared distance to the drone. At long range this reduces to the familiar small-angle rule: apparent size ≈ projected size ÷ distance.
+
+## Solving for the maximum distance
+
+Let $\theta_{\min}$ be the acuity threshold and $t = \tan\theta_{\min}$. The drone is at or above the threshold wherever
+
+$$
+t\,d^2 - h\,d + c \le 0, \qquad c = t\left(a^2 - \tfrac{1}{4}(w^2 + h^2)\right) - w\,a
+$$
+
+This is a quadratic in $d$, so the farthest horizontal distance at which the drone still meets the threshold is its larger root:
+
+$$
+d_{\max} = \frac{h + \sqrt{h^2 - 4\,t\,c}}{2t}
+$$
+
+If the discriminant $h^2 - 4tc$ is negative, the drone is below the threshold at every horizontal distance at that altitude, even directly overhead. The plot leaves a gap there instead of drawing a line.
+
+::: {.callout-note collapse="true"}
+## Why a closed form instead of a search?
+
+An earlier version stepped outward 2 ft at a time until the angle dropped below the threshold. That took roughly 200 ms per keystroke for a typical drone, could freeze the browser for very large inputs, and reported 2 ft when the drone was never visible. The closed form gives the same answer (checked to within floating-point error against a bisection search) in a fraction of a millisecond.
+:::
+
+## Acuity thresholds
+
+Visual acuity is measured as the smallest angle, in arcminutes (′), that the eye can resolve. One arcminute is 1/60 of a degree.
+
+| Curve | Threshold | Basis |
+|----|----|----|
+| 20/20 resolution limit | 1′ | The Snellen standard for 20/20 vision: a 20/20 letter subtends 5′, and its strokes and gaps each subtend 1′. |
+| Max distance | 3′ | Source needed. |
+| Safe distance | 6′ | Source needed. |
+
+::: callout-warning
+## Source needed
+
+The 3′ and 6′ thresholds need a citation before this page is published. Without one, readers have no way to judge why those values were chosen.
+:::
+
+The 1′ curve is a *resolution* limit, not a *detection* limit. A dark, high-contrast object against a bright sky can sometimes be noticed at a smaller angle, while a low-contrast object may not be noticed at a much larger one.
+
+## Worked example
+
+For the EVO II Pro V3 preset ($w$ = 21.97 in, $h$ = 4.25 in) at 400 ft AGL, the model gives:
+
+| Threshold | Horizontal distance |
+|-----------|---------------------|
+| 6′        | 621 ft              |
+| 3′        | 1,052 ft            |
+| 1′        | 2,260 ft            |
+
+## Why the x-axis is horizontal distance
+
+Pilots plan flights on a map, so the plot shows ground distance from the pilot. The straight-line (slant) distance is always longer: $\sqrt{d^2 + a^2}$. This matters when comparing against EASA's formula, which is defined as a straight-line distance. See [The EASA formula](easa.qmd).
+
+[← Back to the estimator](index.qmd)

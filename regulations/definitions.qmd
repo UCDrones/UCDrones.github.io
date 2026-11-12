@@ -1,0 +1,142 @@
+---
+title: "Definitions"
+format: html
+---
+
+Common terms and acronyms used throughout this site and in UAS operations generally.
+
+## General
+
+sUAS (Small Unmanned Aircraft System)
+
+: An unmanned aircraft weighing less than 55 lbs (25 kg), the FAA's regulatory category for most drones.
+
+Part 107
+
+: The FAA regulation (14 CFR Part 107) governing most commercial and institutional small UAS operations in the United States.
+
+Remote Pilot Certificate
+
+: The FAA certification required to operate a UAS under Part 107.
+
+TRUST Certificate
+
+: The Recreational UAS Safety Test Certification for recreational, hobbyist, and many educational UAS operations.
+
+VLOS (Visual Line of Sight)
+
+: The pilot or a visual observer must be able to see the aircraft, unaided except for corrective lenses, at all times during flight.
+
+BVLOS (Beyond Visual Line of Sight)
+
+: Operations conducted outside the pilot's unaided visual range. Requires a waiver or Certificate of Authorization under current regulations.
+
+LAANC (Low Altitude Authorization and Notification Capability)
+
+: The system used to request near-real-time airspace authorization in controlled airspace.
+
+TFR (Temporary Flight Restriction)
+
+: A short-term airspace restriction, often issued for wildfires, VIP movement, or large events.
+
+NOTAM (Notice to Air Missions)
+
+: An official notice containing information relevant to flight safety, including airspace restrictions.
+
+## Operational
+
+PIC (Pilot in Command)
+
+: The individual with final responsibility for a UAS operation, whether or not they are manipulating the controls directly.
+
+VO (Visual Observer)
+
+: A person assisting the PIC by maintaining visual contact with the aircraft, allowing the PIC to attend to other mission-critical tasks.
+
+GCS (Ground Control Station)
+
+: The equipment used to monitor and, where applicable, control a UAS during flight.
+
+## Technical & Equipment
+
+MTOW (Maximum Takeoff Weight)
+
+: An approximation of a drone's relative size and regulatory category.
+
+RTK (Real-Time Kinematic)
+
+: A GNSS correction technique providing centimeter-level positioning accuracy in real time, used for precision mapping.
+
+PPK (Post-Processed Kinematic)
+
+: Similar to RTK, but positioning corrections are applied after the flight rather than in real time.
+
+GSD (Ground Sample Distance)
+
+: The real-world size represented by a single pixel in captured imagery; a key measure of mapping resolution.
+
+Gimbal
+
+: A motorized stabilization mount that keeps a camera steady independent of the aircraft's movement.
+
+VTOL (Vertical Takeoff and Landing)
+
+: Describes aircraft capable of taking off and landing vertically, including some fixed-wing mapping drones.
+
+FPV (First Person View)
+
+: Flight controlled via a live video feed from the aircraft's perspective, rather than by direct visual observation.
+
+Multispectral Sensor
+
+: A camera capturing multiple specific light wavelength bands (e.g., red, green, near-infrared) beyond standard visible-light photography, commonly used in agricultural and research imaging.
+
+Thermal Sensor
+
+: A camera capturing infrared radiation to visualize heat differences, used in inspection, wildlife monitoring, and search operations.
+
+## Regulations
+
+COA (Certificate of Waiver or Authorization)
+
+: An FAA approval permitting a public operator (including public universities) to conduct specific UAS operations, such as BVLOS, that would otherwise be prohibited.
+
+Remote ID
+
+: The requirement for most drones to broadcast identification and location information in flight, comparable to a digital license plate.
+
+FRIA (FAA-Recognized Identification Area)
+
+: A defined location where drones may be flown without Remote ID equipment.
+
+NDAA / Section 848
+
+: The National Defense Authorization Act; Section 848 refers to specific UAS-related provisions restricting the use of federal funds for certain foreign-manufactured drones. See [NDAA Compliance](ndaa-compliance.qmd).
+
+Blue UAS
+
+: A Department of Defense-cleared list of drones approved for federal use. See the [Blue UAS Cleared List](https://www.diu.mil/blue-uas-cleared-list).
+
+Domestic End Product
+
+: The Buy American Standard test for whether an article qualifies as domestically manufactured, based on U.S. assembly and a domestic-component cost threshold. [Full regulatory text (48 C.F.R. § 25.101)](https://www.ecfr.gov/current/title-48/section-25.101)
+
+UAS Critical Components
+
+: Components, including software, the FCC defines as core to a UAS for Covered List purposes: flight controllers, navigation systems, sensors, batteries, motors, and more. [FCC drone/UAS Covered List page](https://www.fcc.gov/wireless/drone-aerial-dominance/covered-list)
+
+Toy Drone
+
+: An FCC-defined exemption category for very small, sensor-free, non-connected recreational drones meeting twelve specific criteria. [FCC drone/UAS Covered List page](https://www.fcc.gov/wireless/drone-aerial-dominance/covered-list)
+
+Military-Grade UAS *(proposed)*
+
+: A proposed FCC definition covering heavier, sensor-equipped, or swarm-capable UAS. [DA-26-758](https://www.fcc.gov/document/fcc-proposes-prohibit-import-marketing-covered-equipment-0)
+
+Power Inverters
+
+: Foreign-produced bi-directional power conversion devices with remote connectivity, added to the FCC Covered List in 2026. [DA-26-786](https://www.fcc.gov/document/fcc-adds-foreign-produced-power-inverters-and-robots-covered-list-0)
+
+Advanced Robotic Devices
+
+: Foreign-produced mobile robots (including humanoids and quadrupeds) meeting specific weight, sensor, and connectivity criteria, added to the FCC Covered List in 2026. [DA-26-786](https://www.fcc.gov/document/fcc-adds-foreign-produced-power-inverters-and-robots-covered-list-0)

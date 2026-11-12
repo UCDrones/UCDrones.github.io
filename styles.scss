@@ -1,0 +1,154 @@
+/* Custom theme layered on top of _brand.yml.
+   _brand.yml sets the brand basics (colors, fonts, logo) and has the lowest
+   priority, so anything set here wins where the two overlap.
+
+   Brand palette colors are available as $brand-<name> variables
+   (e.g. $brand-blue-dark, $brand-gold). Use them in the RULES section only:
+   they aren't reliably defined yet when the DEFAULTS section is evaluated. */
+
+/*-- scss:defaults --*/
+
+$uc-gold: #FFB511;
+$uc-blue-dark: #005581;
+
+// ---- Navbar ----
+// Background comes from `primary: blue-dark` in _brand.yml.
+$navbar-fg: #FFFFFF;
+$navbar-brand: #FFFFFF;
+$navbar-hl: $uc-gold;          // gold: active page + hover. Keep in sync with palette `gold`.
+$navbar-brand-hl: $uc-gold;
+
+// ---- Sidebar ----
+// Quarto defaults: items 0.925rem, section headers 0.875rem.
+$sidebar-font-size: 1.0rem;
+$sidebar-font-size-section: 1.0rem;
+
+// ---- Links ----
+// Set explicitly: the brand link color wasn't reaching body or TOC links (axe: 4.43:1).
+$link-color: $uc-blue-dark;   // blue-dark, 8:1 on white. Keep in sync with palette.
+$toc-color: $uc-blue-dark;
+
+
+/*-- scss:rules --*/
+
+figure > figcaption {
+  color: $brand-gray-extra-dark;
+  // text-align: center;   // optional: uncomment to center captions under centered images
+}
+
+// ---- Navbar accent ----
+.navbar {
+  border-bottom: 3px solid $brand-gold;
+}
+
+/* Hide "Modified" in the page title block; the footer still shows it */
+.quarto-title-meta > div:has(.date-modified) {
+  display: none;
+}
+
+// ---- Sidebar ----
+// Section headers: same size as items, but bolder so the hierarchy stays clear
+#quarto-sidebar .sidebar-item-section > .sidebar-item-container .sidebar-item-text {
+  font-weight: 600;
+}
+
+// Active page. Quarto puts .active on the link itself.
+#quarto-sidebar .sidebar-link.active {
+  color: $brand-blue-dark;
+  font-weight: 600;
+  border-left: 3px solid $brand-gold;
+  padding-left: 0.5rem;
+}
+
+// ---- Category chips: same look on post pages and the listing ----
+// White chip, navy text + border: 8:1 contrast on white.
+// Post selector matches Quarto's own (ID + 4 classes) so ours wins by order.
+// Listing selector repeats .listing-category on purpose: the repeated class adds
+// specificity to beat Quarto's listing rules without depending on the page
+// structure above the chip. It is not a typo.
+
+#title-block-header.quarto-title-block.default .quarto-categories .quarto-category,
+.listing-categories .listing-category.listing-category.listing-category {
+  display: inline-block;
+  background-color: #FFFFFF;
+  color: $brand-blue-dark;
+  border: 1px solid $brand-blue-dark;
+  border-radius: 2px;
+  opacity: 1;                      // Quarto sets 0.6 on post chips
+  padding: 0.15rem 0.6rem;
+  font-size: 0.8rem;
+  font-weight: 600;
+  text-transform: none;
+  cursor: pointer;
+}
+
+// The link inside the post chip inherits the chip's color; keep it that way
+#title-block-header .quarto-categories .quarto-category a {
+  color: inherit;
+  text-decoration: none;
+}
+
+// Hover: gold fill, dark text (10:1)
+#title-block-header.quarto-title-block.default .quarto-categories .quarto-category:hover,
+.listing-categories .listing-category.listing-category.listing-category:hover {
+  background-color: $brand-gold;
+  border-color: $brand-gold;
+  color: $brand-gray-extra-dark;
+}
+
+
+/*-- scss:rules --*/
+div.quarto-post .thumbnail img {
+  object-fit: contain !important;
+}
+
+// ---- VLOS estimator ----
+// Inputs use Bootstrap's form classes, so fonts, focus rings and colors
+// come from the theme. These rules only lay out the panel.
+.vlos-panel {
+  max-width: 860px;
+  margin: 1.25rem auto 0.5rem;
+  padding: 1.25rem 1.25rem 1.5rem;
+  border: 1px solid $border-color;
+  border-top: 3px solid $brand-gold;
+  border-radius: 4px;
+  background-color: $gray-100;
+}
+
+.vlos-dims {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 0.5rem;
+}
+ 
+.vlos-panel .form-label {
+  font-weight: 600;
+}
+
+  .vlos-panel .form-text {
+    color: rgba(var(--bs-body-color-rgb), 0.75);
+  }
+ 
+.vlos-panel .vlos-preset {
+  max-width: 360px;
+}
+ 
+.vlos-error {
+  max-width: 860px;
+  margin: 0 auto;
+  min-height: 1.25rem;
+}
+ 
+#vlos-plot {
+  width: 100%;
+  height: 460px;
+}
+ 
+.vlos-summary {
+  max-width: 860px;
+  margin: 0.5rem auto 1.5rem;
+ 
+  td {
+    font-variant-numeric: tabular-nums;
+  }
+}

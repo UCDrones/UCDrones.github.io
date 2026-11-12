@@ -1,0 +1,14 @@
+---
+title: "Recent News"
+format: html
+listing:
+  contents: posts/**
+  sort: "date desc"
+  type: default
+  categories: true
+  sort-ui: false
+  filter-ui: false
+  image-placeholder: images/COE_logo.png
+  image-height: 80px
+page-layout: full
+---

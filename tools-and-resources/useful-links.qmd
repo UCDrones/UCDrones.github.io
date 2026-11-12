@@ -1,0 +1,32 @@
+---
+title: "Useful Links"
+format: html
+---
+
+## Regulatory & Registration
+
+- [FAA DroneZone](https://faadronezone.faa.gov/#/)
+- [FAA UAS Program](https://www.faa.gov/uas) - Central FAA hub for drone rules, registration, and resources
+- [14 CFR Part 107](https://www.ecfr.gov/current/title-14/chapter-I/subchapter-F/part-107) - The current federal regulation governing small UAS operations
+- [List of FAA Approved Drones (DOC/RID)](https://uasdoc.faa.gov/listDocs)
+- [Remote ID](https://www.faa.gov/uas/getting_started/remote_id) - FAA requirements for drone Remote Identification broadcast
+
+## Airspace & Flight Planning
+
+- [LAANC](https://www.faa.gov/uas/getting_started/laanc) - Low Altitude Authorization and Notification Capability for near-real-time airspace authorization
+- [Temporary Flight Restrictions (TFRs)](https://www.faa.gov/uas/getting_started/temporary_flight_restrictions) - Real-time list of active flight restrictions
+- [UAS Facility Maps](https://www.faa.gov/uas/commercial_operators/uas_facility_maps) - Maximum pre-approved altitudes around airports in controlled airspace
+- [SkyVector](https://skyvector.com/) - Free VFR sectional chart viewer showing airspace classes, TFRs, and IFR approaches
+
+## Equipment & Data
+
+- [Blue UAS Cleared List](https://www.diu.mil/blue-uas-cleared-list)
+- [FAA UAS Data Delivery System](https://udds-faa.opendata.arcgis.com/) - Downloadable FAA UAS geospatial data (CSV, JSON, KML, Shapefile)
+- [uasimg](https://ucanr-igis.github.io/uasimg/) - R package for managing and organizing UAS imagery (developed by UC ANR IGIS)
+
+## Safety & Research Organizations
+
+- [Unmanned Aircraft Safety Team](https://ncatech.org/drone-safety-team-home/)
+- [ASSURE](https://www.assureuas.org/) - FAA-designated Center of Excellence for UAS research, a coalition of 30+ universities
+- [AUVSI](https://www.auvsi.org/) - Association for Uncrewed Vehicle Systems International, the industry's main trade/professional association
+- [NASA ASRS](https://asrs.arc.nasa.gov/uassafety.html) - NASA UAS Safety Reporting

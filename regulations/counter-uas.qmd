@@ -1,0 +1,23 @@
+---
+title: "Counter UAS"
+format: html
+---
+
+The Department of Homeland Security has increasingly been issuing concerns over the potential of malicious drone use. Below are some guidance and resources for review:
+
+## UAS Threat Best Practices
+
+- Incorporate UAS into risk assessments. Assess critical assets and areas that may be most vulnerable to UAS. Identify and monitor possible launch and landing zones on or near facilities.
+- Establish procedures for safely handling downed UAS. Ensure that any downed UAS are rendered safe and properly handled to prevent potential harm to personnel, disruption of operations, or destruction of evidence.
+- Reevaluate security postures and security cameras and views to consider airborne threats.
+- Train employees on recognizing and reporting suspicious UAS activity.
+- Place 'No Drone Zones' signs in areas where UAS takeoff or landing is restricted.
+- Conduct exercises to test and prepare response capabilities should a UAS incident occur.
+- Update emergency action plans to include UAS incidents and responses. These might address evacuation protocols, depending on the model; visible hazardous attachments; or UAS payload size.
+- Consider using UAS detection technology and Remote ID receivers to enhance situational awareness of UAS activity. Consult legal counsel before employing detection technology, as certain systems may violate federal statutes and regulations.
+
+## Other Resources
+
+- [CISA Be Air Aware Program](https://www.cisa.gov/topics/physical-security/be-air-aware) UAS risk information and resiliency exercises
+- [No Drone Zone Guidance](https://www.faa.gov/uas/resources/community_engagement/no_drone_zone) FAA guidance and resources for 'No Drone Zone' areas
+- [Advisory Report on Counter UAS](https://www.dhs.gov/publication/interagency-legal-advisory-uas-detection-and-mitigation-technologies) Additional information on the application of Federal Laws to the acquisition and use of technology to detect and mitigate unmanned aircraft systems.

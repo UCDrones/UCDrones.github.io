@@ -1,0 +1,18 @@
+---
+title: "FCC Proposes to Ban Import, Marketing of 'Military' Drones"
+date: "2026-07-21"
+description: "FCC proposes to revoke FCC authorization from existing drones with LIDAR, thermal cameras, swarming capabilities and docking stations."
+categories: [Regulations, FCC]
+image: /images/FCC.png
+draft: false
+---
+
+![](/images/FCC.png){alt="" width="30%" fig-align="center"}
+
+The FCC recently announced that they were proposing to remove FCC authorization to sell or market what they deem to be ‘military’ drones. Military drones in their definition includes drones over 55 lbs, drones with a LIDAR unit, and drones with a thermal imager. While certain DJI drones have been grandfathered in with existing FCC authorizations, this would remove them from being able to be sold in the US. The proposal would not ban their use - yet.
+
+As an example, the DJI Matrice 4E received its FCC authorization before the ban, but if this new proposal is enacted, the FCC would remove its authorization to be sold in the US.
+
+Comments to the FCC are due Sept 2, 2026
+
+[← Back to Recent News](../../recent-news.qmd)

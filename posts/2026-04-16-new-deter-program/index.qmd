@@ -1,0 +1,24 @@
+---
+title: "New DETER Program"
+date: "2026-04-16"
+description: "New program to increase drone regulation enforcement"
+categories: [Regulations]
+image: /images/FAA.png
+draft: false
+---
+
+![](/images/FAA.png){alt="" width="30%" fig-align="center"}
+
+The [Drone Expedited and Targeted Enforcement Response (DETER)](https://www.federalregister.gov/documents/2026/04/17/2026-07585/settlement-policy-for-small-unmanned-aircraft-system-uas-cases) program supports the Administration's Executive Order on Restoring American Airspace Sovereignty, which calls for stronger enforcement of drone laws to protect the safety and security of the U.S. airspace.
+
+The program will support enhanced enforcement efforts around high-visibility events, including the upcoming FIFA World Cup matches from June 12 to July 19.
+
+Under the DETER program:
+
+- Eligible first-time operators may resolve cases through reduced civil penalties or certificate suspensions.
+- Participants must admit liability and waive their right to appeal to receive expedited resolution.
+- Law enforcement partners will be able to notify the FAA of drone violations in real time.
+- The program is limited to less serious operational violations and will be implemented in select locations and timeframes.
+- The FAA will continue to handle violations involving significant safety risks, including unauthorized operations in restricted airspace, through standard enforcement procedures. These violations are not eligible for expedited resolution.
+
+[← Back to Recent News](../../recent-news.qmd)

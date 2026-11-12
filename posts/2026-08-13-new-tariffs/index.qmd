@@ -1,0 +1,17 @@
+---
+title: "New Tariffs on Drones"
+description: "Presidential Executive Order proclaims new tariffs on drones"
+categories: [Regulations, Tariffs]
+image: /images/WhiteHouse.png
+date: "8/13/2026"
+---
+
+![](/images/WhiteHouse.jpg){alt="" width="30%" fig-align="center"}
+
+The president decided to proclaim new tariffs on drones - [link](https://www.whitehouse.gov/presidential-actions/2026/08/adjusting-imports-of-unmanned-aircraft-systems-and-unmanned-aircraft-systems-components-into-the-united-states/)
+
+- New Section 232 tariffs on drones (UAS): Effective Sept 3, 2026, a 100% tariff applies to UAS over 25kg, thermal-imaging UAS, docking stations, and certain critical components (motors, batteries, controllers); a 25% tariff applies to UAS 25kg or under. A further 25% tariff on other listed UAS components takes effect Feb 9, 2027 (a 180-day delay meant to encourage domestic sourcing first).
+- Stated rationale: Commerce Dept investigation found the U.S. overly reliant on foreign UAS supply chains (even domestically-assembled drones use foreign parts), cited cybersecurity/data-exfiltration risks from foreign-made drone software, and concluded domestic manufacturing capacity is insufficient for military and civilian demand.
+- Carve-outs and incentives: Lower capped tariffs (15% or 10% for the UK) apply to Japan, South Korea, Taiwan, Switzerland, Liechtenstein, EU members, and the UK if components are certified as substantially originating there; companies with DoW/FCC-cleared products get a 180-day delay; and Commerce can grant tariff-free import allowances to companies committing to build new U.S. production facilities before January 2029, subject to monitoring and clawback for noncompliance or fraud.
+
+[← Back to Recent News](../../recent-news.qmd)

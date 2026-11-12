@@ -1,0 +1,10 @@
+---
+title: "Page Not Found"
+search: false
+format: html
+---
+
+Sorry, that page doesn't exist (or it moved).
+
+- Go back to the [home page](/)
+- Or use the search in the navbar

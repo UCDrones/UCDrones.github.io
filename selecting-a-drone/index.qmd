@@ -1,0 +1,21 @@
+---
+title: "Need to Pick a Drone?"
+---
+
+This page directs users to drone recommendations organized by intended use. Select the category below that corresponds to your needs.
+
+::: {.callout-important}
+If this purchase will use federal funding, review [NDAA Compliance](ndaa-compliance.qmd) before selecting a drone. DJI and Autel products are currently restricted from federal funding under NDAA provisions.
+:::
+
+## Categories
+
+| Intended Use | See |
+|---|---|
+| A low-cost drone for learning or casual use | [Low-Cost Drones](low-cost.qmd) |
+| Photography or videography | [Drones for Multimedia](multimedia-drones.qmd) |
+| Drones for mapping projects | [Drones for Mapping](mapping-drones.qmd) |
+| Drones for federally funded projects | [NDAA-Compliant](ndaa-compliance.qmd) |
+| A full comparison of all available options | [Drone Comparison Table](drone-table.qmd) |
+
+For additional guidance, see the [New User Guide](https://ucdrones.github.io/New_User_Guide/). 
