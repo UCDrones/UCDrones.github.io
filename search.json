@@ -1,0 +1,1002 @@
+[
+  {
+    "objectID": "tools-and-resources/vlos/method.html",
+    "href": "tools-and-resources/vlos/method.html",
+    "title": "How the estimate works",
+    "section": "",
+    "text": "The colored curves in the VLOS estimator answer one question for every altitude: how far away, horizontally, can the drone be before it looks smaller than a chosen visual-acuity threshold?",
+    "crumbs": [
+      "Tools and Resources",
+      "How far can you really see the drone?",
+      "How the estimate works"
+    ]
+  },
+  {
+    "objectID": "tools-and-resources/vlos/method.html#geometry",
+    "href": "tools-and-resources/vlos/method.html#geometry",
+    "title": "How the estimate works",
+    "section": "Geometry",
+    "text": "Geometry\nPicture the pilot and the drone from the side. The pilot’s eye is at the origin. The drone’s center is a horizontal distance \\(d\\) away and at altitude \\(a\\) above the eye. The drone’s side profile is treated as a rectangle \\(w\\) wide and \\(h\\) tall.\nThe model measures the angle \\(\\theta\\) that the rectangle’s diagonal subtends at the eye, from the near top corner \\(A\\) to the far bottom corner \\(B\\):\n\\[\nA = \\left(d - \\tfrac{w}{2},\\; a + \\tfrac{h}{2}\\right), \\qquad\nB = \\left(d + \\tfrac{w}{2},\\; a - \\tfrac{h}{2}\\right)\n\\]\nThe angle between two vectors satisfies \\(\\tan\\theta = |A \\times B| \\,/\\, (A \\cdot B)\\). Expanding both terms gives\n\\[\n\\tan\\theta = \\frac{w\\,a + h\\,d}{d^2 + a^2 - \\tfrac{1}{4}\\left(w^2 + h^2\\right)}\n\\]\nThe numerator is the drone’s extent perpendicular to the line of sight. The denominator is roughly the squared distance to the drone. At long range this reduces to the familiar small-angle rule: apparent size ≈ projected size ÷ distance.",
+    "crumbs": [
+      "Tools and Resources",
+      "How far can you really see the drone?",
+      "How the estimate works"
+    ]
+  },
+  {
+    "objectID": "tools-and-resources/vlos/method.html#solving-for-the-maximum-distance",
+    "href": "tools-and-resources/vlos/method.html#solving-for-the-maximum-distance",
+    "title": "How the estimate works",
+    "section": "Solving for the maximum distance",
+    "text": "Solving for the maximum distance\nLet \\(\\theta_{\\min}\\) be the acuity threshold and \\(t = \\tan\\theta_{\\min}\\). The drone is at or above the threshold wherever\n\\[\nt\\,d^2 - h\\,d + c \\le 0, \\qquad c = t\\left(a^2 - \\tfrac{1}{4}(w^2 + h^2)\\right) - w\\,a\n\\]\nThis is a quadratic in \\(d\\), so the farthest horizontal distance at which the drone still meets the threshold is its larger root:\n\\[\nd_{\\max} = \\frac{h + \\sqrt{h^2 - 4\\,t\\,c}}{2t}\n\\]\nIf the discriminant \\(h^2 - 4tc\\) is negative, the drone is below the threshold at every horizontal distance at that altitude, even directly overhead. The plot leaves a gap there instead of drawing a line.\n\n\n\n\n\n\nNoteWhy a closed form instead of a search?\n\n\n\n\n\nAn earlier version stepped outward 2 ft at a time until the angle dropped below the threshold. That took roughly 200 ms per keystroke for a typical drone, could freeze the browser for very large inputs, and reported 2 ft when the drone was never visible. The closed form gives the same answer (checked to within floating-point error against a bisection search) in a fraction of a millisecond.",
+    "crumbs": [
+      "Tools and Resources",
+      "How far can you really see the drone?",
+      "How the estimate works"
+    ]
+  },
+  {
+    "objectID": "tools-and-resources/vlos/method.html#acuity-thresholds",
+    "href": "tools-and-resources/vlos/method.html#acuity-thresholds",
+    "title": "How the estimate works",
+    "section": "Acuity thresholds",
+    "text": "Acuity thresholds\nVisual acuity is measured as the smallest angle, in arcminutes (′), that the eye can resolve. One arcminute is 1/60 of a degree.\n\n\n\n\n\n\n\n\nCurve\nThreshold\nBasis\n\n\n\n\n20/20 resolution limit\n1′\nThe Snellen standard for 20/20 vision: a 20/20 letter subtends 5′, and its strokes and gaps each subtend 1′.\n\n\nMax distance\n3′\nSource needed.\n\n\nSafe distance\n6′\nSource needed.\n\n\n\n\n\n\n\n\n\nWarningSource needed\n\n\n\nThe 3′ and 6′ thresholds need a citation before this page is published. Without one, readers have no way to judge why those values were chosen.\n\n\nThe 1′ curve is a resolution limit, not a detection limit. A dark, high-contrast object against a bright sky can sometimes be noticed at a smaller angle, while a low-contrast object may not be noticed at a much larger one.",
+    "crumbs": [
+      "Tools and Resources",
+      "How far can you really see the drone?",
+      "How the estimate works"
+    ]
+  },
+  {
+    "objectID": "tools-and-resources/vlos/method.html#worked-example",
+    "href": "tools-and-resources/vlos/method.html#worked-example",
+    "title": "How the estimate works",
+    "section": "Worked example",
+    "text": "Worked example\nFor the EVO II Pro V3 preset (\\(w\\) = 21.97 in, \\(h\\) = 4.25 in) at 400 ft AGL, the model gives:\n\n\n\nThreshold\nHorizontal distance\n\n\n\n\n6′\n621 ft\n\n\n3′\n1,052 ft\n\n\n1′\n2,260 ft",
+    "crumbs": [
+      "Tools and Resources",
+      "How far can you really see the drone?",
+      "How the estimate works"
+    ]
+  },
+  {
+    "objectID": "tools-and-resources/vlos/method.html#why-the-x-axis-is-horizontal-distance",
+    "href": "tools-and-resources/vlos/method.html#why-the-x-axis-is-horizontal-distance",
+    "title": "How the estimate works",
+    "section": "Why the x-axis is horizontal distance",
+    "text": "Why the x-axis is horizontal distance\nPilots plan flights on a map, so the plot shows ground distance from the pilot. The straight-line (slant) distance is always longer: \\(\\sqrt{d^2 + a^2}\\). This matters when comparing against EASA’s formula, which is defined as a straight-line distance. See The EASA formula.\n← Back to the estimator",
+    "crumbs": [
+      "Tools and Resources",
+      "How far can you really see the drone?",
+      "How the estimate works"
+    ]
+  },
+  {
+    "objectID": "tools-and-resources/vlos/experiment.html",
+    "href": "tools-and-resources/vlos/experiment.html",
+    "title": "Experiment",
+    "section": "",
+    "text": "The VLOS estimator predicts how far away a drone stays visible, based on its angular size: how large it appears to the observer. These trials test that prediction directly.",
+    "crumbs": [
+      "Tools and Resources",
+      "How far can you really see the drone?",
+      "Experiment"
+    ]
+  },
+  {
+    "objectID": "tools-and-resources/vlos/experiment.html#purpose",
+    "href": "tools-and-resources/vlos/experiment.html#purpose",
+    "title": "Experiment",
+    "section": "",
+    "text": "The VLOS estimator predicts how far away a drone stays visible, based on its angular size: how large it appears to the observer. These trials test that prediction directly.",
+    "crumbs": [
+      "Tools and Resources",
+      "How far can you really see the drone?",
+      "Experiment"
+    ]
+  },
+  {
+    "objectID": "tools-and-resources/vlos/experiment.html#method",
+    "href": "tools-and-resources/vlos/experiment.html#method",
+    "title": "Experiment",
+    "section": "Method",
+    "text": "Method\n\nDrones\nFour drones were flown, ranging from a 249 g quadcopter to a fixed-wing mapping aircraft. Dimensions were measured on each aircraft.\n\n\n\nDrone\nType\nWidth (in)\nHeight (in)\n\n\n\n\nDJI Mini 2\nMultirotor\n8.5\n3.1\n\n\nAutel EVO II Pro V3\nMultirotor\n15.2\n4.4\n\n\nDJI Inspire 2\nMultirotor\n16.7\n12.2\n\n\neBee\nFixed-wing\n45.7\n5.5\n\n\n\n\n\nFlights and observers\nThe multirotor trials were flown between June 11 and June 20, 2025. 8 observers took part, with experience ranging from beginner to experienced pilot. Several observers watched the same flights at the same time, giving 32 observer sessions in total. Each observer recorded whether they could see the drone, and those records were matched to the drone’s flight log by time.\n\n\nAngular size\nEach observation’s angular size was computed from the drone’s horizontal distance and altitude relative to the observer, using the same model as the estimator. The model treats the drone as seen from the side, so it is a conservative measure: it describes a drone flying straight toward or away from the observer. See How the estimate works.\n\n\nMeasurement accuracy\nAngular size depends on distance, so errors matter in proportion to how far away the drone is: a distance error of ΔR changes the angle by about ΔR ÷ R.\nGPS positions from consumer drones and phones are typically accurate to a few meters, which is small compared with the hundreds of feet at which drones were lost.\nTiming is the larger risk. Devices were synchronized manually before each flight and checked against https://www.time.gov/. A 3-second error at 25 ft/s shifts the drone’s position by up to 75 ft. Observers typically lost sight of the drone about 830 ft away, so that error would change the angle by roughly 9%, and only if the drone was flying straight toward or away from the observer.",
+    "crumbs": [
+      "Tools and Resources",
+      "How far can you really see the drone?",
+      "Experiment"
+    ]
+  },
+  {
+    "objectID": "tools-and-resources/vlos/experiment.html#results",
+    "href": "tools-and-resources/vlos/experiment.html#results",
+    "title": "Experiment",
+    "section": "Results",
+    "text": "Results\n\n\n\nObservations by drone\n\n\n\n\n\n\n\n\n\n\nDrone\nSessions\nObservers\nObservations\nSmallest angle (′)\nLargest angle (′)\n\n\n\n\nDJI Mini 2\n8\n5\n4,476\n0.7\n5.0\n\n\nAutel EVO II Pro V3\n9\n4\n4,599\n1.0\n9.3\n\n\nDJI Inspire 2\n11\n5\n6,484\n1.6\n12.7\n\n\neBee\n4\n4\n3,202\n1.7\n355.5\n\n\n\n\n\n\nAll drones together\n\n\n\n\n\n\n\n\nFigure 1: Share of observations in which the drone was reported visible, by angular size. Points are binned observations (larger points have more data; bins with fewer than 20 observations are hidden) with 95% intervals. The curve is the fitted model; dashed lines mark where it reaches 50% and 90%.\n\n\n\n\n\nAcross all four drones, visibility crosses 50% at about 2.7′ and reaches 90% at about 4.1′. Below 1′, observers reported the drone visible in 0 of 792 observations. The smallest angle in the data is 0.65′, so the data says nothing about smaller angles.\nEven at large angles, visibility levels off at about 95% rather than 100%: some sightings were missed for reasons unrelated to size.\n\n\nDrone by drone\n\n\n\n\n\n\n\n\nFigure 2: Fitted visibility curves for each drone, drawn over the range of angles observed for that drone. Points are binned observations with at least 20 observations each.\n\n\n\n\n\n\n\n\nFitted thresholds by drone\n\n\n\n\n\n\n\n\nDrone\n50% visible (′)\n90% visible (′)\nMissed at large angles\n\n\n\n\nDJI Mini 2\n2.7\n4.1\n3%\n\n\nAutel EVO II Pro V3\n2.7\n5.0\n6%\n\n\nDJI Inspire 2\n2.8\n3.4\n0%\n\n\neBee\n2.6\nnot reached\n13%\n\n\n\n\n\nThe 50% points fall within a narrow range, from 2.6′ to 2.8′.\n\n\nLosing and regaining sight\nEach change in an observer’s response marks a moment when they lost or regained sight of the drone. There are 280 such moments in the data.\n\n\n\nAngles at which observers lost and regained sight\n\n\n\n\n\n\n\n\nDrone\nTimes lost\nMedian angle when lost (′)\nMedian angle when reacquired (′)\n\n\n\n\nDJI Mini 2\n48\n2.3\n3.2\n\n\nAutel EVO II Pro V3\n23\n2.0\n2.7\n\n\nDJI Inspire 2\n21\n2.8\n3.2\n\n\neBee\n46\n7.0\n12.8\n\n\n\n\n\nFor every drone, observers needed a larger angle to find the drone again than to keep tracking it. Once a drone is lost, it has to come closer before it can be found again. Pilots who look away at a controller screen should expect the same.",
+    "crumbs": [
+      "Tools and Resources",
+      "How far can you really see the drone?",
+      "Experiment"
+    ]
+  },
+  {
+    "objectID": "tools-and-resources/useful-links.html",
+    "href": "tools-and-resources/useful-links.html",
+    "title": "Useful Links",
+    "section": "",
+    "text": "FAA DroneZone\nFAA UAS Program - Central FAA hub for drone rules, registration, and resources\n14 CFR Part 107 - The current federal regulation governing small UAS operations\nList of FAA Approved Drones (DOC/RID)\nRemote ID - FAA requirements for drone Remote Identification broadcast",
+    "crumbs": [
+      "Tools and Resources",
+      "Useful Links"
+    ]
+  },
+  {
+    "objectID": "tools-and-resources/useful-links.html#regulatory-registration",
+    "href": "tools-and-resources/useful-links.html#regulatory-registration",
+    "title": "Useful Links",
+    "section": "",
+    "text": "FAA DroneZone\nFAA UAS Program - Central FAA hub for drone rules, registration, and resources\n14 CFR Part 107 - The current federal regulation governing small UAS operations\nList of FAA Approved Drones (DOC/RID)\nRemote ID - FAA requirements for drone Remote Identification broadcast",
+    "crumbs": [
+      "Tools and Resources",
+      "Useful Links"
+    ]
+  },
+  {
+    "objectID": "tools-and-resources/useful-links.html#airspace-flight-planning",
+    "href": "tools-and-resources/useful-links.html#airspace-flight-planning",
+    "title": "Useful Links",
+    "section": "Airspace & Flight Planning",
+    "text": "Airspace & Flight Planning\n\nLAANC - Low Altitude Authorization and Notification Capability for near-real-time airspace authorization\nTemporary Flight Restrictions (TFRs) - Real-time list of active flight restrictions\nUAS Facility Maps - Maximum pre-approved altitudes around airports in controlled airspace\nSkyVector - Free VFR sectional chart viewer showing airspace classes, TFRs, and IFR approaches",
+    "crumbs": [
+      "Tools and Resources",
+      "Useful Links"
+    ]
+  },
+  {
+    "objectID": "tools-and-resources/useful-links.html#equipment-data",
+    "href": "tools-and-resources/useful-links.html#equipment-data",
+    "title": "Useful Links",
+    "section": "Equipment & Data",
+    "text": "Equipment & Data\n\nBlue UAS Cleared List\nFAA UAS Data Delivery System - Downloadable FAA UAS geospatial data (CSV, JSON, KML, Shapefile)\nuasimg - R package for managing and organizing UAS imagery (developed by UC ANR IGIS)",
+    "crumbs": [
+      "Tools and Resources",
+      "Useful Links"
+    ]
+  },
+  {
+    "objectID": "tools-and-resources/useful-links.html#safety-research-organizations",
+    "href": "tools-and-resources/useful-links.html#safety-research-organizations",
+    "title": "Useful Links",
+    "section": "Safety & Research Organizations",
+    "text": "Safety & Research Organizations\n\nUnmanned Aircraft Safety Team\nASSURE - FAA-designated Center of Excellence for UAS research, a coalition of 30+ universities\nAUVSI - Association for Uncrewed Vehicle Systems International, the industry’s main trade/professional association\nNASA ASRS - NASA UAS Safety Reporting",
+    "crumbs": [
+      "Tools and Resources",
+      "Useful Links"
+    ]
+  },
+  {
+    "objectID": "tools-and-resources/decision-tools.html",
+    "href": "tools-and-resources/decision-tools.html",
+    "title": "Decision Support Tools",
+    "section": "",
+    "text": "A set of interactive tools to support pre-flight planning and risk assessment. These are aids for thinking through a mission systematically — they don’t replace a pilot’s judgment or your organization’s own safety procedures and regulatory compliance requirements.",
+    "crumbs": [
+      "Tools and Resources",
+      "Decision Support Tools"
+    ]
+  },
+  {
+    "objectID": "tools-and-resources/decision-tools.html#uc-drones-toolset",
+    "href": "tools-and-resources/decision-tools.html#uc-drones-toolset",
+    "title": "Decision Support Tools",
+    "section": "UC Drones Toolset",
+    "text": "UC Drones Toolset\n\nUC Mission Risk Checker — Rate pilot, aircraft, location, flight plan, weather, ground crew, and organizational readiness to visualize an overall mission risk profile before flying.\nVisual Line of Sight Estimator — Estimates the maximum distance at which a given drone model remains visible to the naked eye, based on aircraft size and standard visual acuity thresholds.\nStandoff Distance for Operations over Buildings — Calculates the minimum safe horizontal distance needed to maintain line of sight on a drone flying above a building, based on building height, length, and flight altitude.\nDrone Map of California — Map of UC properties, county/city regulations, and public lands relevant to flight planning.\nUAS Registration Tag Generator — enter a drone nickname, campus, and FAA registration number to generate a printable tag PDF",
+    "crumbs": [
+      "Tools and Resources",
+      "Decision Support Tools"
+    ]
+  },
+  {
+    "objectID": "tools-and-resources/decision-tools.html#partner-tools",
+    "href": "tools-and-resources/decision-tools.html#partner-tools",
+    "title": "Decision Support Tools",
+    "section": "Partner Tools",
+    "text": "Partner Tools\n\nWhen2Fly — Decision support tool from the Digital Agriculture Laboratory (Alireza Pourreza, UC Davis).",
+    "crumbs": [
+      "Tools and Resources",
+      "Decision Support Tools"
+    ]
+  },
+  {
+    "objectID": "selecting-a-drone/multimedia-drones.html",
+    "href": "selecting-a-drone/multimedia-drones.html",
+    "title": "Drones for Multimedia",
+    "section": "",
+    "text": "Users seeking a drone for photography or videography do not need to consider mapping-software compatibility; camera quality and ease of operation are the primary factors.\n\n\n\n\n\n\nImportant\n\n\n\nThere are no drones for multimedia that are US-made or NDAA compliant. Please refer to NDAA-Compliant Drones.\n\n\n\nAir 3S — DJI Air 3S, $1,099. 45-minute flight time, 50MP/48MP telephoto dual camera system, excellent flight performance.\nMavic 4 Pro — DJI Mavic 4 Pro, $2,899. The last and best DJI Mavic drone available in the US. Suberp performance in all categories.\nAntigravity A1 - Antigravity A1, $1,599. 8K 360-degree camera drone with FPV headset. FreeMotion point-and-fly control, 249g, 24–39 min flight time.\nDJI Avata 360 — DJI Avata 360, from $719 (RC 2 combo) to $979 (Fly More Combo). Dual 1-inch sensor 8K/60fps 360-degree FPV drone, 23-min flight time, reframe-after-flight capture.",
+    "crumbs": [
+      "Need to Pick a Drone?",
+      "Drones for Multimedia"
+    ]
+  },
+  {
+    "objectID": "selecting-a-drone/low-cost.html",
+    "href": "selecting-a-drone/low-cost.html",
+    "title": "Low-Cost Drones",
+    "section": "",
+    "text": "The following options are suitable for users who want to begin flying without a large investment. These drones do not include mapping software or research-grade sensors.\n\n\n\n\n\n\nImportant\n\n\n\nThere are no low-cost drones that are US-made or NDAA compliant. Please refer to NDAA-Compliant Drones.\n\n\n\nMini 4 Pro — DJI’s compact, affordable line. At 249g, it is well suited as a flight trainer and for casual media use. The current model is the Mini 4 Pro; the earlier Mini 3 and Mini 3 Pro remain viable options. The controller with a built-in screen (DJI RC/RC 2) offers the most portability.\nAeroo Pro — Aeroo Pro, $1,099. Provides a 45-minute flight time, 2.2 lb payload capacity, and a remote payload-release mechanism; some researchers have used it for small sensor deliveries.\nPotensic Atom 2 — Potensic Atom 2, $359. A lower-quality alternative to the DJI Mini 2. Not NDAA compliant, as it is manufactured in China.\nDJI Neo — DJI Neo, ~$199. 135g micro-sized drone, 4K/30fps, ~18-min flight.\nDJI Neo 2 — DJI Neo 2, ~$429. Newest model with extra functionality. 151g, omnidirectional obstacle avoidance, 4K/60fps, ~19-min flight.",
+    "crumbs": [
+      "Need to Pick a Drone?",
+      "Low-Cost Drones"
+    ]
+  },
+  {
+    "objectID": "selecting-a-drone/drone-table.html",
+    "href": "selecting-a-drone/drone-table.html",
+    "title": "Drone Table",
+    "section": "",
+    "text": "Full searchable list of drones, including MTOW, NDAA/Blue UAS status, and specs:\nopen in Airtable",
+    "crumbs": [
+      "Need to Pick a Drone?",
+      "Drone Table"
+    ]
+  },
+  {
+    "objectID": "regulations/remote-id-reading.html",
+    "href": "regulations/remote-id-reading.html",
+    "title": "Reading Remote ID",
+    "section": "",
+    "text": "One purpose of Remote ID is to give law enforcement and security personnel information for identifying aircraft. Broadcasts are transmitted by one of four methods: Bluetooth 4 Legacy Advertising, Bluetooth 5 Long Range Advertising, Wi-Fi Neighbor Awareness Network (NAN), or Wi-Fi Beacon. The method used determines which devices can detect a given broadcast.",
+    "crumbs": [
+      "Regulations",
+      "Reading Remote ID"
+    ]
+  },
+  {
+    "objectID": "regulations/remote-id-reading.html#mobile-devices",
+    "href": "regulations/remote-id-reading.html#mobile-devices",
+    "title": "Reading Remote ID",
+    "section": "Mobile Devices",
+    "text": "Mobile Devices\nAndroid devices can receive Remote ID messages over Bluetooth and Wi-Fi.\n\n\n\n\n\n\nWarning\n\n\n\niOS devices are currently only able to read RemoteID messages over Bluetooth.\n\n\nAvailable apps:\n\nOpenDroneID, available on Android\nDrone Scanner, available on Android and iOS\n\n\nAndroid Wi-Fi Scan Throttling\nAndroid 8.0 and later limit the frequency of Wi-Fi scans, which prevents reliable detection of Wi-Fi broadcasts. To disable throttling, enable Developer options (Settings, About phone, tap Build number seven times), then turn off “Wi-Fi scan throttling” under the Networking category. Menu names vary by device manufacturer.",
+    "crumbs": [
+      "Regulations",
+      "Reading Remote ID"
+    ]
+  },
+  {
+    "objectID": "regulations/fcc-regulations.html",
+    "href": "regulations/fcc-regulations.html",
+    "title": "FCC Regulations",
+    "section": "",
+    "text": "In an unprecedented move, on December 22, 2025, the FCC declared that UAS and UAS critical component parts that are produced in foreign countries pose unacceptable risks to the national security of the United States and to the safety and security of U.S. persons, and should be included on the FCC’s Covered List.\n\nFCC Press Release and Fact Sheet here\nThe updated FCC Covered List can be found here\n\n\n\n\n\n\n\nImportantRestrictions on foreign-made drones\n\n\n\nNew foreign-made drones are prohibited from receiving FCC authorization and are therefore prohibited from being imported for use or sale in the U.S. This update to the Covered List does not prohibit the import, sale, or use of any existing device models the FCC previously authorized.\n\n\nThis FCC action goes above and beyond the initial Section 1709 review that previously only targeted DJI and Autel. The final rule covers all foreign drones and components - not just those made in China, but all foreign countries including Canada, Switzerland, UK, and Germany. In addition, the updated definition for critical components now includes batteries and motors, in addition to the usual autopilots, controllers, and cameras.\nIn the months following, the FCC continued to make significant changes and announcements. We have moved this information and the relevant definitions to this new page to help people keep track.\n\n\n\n\n\n\nNote\n\n\n\nThe FCC has opened a handful of opportunities for the public to comment on their proposals. To date, the FCC’s response to the public on this matter and others have been to state “We disagree with the commenters.”\n\n\n\n\nThe current list of FCC exemptions (Aug 18, 2026)\n\nUAS and UAS components on the DoD Blue List are allowed to receive updates and introduce new components for FCC authorization until January 1, 2028\nUAS and UAS components that qualify as `domestic end products’ under the Buy American Standard will continue to be eligible for FCC authorizations until January 1, 2028.\nSpecific devices that have been granted a Conditional Approval by DoD or DHS\nForeign-produces ‘toy drones’ and ‘toy drones’ that contain foreign-produced components\n\nFull list of Conditional Approvals\nUpdate - Jan 21, 2026\nThe FCC has issued a waiver of prohibitions on certain Class 1 permissive changes to covered UAS and UAS critical components until January 1, 2027. This means that drones with already existing FCC approval may continue to receive certain software and firmware updates at least until then. The FCC remarks that they would re-evaluate prior to Jan 1, 2027 on whether to extend the waiver further.\nSo for now, foreign-made drones can continue to issue updates, but may not at some point in the future.\n\n\n\n\n\nDJI has taken a number of actions to respond and get unbanned. You can follow along their progress in this formal docket. Link\n\n\n\nThe FCC recently announced that they were proposing to remove FCC authorization to sell or market what they deem to be ‘military’ drones. Military drones in their definition includes drones over 55 lbs, drones with a LIDAR unit, and drones with a thermal imager. While certain DJI drones have been grandfathered in with existing FCC authorizations, this would remove them from being able to be sold in the US. The proposal would not ban their use - yet.\nAs an example, the DJI Matrice 4E received its FCC authorization before the ban, but if this new proposal is enacted, the FCC would remove its authorization to be sold in the US.\nComments to the FCC are due Sept 2, 2026\n\nLink to Announcement\nLink to Proceeding/Comment\n\n\n\n\n\n\n\n\nDA\nDate\nSubject\n\n\n\n\nDA-25-1086\nDec 22, 2025\nAdds UAS/Components to Covered List\n\n\nDA-26-22\nJan 7, 2026\nExempts Blue UAS\n\n\nDA-26-253\nMar 17, 2026\nFirst Conditional Approvals\n\n\nDA-26-351\nApr 14, 2026\nsees.AI Conditional Approval\n\n\nDA-26-437\nMay 6, 2026\nAir6 System Conditional Approval\n\n\nDA-26-489\nMay 15, 2026\nElevon Aerial AG Conditional Approval\n\n\nDA-26-548\nJun 4, 2026\nVEX AIR Conditional Approval\n\n\nDA-26-585\nJun 12, 2026\nL50 Conditional Approval\n\n\nDA-26-588\nJun 15, 2026\nExempts ‘Toy Drones’\n\n\nDA-26-616\nJun 22, 2026\nHERA Tactical, Ceres Air Conditional Approval\n\n\nDA-26-655\nJul 2, 2026\nExemptions for C-UAS\n\n\nDA-26-742\nJul 17, 2026\nBan on Skyrover\n\n\nDA-26-758\nJul 21, 2026\nProposal to ban ‘military’ drones\n\n\nDA-26-761\nJul 21, 2026\nExtends Conditional Approvals\n\n\nDA-26-786\nJul 28, 2026\nFCC bans Foreign Power Inverters and Robots\n\n\nDA-26-832\nAug 10, 2026\nProposal to ban Anzu\n\n\nDA-26-839\nAug 11, 2026\nRevokes Odysey Robot",
+    "crumbs": [
+      "Regulations",
+      "FCC Regulations"
+    ]
+  },
+  {
+    "objectID": "regulations/fcc-regulations.html#fcc-exemptions",
+    "href": "regulations/fcc-regulations.html#fcc-exemptions",
+    "title": "FCC Regulations",
+    "section": "",
+    "text": "The current list of FCC exemptions (Aug 18, 2026)\n\nUAS and UAS components on the DoD Blue List are allowed to receive updates and introduce new components for FCC authorization until January 1, 2028\nUAS and UAS components that qualify as `domestic end products’ under the Buy American Standard will continue to be eligible for FCC authorizations until January 1, 2028.\nSpecific devices that have been granted a Conditional Approval by DoD or DHS\nForeign-produces ‘toy drones’ and ‘toy drones’ that contain foreign-produced components\n\nFull list of Conditional Approvals\nUpdate - Jan 21, 2026\nThe FCC has issued a waiver of prohibitions on certain Class 1 permissive changes to covered UAS and UAS critical components until January 1, 2027. This means that drones with already existing FCC approval may continue to receive certain software and firmware updates at least until then. The FCC remarks that they would re-evaluate prior to Jan 1, 2027 on whether to extend the waiver further.\nSo for now, foreign-made drones can continue to issue updates, but may not at some point in the future.",
+    "crumbs": [
+      "Regulations",
+      "FCC Regulations"
+    ]
+  },
+  {
+    "objectID": "regulations/fcc-regulations.html#proposed-actions",
+    "href": "regulations/fcc-regulations.html#proposed-actions",
+    "title": "FCC Regulations",
+    "section": "",
+    "text": "DJI has taken a number of actions to respond and get unbanned. You can follow along their progress in this formal docket. Link\n\n\n\nThe FCC recently announced that they were proposing to remove FCC authorization to sell or market what they deem to be ‘military’ drones. Military drones in their definition includes drones over 55 lbs, drones with a LIDAR unit, and drones with a thermal imager. While certain DJI drones have been grandfathered in with existing FCC authorizations, this would remove them from being able to be sold in the US. The proposal would not ban their use - yet.\nAs an example, the DJI Matrice 4E received its FCC authorization before the ban, but if this new proposal is enacted, the FCC would remove its authorization to be sold in the US.\nComments to the FCC are due Sept 2, 2026\n\nLink to Announcement\nLink to Proceeding/Comment",
+    "crumbs": [
+      "Regulations",
+      "FCC Regulations"
+    ]
+  },
+  {
+    "objectID": "regulations/fcc-regulations.html#list-of-fcc-announcements",
+    "href": "regulations/fcc-regulations.html#list-of-fcc-announcements",
+    "title": "FCC Regulations",
+    "section": "",
+    "text": "DA\nDate\nSubject\n\n\n\n\nDA-25-1086\nDec 22, 2025\nAdds UAS/Components to Covered List\n\n\nDA-26-22\nJan 7, 2026\nExempts Blue UAS\n\n\nDA-26-253\nMar 17, 2026\nFirst Conditional Approvals\n\n\nDA-26-351\nApr 14, 2026\nsees.AI Conditional Approval\n\n\nDA-26-437\nMay 6, 2026\nAir6 System Conditional Approval\n\n\nDA-26-489\nMay 15, 2026\nElevon Aerial AG Conditional Approval\n\n\nDA-26-548\nJun 4, 2026\nVEX AIR Conditional Approval\n\n\nDA-26-585\nJun 12, 2026\nL50 Conditional Approval\n\n\nDA-26-588\nJun 15, 2026\nExempts ‘Toy Drones’\n\n\nDA-26-616\nJun 22, 2026\nHERA Tactical, Ceres Air Conditional Approval\n\n\nDA-26-655\nJul 2, 2026\nExemptions for C-UAS\n\n\nDA-26-742\nJul 17, 2026\nBan on Skyrover\n\n\nDA-26-758\nJul 21, 2026\nProposal to ban ‘military’ drones\n\n\nDA-26-761\nJul 21, 2026\nExtends Conditional Approvals\n\n\nDA-26-786\nJul 28, 2026\nFCC bans Foreign Power Inverters and Robots\n\n\nDA-26-832\nAug 10, 2026\nProposal to ban Anzu\n\n\nDA-26-839\nAug 11, 2026\nRevokes Odysey Robot",
+    "crumbs": [
+      "Regulations",
+      "FCC Regulations"
+    ]
+  },
+  {
+    "objectID": "regulations/cybersecurity.html",
+    "href": "regulations/cybersecurity.html",
+    "title": "Cybersecurity",
+    "section": "",
+    "text": "The use of an unmanned aircraft system (UAS) designed, manufactured, or supplied by foreign companies could create increased cybersecurity risks and opportunities for network exploitation and collection by foreign threat actors.",
+    "crumbs": [
+      "Regulations",
+      "Cybersecurity"
+    ]
+  },
+  {
+    "objectID": "regulations/cybersecurity.html#cybersecurity-risk",
+    "href": "regulations/cybersecurity.html#cybersecurity-risk",
+    "title": "Cybersecurity",
+    "section": "Cybersecurity Risk",
+    "text": "Cybersecurity Risk\nPotential security risks can arise when UAS manufacturers require users to register online and agree to store sensitive data on overseas or even domestic computer servers. These servers are typically maintained by the manufacturers, but can be accessed by third-party application vendors. In addition, online services offered by UAS manufacturers could create opportunities for the theft or seizure of sensitive information and the monitoring of user activities. Foreign threat actors could exploit:\n\nFlight log data, including information about network layouts and the locations of inspections and critical assets;\nOrganizations’ computer network data and systems;\nImages or recordings captured during flights, including physical security assets, vulnerabilities, and transportation networks;\nCorporate proprietary information or intellectual property;\nLE-sensitive information;\nSensor data collected during critical infrastructure inspections;\nEmergency response operations and mission-planning information;\nSensitive facility locations and assets; and\nCustomers’ personally identifiable information (PII).",
+    "crumbs": [
+      "Regulations",
+      "Cybersecurity"
+    ]
+  },
+  {
+    "objectID": "regulations/cybersecurity.html#mitigation-strategies",
+    "href": "regulations/cybersecurity.html#mitigation-strategies",
+    "title": "Cybersecurity",
+    "section": "Mitigation Strategies",
+    "text": "Mitigation Strategies\nHere are a couple of suggestions to reduce the potential data risks and vulnerabilities associated with UAS use and mitigate the loss of sensitive information.\n\nDuring initial UAS activation, use a department or lab name, email address, and password to reduce a UAS manufacturer’s ability to track the owner/user through association with this identifier. Note: It should be assumed that the current GPS location will be transmitted during UAS activation, which could reveal the true owner.\nDo not connect personal social media accounts with devices used for University business. Disable any sharing of imagery or video with social media accounts.\nUse a new mobile device without a SIM card installed or set up previously and never used for other activities for that will contain limited to no PII collectable by a foreign UAS company. For previously used devices, performing a wipe and factory reset of the mobile device prior to using it as a controller is advisable.\nPeriodically wipe or clear sensitive data from the system, including information stored on onboard or removable digital storage devices—such as SD and memory cards—and on connected flight controllers and mobile devices. Sensitive data should also be cleared before returning borrowed or rented UASs.\nAvoid connecting the UAS to internal or private networks with sensitive data. Use a known secured network to register the UAS, and use a local backup device to store footage and data.\nBefore applying UAS patches and upgrades, consider their impact on operations.\nReview user agreements to verify who has access to data collected by the UAS.\nInquire or review user agreements for information about third-party access to UAS data.\nMaintain awareness of third-party collection and retention of data collected during UAS operations and develop appropriate policies to ensure the protection of intellectual property and sensitive operations.",
+    "crumbs": [
+      "Regulations",
+      "Cybersecurity"
+    ]
+  },
+  {
+    "objectID": "recent-news.html",
+    "href": "recent-news.html",
+    "title": "Recent News",
+    "section": "",
+    "text": "Updated Website\n\n\n\nSite News\n\n\n\nWebsite refresh and WCAG 2.2 compliance\n\n\n\n\n\nSeptember 28, 2026\n\n\n\n\n\n\n\n\n\n\n\n\nNew Tariffs on Drones\n\n\n\nRegulations\n\nTariffs\n\n\n\nPresidential Executive Order proclaims new tariffs on drones\n\n\n\n\n\nAugust 13, 2026\n\n\n\n\n\n\n\n\n\n\n\n\nFCC Proposes to Ban Import, Marketing of ‘Military’ Drones\n\n\n\nRegulations\n\nFCC\n\n\n\nFCC proposes to revoke FCC authorization from existing drones with LIDAR, thermal cameras, swarming capabilities and docking stations.\n\n\n\n\n\nJuly 21, 2026\n\n\n\n\n\n\n\n\n\n\n\n\nNew DETER Program\n\n\n\nRegulations\n\n\n\nNew program to increase drone regulation enforcement\n\n\n\n\n\nApril 16, 2026\n\n\n\n\n\n\n\n\n\n\n\n\nFCC Announces Ban on Foreign-Made Drones\n\n\n\nRegulations\n\nFCC\n\n\n\nFCC adds all foreign-made drones to its covered list\n\n\n\n\n\nDecember 22, 2025\n\n\n\n\n\n\n\n\n\n\n\n\nNDAA 2026 - New Counter UAS Regulations\n\n\n\nRegulations\n\nCUAS\n\n\n\nState, local, and tribal law enforcement and correctional agencies may now deploy counter-UAS technology\n\n\n\n\n\nDecember 18, 2025\n\n\n\n\n\n\n\n\n\n\n\n\nNotice of Proposed Rulemaking - BVLOS\n\n\n\nRegulations\n\nBVLOS\n\n\n\nBVLOS proposal finally released. Designed around Organizational Management\n\n\n\n\n\nAugust 5, 2025\n\n\n\n\n\nNo matching items",
+    "crumbs": [
+      "Recent News"
+    ]
+  },
+  {
+    "objectID": "posts/2026-08-13-new-tariffs/index.html",
+    "href": "posts/2026-08-13-new-tariffs/index.html",
+    "title": "New Tariffs on Drones",
+    "section": "",
+    "text": "The president decided to proclaim new tariffs on drones - link\n\nNew Section 232 tariffs on drones (UAS): Effective Sept 3, 2026, a 100% tariff applies to UAS over 25kg, thermal-imaging UAS, docking stations, and certain critical components (motors, batteries, controllers); a 25% tariff applies to UAS 25kg or under. A further 25% tariff on other listed UAS components takes effect Feb 9, 2027 (a 180-day delay meant to encourage domestic sourcing first).\nStated rationale: Commerce Dept investigation found the U.S. overly reliant on foreign UAS supply chains (even domestically-assembled drones use foreign parts), cited cybersecurity/data-exfiltration risks from foreign-made drone software, and concluded domestic manufacturing capacity is insufficient for military and civilian demand.\nCarve-outs and incentives: Lower capped tariffs (15% or 10% for the UK) apply to Japan, South Korea, Taiwan, Switzerland, Liechtenstein, EU members, and the UK if components are certified as substantially originating there; companies with DoW/FCC-cleared products get a 180-day delay; and Commerce can grant tariff-free import allowances to companies committing to build new U.S. production facilities before January 2029, subject to monitoring and clawback for noncompliance or fraud.\n\n← Back to Recent News"
+  },
+  {
+    "objectID": "posts/2026-04-16-new-deter-program/index.html",
+    "href": "posts/2026-04-16-new-deter-program/index.html",
+    "title": "New DETER Program",
+    "section": "",
+    "text": "The Drone Expedited and Targeted Enforcement Response (DETER) program supports the Administration’s Executive Order on Restoring American Airspace Sovereignty, which calls for stronger enforcement of drone laws to protect the safety and security of the U.S. airspace.\nThe program will support enhanced enforcement efforts around high-visibility events, including the upcoming FIFA World Cup matches from June 12 to July 19.\nUnder the DETER program:\n\nEligible first-time operators may resolve cases through reduced civil penalties or certificate suspensions.\nParticipants must admit liability and waive their right to appeal to receive expedited resolution.\nLaw enforcement partners will be able to notify the FAA of drone violations in real time.\nThe program is limited to less serious operational violations and will be implemented in select locations and timeframes.\nThe FAA will continue to handle violations involving significant safety risks, including unauthorized operations in restricted airspace, through standard enforcement procedures. These violations are not eligible for expedited resolution.\n\n← Back to Recent News"
+  },
+  {
+    "objectID": "posts/2025-12-18-ndaa-2026-counter-uas/index.html",
+    "href": "posts/2025-12-18-ndaa-2026-counter-uas/index.html",
+    "title": "NDAA 2026 - New Counter UAS Regulations",
+    "section": "",
+    "text": "The National Defense Authorization Act (NDAA) for 2026 only had one major UAS related update. It created a new statutory carveout allowing state, local, and tribal law enforcement and correctional agencies to deploy counter-UAS technology under defined conditions, removing long-standing federal prohibitions that previously limited non-federal action.\nOnce certified, agencies are exempt from statutes such as the Wiretap Act and 18 U.S.C. Section 32, which otherwise prohibit interference with or destruction of aircraft in flight, when acting under this authority. Certified agencies may take actions deemed necessary to mitigate a credible threat posed by an unmanned aircraft system to:\n\nPublic safety\nFacilities and assets\nLarge-scale public events and venues\nCritical infrastructure\nCorrectional facilities\n\nTo qualify for this authority, agencies must:\n\nReceive counter-UAS training from the Department of Homeland Security\nUse counter-UAS systems approved by DHS and the Department of Defense\nDHS and DoD have six months to issue implementing regulations, establish the training program, and define the equipment approval process.\n\n← Back to Recent News"
+  },
+  {
+    "objectID": "index.html",
+    "href": "index.html",
+    "title": "Home Page",
+    "section": "",
+    "text": "The UC Center of Excellence on Unmanned Aircraft System Safety has developed this portal of resources for all users of Unmanned Aircraft Systems within the University of California.",
+    "crumbs": [
+      "Home Page"
+    ]
+  },
+  {
+    "objectID": "index.html#uc-drone-web-app",
+    "href": "index.html#uc-drone-web-app",
+    "title": "Home Page",
+    "section": "UC Drone Web App",
+    "text": "UC Drone Web App\nTo submit UC flight requests and reports, use the UC Drone Web App.\n\n\n\n\n\n\n\n\n\n\n\nImportantRestrictions on foreign-made drones\n\n\n\n\nFederally funded projects: Drones from DJI, Autel, and other covered foreign manufacturers can no longer be purchased or flown on federally funded projects.\nNew FCC authorizations: New foreign-made drone models can no longer receive FCC equipment authorization, with limited exceptions. Drones that are already authorized can still be owned and flown.\n\nReview your fleet and projects now, and contact us if you have questions.",
+    "crumbs": [
+      "Home Page"
+    ]
+  },
+  {
+    "objectID": "index.html#connect-with-us",
+    "href": "index.html#connect-with-us",
+    "title": "Home Page",
+    "section": "Connect with Us",
+    "text": "Connect with Us\nTo join the UC Drone listserv, email us a listserv request.\nWant to talk with us online? Use our Booking Link. Pick a time that works for you, and the system will schedule a Microsoft Teams meeting.",
+    "crumbs": [
+      "Home Page"
+    ]
+  },
+  {
+    "objectID": "index.html#quick-links",
+    "href": "index.html#quick-links",
+    "title": "Home Page",
+    "section": "Quick Links",
+    "text": "Quick Links\n\nRecent News - Latest updates in regulations and drone technology.\nNew User Guide - New to Drones? New to flying for Research? Start here for an overview of the UC policy and procedures.\nUnmanned Aircraft System (Drone) Policy - The UC Presidential Policy on the use of Unmanned Aircraft Systems within the University of California.\nDrone Map of California - Map of UC properties, County/City regulations, and public lands.",
+    "crumbs": [
+      "Home Page"
+    ]
+  },
+  {
+    "objectID": "getting-started/standard-operating-procedures.html",
+    "href": "getting-started/standard-operating-procedures.html",
+    "title": "Standard Operating Procedures and Guidance",
+    "section": "",
+    "text": "New User Guide\n\nJust getting started with Drones in the UC System? Start here! Includes registration and licensing information.",
+    "crumbs": [
+      "Getting Started",
+      "Standard Operating Procedures and Guidance"
+    ]
+  },
+  {
+    "objectID": "getting-started/standard-operating-procedures.html#new-user-guide",
+    "href": "getting-started/standard-operating-procedures.html#new-user-guide",
+    "title": "Standard Operating Procedures and Guidance",
+    "section": "",
+    "text": "New User Guide\n\nJust getting started with Drones in the UC System? Start here! Includes registration and licensing information.",
+    "crumbs": [
+      "Getting Started",
+      "Standard Operating Procedures and Guidance"
+    ]
+  },
+  {
+    "objectID": "getting-started/standard-operating-procedures.html#basic-drone-operations",
+    "href": "getting-started/standard-operating-procedures.html#basic-drone-operations",
+    "title": "Standard Operating Procedures and Guidance",
+    "section": "Basic Drone Operations",
+    "text": "Basic Drone Operations\nStandard Operating Procedures for Basic UAS Operations\n\nA short SOP for simple and low risk drone operations.",
+    "crumbs": [
+      "Getting Started",
+      "Standard Operating Procedures and Guidance"
+    ]
+  },
+  {
+    "objectID": "getting-started/standard-operating-procedures.html#advanced-drone-operations",
+    "href": "getting-started/standard-operating-procedures.html#advanced-drone-operations",
+    "title": "Standard Operating Procedures and Guidance",
+    "section": "Advanced Drone Operations",
+    "text": "Advanced Drone Operations\nStandard Operating Procedures for Advanced Drone Operations\n\nRequired Standard Operating Procedures Manual for moderate to risky drone operations, or flight operations under special authorizations",
+    "crumbs": [
+      "Getting Started",
+      "Standard Operating Procedures and Guidance"
+    ]
+  },
+  {
+    "objectID": "getting-started/insurance.html",
+    "href": "getting-started/insurance.html",
+    "title": "Insurance",
+    "section": "",
+    "text": "The University of California has purchased an Unmanned Aircraft System Liability Policy. This policy has a total of $5 Mil limit including Personal Injury.\nCoverage is automatic for UAS activity that meet the following criteria:\n\nFlight operations are conducted on behalf and sanctioned by the University of California.\nAircraft weight under 55 lbs (at time of takeoff)\nFlight operations are within Visual Line of Sight\nFlight operations are below 400 ft above ground level.\nFlight operations must be conducted within the United States.\n\nAny UAS activity that do not meet the above criteria or operate outside the above criteria must be reported to and approved by the insurance underwriter in order to be covered.\n\n\nThe University of California has extended their UAS liability policy to enable coverage of UAS owned by UC students, staff or faculty used for University Business, including research. Coverage is contingent on compliance with the policy and procedures on UAS usage. This coverage is not intended to cover student organizations or 3rd Party vendors or contractors.\n\n\n\nThe University of California has extended their UAS liability policy to enable coverage of UAS by Campus Police. All coverage is contingent on the UAS activity being sanctioned by the UC.\nAny UAS activity that is not approved by a Designated Local Authority or Systemwide Designated UAS Authority is not covered by this liability insurance.",
+    "crumbs": [
+      "Getting Started",
+      "Insurance"
+    ]
+  },
+  {
+    "objectID": "getting-started/insurance.html#s-UC-liability",
+    "href": "getting-started/insurance.html#s-UC-liability",
+    "title": "Insurance",
+    "section": "",
+    "text": "The University of California has purchased an Unmanned Aircraft System Liability Policy. This policy has a total of $5 Mil limit including Personal Injury.\nCoverage is automatic for UAS activity that meet the following criteria:\n\nFlight operations are conducted on behalf and sanctioned by the University of California.\nAircraft weight under 55 lbs (at time of takeoff)\nFlight operations are within Visual Line of Sight\nFlight operations are below 400 ft above ground level.\nFlight operations must be conducted within the United States.\n\nAny UAS activity that do not meet the above criteria or operate outside the above criteria must be reported to and approved by the insurance underwriter in order to be covered.\n\n\nThe University of California has extended their UAS liability policy to enable coverage of UAS owned by UC students, staff or faculty used for University Business, including research. Coverage is contingent on compliance with the policy and procedures on UAS usage. This coverage is not intended to cover student organizations or 3rd Party vendors or contractors.\n\n\n\nThe University of California has extended their UAS liability policy to enable coverage of UAS by Campus Police. All coverage is contingent on the UAS activity being sanctioned by the UC.\nAny UAS activity that is not approved by a Designated Local Authority or Systemwide Designated UAS Authority is not covered by this liability insurance.",
+    "crumbs": [
+      "Getting Started",
+      "Insurance"
+    ]
+  },
+  {
+    "objectID": "getting-started/insurance.html#s-UC-physical-damage",
+    "href": "getting-started/insurance.html#s-UC-physical-damage",
+    "title": "Insurance",
+    "section": "Physical Damage Coverage",
+    "text": "Physical Damage Coverage\nPhysical damage to Unmanned Aircraft Systems (UAS) registered with the UC Center of Excellence on UAS Safety is provided by a physical damage policy from the University’s captive insurance company, Fiat Lux Risk and Insurance Company.\n\nCoverage applies in flight only when an approved flight plan is filed in accordance with UC UAS Policy, which includes the UC Drone web app or other means of compliance.\nCoverage applies to Unmanned Aircraft Systems not in flight, but only if the Unmanned Aircraft Systems are registered with the UC Center of Excellence on UAS Safety at the time of the loss.\nThe policy limit per occurrence is $100,000 for UAS. Policy conditions and the scheduled value of the Unmanned Aircraft System may limit recovery. Unmanned Aircraft Systems are covered at present value not replacement cost. Depreciation does apply to claims for Unmanned Aircraft Systems.\nUnmanned Aircraft Systems with values greater than $100,000 can be endorsed to the policy.\nThe UAS Physical Damage policy does not cover damage to payload or cargo; submit payload/cargo losses to the UC’s property policy.\nA $1,000 deductible applies per loss. If an Unmanned Aircraft System loss results in damage to payload/cargo, the deductible is pro-rated between the policies.\nIn the event of a loss, please report to campus risk management.\n\nThis physical damage coverage does not extend to personally owned Unmanned Aircraft Systems used for University Business. Only Unmanned Aircraft Systems owned by the University of California are covered.\n\nFiling a Claim\nTo file a claim, contact your campus Risk Manager. Please prepare the following:\n\nCopy of the post-flight report (through UC Drones or other means of compliance)\nPhotographs of damaged equipment\nCopy of original purchase invoice\nCopy of invoice to ship the equipment back the manufacturer\nCopy of repair invoice, if repairable\nCopy of replacement quote, if not repairable\n\nEnsure your coverage\n\nAttach a copy of your UAS invoice to your UAS registration in UC Drones\nMake sure you file your Flight Requests\nFor recurrent or on-going activity, create a Project application but don’t forget to add flights before you head out.\nAfter an incident, make sure you take pictures of the damage and file a post-flight report. Add as much detail as possible.",
+    "crumbs": [
+      "Getting Started",
+      "Insurance"
+    ]
+  },
+  {
+    "objectID": "getting-started/insurance.html#rd-party-insurance-minimum",
+    "href": "getting-started/insurance.html#rd-party-insurance-minimum",
+    "title": "Insurance",
+    "section": "3rd Party Insurance Minimum",
+    "text": "3rd Party Insurance Minimum\nAll 3rd Party UAS activity, including on behalf of the University or other users of campus space, must have liability insurance with a preferred limit of $5 Mil. In addition to the limit that is provided by the Operator, a certificate of insurance along with a copy of the endorsement listing the following insurance clauses should be issued prior to commencement of services:\n\nName The University and its directors, officers, employees, servants and agents (collectively, the “Indemnified Parties” and individually, the “Indemnified Party”) as additional insureds, as their respective interests may appear\nThe Operator’s insurance shall be primary without any right of contribution from any other insurance available to The University\nInclude a cross liability or severability of interests among Indemnified Parties, providing that the insurance shall operate in all respects as if a separate policy had been issued covering each party insured\nInclude a waiver of subrogation in favor of the Indemnified Parties.\nThe certificate of insurance shall also provide that, in the event of a cancellation or material restrictive change of the policy which would adversely affect the interest of the Indemnified Parties, the insurers agree to provide 30 days prior written notice to The University.",
+    "crumbs": [
+      "Getting Started",
+      "Insurance"
+    ]
+  },
+  {
+    "objectID": "about.html",
+    "href": "about.html",
+    "title": "About",
+    "section": "",
+    "text": "About this site"
+  },
+  {
+    "objectID": "about-us/code-of-conduct.html",
+    "href": "about-us/code-of-conduct.html",
+    "title": "Code of Conduct",
+    "section": "",
+    "text": "For any activity hosted by the UC Center of Excellence on UAS Safety, we expect participants to follow these rules. This includes any in-person training, virtual events, online forums and participation on social media.\nThe UC Center of Excellence is dedicated to providing a harassment-free experience for everyone whether in physical or virtual spaces. We do not tolerate harassment of community members or event participants in any form. Participants violating these rules may be sanctioned or expelled from the event at the discretion of the UC Center of Excellence on UAS Safety and any event organizers.\nHarassment includes offensive verbal comments related to gender, gender identity and expression, sexual orientation, disability, group status, physical appearance, body size, race, or religion. In addition, harassment includes the acts of deliberate intimidation, stalking, following, unwelcome photography or recording, sustained disruption of talks or other events, inappropriate physical contact, and unwelcome sexual attention. Participants asked to stop any harassing behavior are expected to comply immediately.\nIf an event participant engages in harassing behavior, the UC Center of Excellence on UAS Safety or event organizers may take any action they deem appropriate, including warning the offender or expulsion from the event.\nIf you are being harassed, notice that someone else is being harassed, or have any other concerns, please contact us by email at UASsafety@ucmerced.edu. We will work with anyone who reports an issue and will work quickly to address the problem.",
+    "crumbs": [
+      "About Us",
+      "Code of Conduct"
+    ]
+  },
+  {
+    "objectID": "about-us/mission.html",
+    "href": "about-us/mission.html",
+    "title": "Mission",
+    "section": "",
+    "text": "The University of California Center of Excellence on Unmanned Aircraft System Safety provides system-wide expertise, support, and training for regulatory compliance, risk management, and the safe operation of unmanned aircraft systems (UAS), commonly known as drones, across the University of California system. This covers all 10 UC campuses, UC Medical Centers, the Division of Agriculture and Natural Resources, the UC Natural Reserve System, UC Cooperative Extensions, and wherever UC conducts official business worldwide.\nSince March 2016, the Center of UAS Safety has worked to develop effective safety and risk management strategies applicable to the wide variety of unmanned aircraft use and development in the UC system. Across the UC system, there are currently an estimated 300 active unmanned aircraft used by UC faculty, staff and students, and the number is growing daily. The UC UAS Policy was finalized in February 2018 to establish a standardized top-down management approach and to assign roles & responsibilities for oversight.",
+    "crumbs": [
+      "About Us",
+      "Mission"
+    ]
+  },
+  {
+    "objectID": "about-us/mission.html#unmanned-aircraft-systems-at-the-university-of-california",
+    "href": "about-us/mission.html#unmanned-aircraft-systems-at-the-university-of-california",
+    "title": "Mission",
+    "section": "",
+    "text": "The University of California Center of Excellence on Unmanned Aircraft System Safety provides system-wide expertise, support, and training for regulatory compliance, risk management, and the safe operation of unmanned aircraft systems (UAS), commonly known as drones, across the University of California system. This covers all 10 UC campuses, UC Medical Centers, the Division of Agriculture and Natural Resources, the UC Natural Reserve System, UC Cooperative Extensions, and wherever UC conducts official business worldwide.\nSince March 2016, the Center of UAS Safety has worked to develop effective safety and risk management strategies applicable to the wide variety of unmanned aircraft use and development in the UC system. Across the UC system, there are currently an estimated 300 active unmanned aircraft used by UC faculty, staff and students, and the number is growing daily. The UC UAS Policy was finalized in February 2018 to establish a standardized top-down management approach and to assign roles & responsibilities for oversight.",
+    "crumbs": [
+      "About Us",
+      "Mission"
+    ]
+  },
+  {
+    "objectID": "about-us/mission.html#regulatory-compliance-risk-management-and-training",
+    "href": "about-us/mission.html#regulatory-compliance-risk-management-and-training",
+    "title": "Mission",
+    "section": "Regulatory Compliance, Risk Management and Training",
+    "text": "Regulatory Compliance, Risk Management and Training\nThe Center is focused on the following goals: - Promote UAS Safety through the development of a UAS Safety Management System, a four-pillared approach of Safety Policy, Safety Risk Management, Safety Assurance, and Safety Promotion - Develop effective UAS policies that define the processes and organization structure for UAS operations - Systematic processes for assessing and managing UAS risk - Fleet management system to provide continued monitoring of UAS activity and risk - Communicate UAS regulations and provide training\nThe wide range of UAS activity by UC affiliates and visitors necessitates a holistic approach to safety. The four-pillared approach, encapsulated as the UAS Safety Management System, structures safety as a combination of multiple aspects. This systematic approach is the first to manage UAS activity at the size and magnitude of the University of California system. While other agencies consider unmanned aircraft an isolated risk, the University of California has incorporated UAS into its Enterprise Risk Management approach.",
+    "crumbs": [
+      "About Us",
+      "Mission"
+    ]
+  },
+  {
+    "objectID": "about-us/mission.html#services-provided-by-the-center-of-uas-safety",
+    "href": "about-us/mission.html#services-provided-by-the-center-of-uas-safety",
+    "title": "Mission",
+    "section": "Services provided by the Center of UAS Safety",
+    "text": "Services provided by the Center of UAS Safety\nAs primarily a service-oriented unit, the Center of UAS Safety has a long list of services it provides to the UC system. Some examples include:\n\nGuidance on UAS laws and regulations\nGuidance on UAS usage on UC property\nGeneration of UAS activity reports\nFleet management system to monitor UAS conditions, pilot training, and flight operations\nIdentification of legal flying sites\nProcessing of authorization for UAS flight operations\nTraining on emerging UAS challenges\nSafety training on UAS operations\n\nFor more information about the University of California Center of Excellence on Unmanned Aircraft System Safety, visit the webpage or contact the Center at UASSafety@ucmerced.edu or (209) 201-2051.",
+    "crumbs": [
+      "About Us",
+      "Mission"
+    ]
+  },
+  {
+    "objectID": "getting-started/campus-points-of-contact.html",
+    "href": "getting-started/campus-points-of-contact.html",
+    "title": "Campus Points of Contact",
+    "section": "",
+    "text": "Campus / Entity\nDepartment\nWebsite\nEmail\n\n\n\n\nUC ANR\nInformatics & GIS\nigis.ucanr.edu\nigis@ucanr.edu\n\n\nUC Berkeley\nCampus Police & Risk Services\nCampus Policy\nrisk@berkeley.edu\n\n\nUC Davis\nRisk Services\nSafety Services\nrms@ucdavis.edu\n\n\nUC Irvine\nEH&S and Risk Services\nCampus Policy\n\n\n\nUC Los Angeles\nEvent Services\nDrone Procedures\nevents@ucla.edu\n\n\nUC Merced\nUC CoE on UAS Safety\nUAS Safety\nuassafety@ucmerced.edu\n\n\nLawrence Berkeley National Lab\nEH&S\nAviation Policy\n\n\n\nUC Riverside\nEH&S\nDrone Safety\nehs@ucr.edu\n\n\nUC San Diego\nEH&S\nDrone Safety\nehsfaa@ucsd.edu\n\n\nUC San Francisco\nEH&S\nDrone Operations\nDrones@ucsf.edu\n\n\nUC Santa Barbara\nEH&S\nUAS & Drones\n\n\n\nUC Santa Cruz\nEH&S\nUAS/Drones\nuas@ucsc.edu",
+    "crumbs": [
+      "Getting Started",
+      "Campus Points of Contact"
+    ]
+  },
+  {
+    "objectID": "getting-started/policy.html",
+    "href": "getting-started/policy.html",
+    "title": "Policy and FAQs",
+    "section": "",
+    "text": "The University of California recognizes that UAS offer great potential as tools for research and other educational functions as well as providing opportunities for recreational use and business pursuits across a diverse array of users and industries. The University also has an obligation to consider public safety, privacy, civil rights and civil liberties issues related to the use of UAS. In short, all UAS usage on UC property, for UC business or by UC-owned UAS must be pre-approved and documented by the designated UAS campus point of contact. In addition, non-UC operators on UC property must maintain sufficient liability insurance coverage.\nThe full policy can be found here:\nUnmanned Aircraft System (Drone) Policy\n\nThe UC Presidential Policy on the use of Unmanned Aircraft Systems within the University of California.\n\nUC UAS Policy Guidance\n\nThis guidance is for those who want to learn more about the UC UAS Policy and how it’s implemented across the UC System",
+    "crumbs": [
+      "Getting Started",
+      "Policy and FAQs"
+    ]
+  },
+  {
+    "objectID": "getting-started/policy.html#uc-policy-on-drones",
+    "href": "getting-started/policy.html#uc-policy-on-drones",
+    "title": "Policy and FAQs",
+    "section": "",
+    "text": "The University of California recognizes that UAS offer great potential as tools for research and other educational functions as well as providing opportunities for recreational use and business pursuits across a diverse array of users and industries. The University also has an obligation to consider public safety, privacy, civil rights and civil liberties issues related to the use of UAS. In short, all UAS usage on UC property, for UC business or by UC-owned UAS must be pre-approved and documented by the designated UAS campus point of contact. In addition, non-UC operators on UC property must maintain sufficient liability insurance coverage.\nThe full policy can be found here:\nUnmanned Aircraft System (Drone) Policy\n\nThe UC Presidential Policy on the use of Unmanned Aircraft Systems within the University of California.\n\nUC UAS Policy Guidance\n\nThis guidance is for those who want to learn more about the UC UAS Policy and how it’s implemented across the UC System",
+    "crumbs": [
+      "Getting Started",
+      "Policy and FAQs"
+    ]
+  },
+  {
+    "objectID": "getting-started/policy.html#ch-FAQs",
+    "href": "getting-started/policy.html#ch-FAQs",
+    "title": "Policy and FAQs",
+    "section": "Policy Frequently Asked Questions",
+    "text": "Policy Frequently Asked Questions\n\nWho do I contact to fly on my campus?\nA list of the campus points of contact can be found here. Please understand that in many cases, the use of UAS on UC property are regulated by existing campus policies on activities, registered organizations and use of properties. These regulations are designed to protect and promote the rights of the members of the University, prevent interference with University functions or activities and assure compliance with all pertinent laws and other applicable University policies. For UC students, staff and faculty, you may submit a Flight Request with UC Drones Web App or contact the campus for additional or alternative means to submit a request.\nI need to fly a drone for my research. What do I need to do? How long does it take for approval?\nThere may be several special circumstances, but in general, the operator must have an sUAS license from the FAA and must submit a Flight Request to the local campus point of contact. Depending on the complexity and timing of the request, the flight request could be approved in minutes or may take several weeks if extra FAA approval or coordination is necessary. A Flight Request may be a single flight, a set of flights or cover a year’s worth of activity – the details can be coordinated during the request.\nWhat are the laws for flying a drone in the US?\nThe most common applicable set of laws for flying a drone is Part 107 (Flying for Work or Business https://www.faa.gov/uas/commercial_operators/). This set of law requires the operator to have an SUAS license, have a registered drone and follow the drone laws that limit drone flying to up to 400 ft AGL, during daylight only and may not fly over people or moving vehicles. There are additionally special circumstances or restrictions for foreign nationals (international students, visiting scholars), operating on certain public lands, or within certain states or municipalities.\nCan I fly a personal drone for my research project or my department?\nYes, as long as you comply with UC policy. Anyone operating under UC policy for university business (regardless of ownership) may additionally be provided with UC UAS liability insurance coverage free of charge.\nI have a complicated or non-standard scenario. Who should I contact to identify what I need to do?\nPlease feel free to contact either your campus point of contact or the UC Center of Excellence on UAS Safety. We will work to ensure that there is a path forward for you to conduct your flight activity. We have experience with international UAS regulations, public agency airworthiness certification, night-time operations, airspace authorizations, DOT foreign national operator permits and agricultural spraying certificates to name a few.\nI’m looking to fly a drone, but it says we are within 5 miles from the Davis Airport (KEDU). Is there anything we need to do to get approval to fly?\nThe Davis Airport (KEDU) is an airport in Class G airspace, and no Airspace Authorization is required. Additionally, the requirement to notify all airports within 5 miles has been rescinded. You may fly a drone wherever you have permission to do so, without being required to notify KEDU.",
+    "crumbs": [
+      "Getting Started",
+      "Policy and FAQs"
+    ]
+  },
+  {
+    "objectID": "getting-started/training-modules.html",
+    "href": "getting-started/training-modules.html",
+    "title": "Training Modules",
+    "section": "",
+    "text": "How to be a good visual observer\n\nThis is an introduction for learning how to be a good Visual Observers for novices of drone operations. Share this link with anyone who wants to be more prepared for drone operations.\n\nFire Safety for Drones\n\nFire is an ever-present danger in California. Please go through this fire safety training before operating in any fire risk environments.",
+    "crumbs": [
+      "Getting Started",
+      "Training Modules"
+    ]
+  },
+  {
+    "objectID": "getting-started/training-modules.html#beginner-training",
+    "href": "getting-started/training-modules.html#beginner-training",
+    "title": "Training Modules",
+    "section": "",
+    "text": "How to be a good visual observer\n\nThis is an introduction for learning how to be a good Visual Observers for novices of drone operations. Share this link with anyone who wants to be more prepared for drone operations.\n\nFire Safety for Drones\n\nFire is an ever-present danger in California. Please go through this fire safety training before operating in any fire risk environments.",
+    "crumbs": [
+      "Getting Started",
+      "Training Modules"
+    ]
+  },
+  {
+    "objectID": "getting-started/training-modules.html#cinematography-flight-training",
+    "href": "getting-started/training-modules.html#cinematography-flight-training",
+    "title": "Training Modules",
+    "section": "Cinematography Flight Training",
+    "text": "Cinematography Flight Training\n\nBasic Tips and Tricks for Cinematography with Drones\n\nThis is a training for anyone getting started with using drones for cinematography or video production. In this training, we’ll introduce how to start getting cinematic footage with your drone, how to do it safely and legally, and then some basic flight maneuvers to practice.",
+    "crumbs": [
+      "Getting Started",
+      "Training Modules"
+    ]
+  },
+  {
+    "objectID": "getting-started/training-modules.html#drone-flight-instruction",
+    "href": "getting-started/training-modules.html#drone-flight-instruction",
+    "title": "Training Modules",
+    "section": "Drone Flight Instruction",
+    "text": "Drone Flight Instruction\nLearning how to fly a drone is easy - just don’t crash! But if you need more help, take a look through our flight instruction curriculum here:\n\nTraining for Flight Instructors\n\nWill you be teaching new pilots? Here’s a new training just for you - Regulations, topics to cover, safety planning and best practices for flight instruction.\n\nBeginner Flight Packet (PDF)\nAdvanced Flight Packet (PDF)\nGuide to Drone Flight Instruction (PDF)",
+    "crumbs": [
+      "Getting Started",
+      "Training Modules"
+    ]
+  },
+  {
+    "objectID": "posts/2025-08-05-nprm-bvlos/index.html",
+    "href": "posts/2025-08-05-nprm-bvlos/index.html",
+    "title": "Notice of Proposed Rulemaking - BVLOS",
+    "section": "",
+    "text": "The FAA finally released their proposed regulations for BVLOS - https://www.faa.gov/newsroom/beyond-visual-line-sight-bvlos\nThe regulations are a little different than what was expected, but could be a good step forward.\nSome notable items:\n\nPart 108 is designed around Organizational management and oversight rather than individual pilot operations. The University of California would be the Operator (permit/certificate holder) for Part 108.\n\nThe ‘Operator’ in the regulations refer to the owner/management rather than the individual pilot. It’s a relic of older terminology, like how a ‘Person’ is defined as an individual, firm, company, or governmental entity (14 CFR 1.1). Think ‘Operator’ like Delta Airlines is an Operator.\nDesignation of Operations Supervisor (expected to be comparable to a Director of Aviation Operations)\nDesignation of Flight Coordinators (expected to have more direct involvement in flight operations, like a RPIC)\nBoth positions exempt from FAA licensing or individual certifications\nSignificant recordkeeping and reporting requirements\n\nPart 108 has two options: Permits and Certificates. Both have specific purpose types, each with their own specific restrictions.\n\nOperating Permits are the smaller in scale and scope. There are eight defined permit types:\n\nPackage Delivery\nAgriculture (Spraying)\nAerial Surveying\nCivit Interest (Law Enforcement/Emergency Response)\nUAS Training\nDemonstration\nRecreational\nFlight Test\n\nOperating Certificates have steeper requirements but are less limiting. There are four defined certificate types:\n\nPackage Delivery\nAgirculture (Spraying)\nAerial Surveying\nCivic Interest (Law Enforcement/Emergency Response)\n\nOperators may only have one of each type of Permit or Certificate. While most permits have limits on how many drones can be operated under each type (example: An Agriculture Permit only allows a fleet of 10), there are no fleet limits on certificates.\n\nAircraft operating under Part 108 are not limited by Part 107 restrictions. Part 108 allows drones up to 1,320 lbs, concurrent flight operations, and may operate over people.\nLand zone restrictions and requirements based on population density. The FAA proposes to use LandScan as a source for population density, and drafted 5 Categories. For example, flight operations in Category 1 must be at least 50 ft away from any non-participant, while operations in Category 3 must not utilize unlicensed radio bands and are required to have an approved method of in-flight deconfliction. Different permit types also have limits on what Category zones they can operate over, for example, operations with an Aerial Surveying permit may only be allowed over people up to Category 3 zones. All UC campuses are in Category 4 zones.\n\nQuick map of the daytime zones in California ArcGIS Online Map\nFlight operations over open-air assemblies would still be prohibited regardless of the land Category.\n\nThe aircraft manufacturer is responsible for obtaining FAA authorization for Airworthiness Acceptance under Part 108. Only manufacturers within the US or a country with which the US has a Bilateral Airworthiness Agreement in place. There are significant manufacturing requirements, so it’s likely only the major manufacturers would want to go through these lengths.\n\nDrones must be able to yield right of way to all aircraft broadcasting their position via ADS-B, necessitating some level of aircraft and object detection system either on-board or through other ground systems.\n\nOperators may also utilize Automated Data Service Providers to provide real-time intelligence to the drone regarding weather and other air traffic.\n\nWe’ll continue to track how this rulemaking progresses. Public comments to the legislation will be posted here FAA Rulemaking Docket\n← Back to Recent News"
+  },
+  {
+    "objectID": "posts/2025-12-22-fcc-covered-list/index.html",
+    "href": "posts/2025-12-22-fcc-covered-list/index.html",
+    "title": "FCC Announces Ban on Foreign-Made Drones",
+    "section": "",
+    "text": "In an unprecedented move, on December 22, 2025, the FCC declared that UAS and UAS critical component parts that are produced in foreign countries pose unacceptable risks to the national security of the United States and to the safety and security of U.S. persons, and should be included on the FCC’s Covered List.\n\nFCC Press Release and Fact Sheet here\nThe updated FCC Covered List can be found here\n\n\n\n\n\n\n\nImportantRestrictions on foreign-made drones\n\n\n\nNew foreign-made drones are prohibited from receiving FCC authorization and are therefore prohibited from being imported for use or sale in the U.S. This update to the Covered List does not prohibit the import, sale, or use of any existing device models the FCC previously authorized.\n\n\nThis FCC action goes above and beyond the initial Section 1709 review that previously only targeted DJI and Autel. The final rule covers all foreign drones and components - not just those made in China, but all foreign countries including Canada, Switzerland, UK, and Germany. In addition, the updated definition for critical components now includes batteries and motors, in addition to the usual autopilots, controllers, and cameras.\n← Back to Recent News"
+  },
+  {
+    "objectID": "posts/2026-07-21-fcc-proposes-to-ban-military/index.html",
+    "href": "posts/2026-07-21-fcc-proposes-to-ban-military/index.html",
+    "title": "FCC Proposes to Ban Import, Marketing of ‘Military’ Drones",
+    "section": "",
+    "text": "The FCC recently announced that they were proposing to remove FCC authorization to sell or market what they deem to be ‘military’ drones. Military drones in their definition includes drones over 55 lbs, drones with a LIDAR unit, and drones with a thermal imager. While certain DJI drones have been grandfathered in with existing FCC authorizations, this would remove them from being able to be sold in the US. The proposal would not ban their use - yet.\nAs an example, the DJI Matrice 4E received its FCC authorization before the ban, but if this new proposal is enacted, the FCC would remove its authorization to be sold in the US.\nComments to the FCC are due Sept 2, 2026\n← Back to Recent News"
+  },
+  {
+    "objectID": "posts/2026-09-28-updated-website/index.html",
+    "href": "posts/2026-09-28-updated-website/index.html",
+    "title": "Updated Website",
+    "section": "",
+    "text": "It’s been 5 years since the last webpage refresh, so I took the opportunity to move some things around and add a “Recent News” page.\nSome pages are still being updated. If you find an error, a broken link, or an accessibility issue, let me know.\n← Back to Recent News"
+  },
+  {
+    "objectID": "regulations/counter-uas.html",
+    "href": "regulations/counter-uas.html",
+    "title": "Counter UAS",
+    "section": "",
+    "text": "The Department of Homeland Security has increasingly been issuing concerns over the potential of malicious drone use. Below are some guidance and resources for review:",
+    "crumbs": [
+      "Regulations",
+      "Counter UAS"
+    ]
+  },
+  {
+    "objectID": "regulations/counter-uas.html#uas-threat-best-practices",
+    "href": "regulations/counter-uas.html#uas-threat-best-practices",
+    "title": "Counter UAS",
+    "section": "UAS Threat Best Practices",
+    "text": "UAS Threat Best Practices\n\nIncorporate UAS into risk assessments. Assess critical assets and areas that may be most vulnerable to UAS. Identify and monitor possible launch and landing zones on or near facilities.\nEstablish procedures for safely handling downed UAS. Ensure that any downed UAS are rendered safe and properly handled to prevent potential harm to personnel, disruption of operations, or destruction of evidence.\nReevaluate security postures and security cameras and views to consider airborne threats.\nTrain employees on recognizing and reporting suspicious UAS activity.\nPlace ‘No Drone Zones’ signs in areas where UAS takeoff or landing is restricted.\nConduct exercises to test and prepare response capabilities should a UAS incident occur.\nUpdate emergency action plans to include UAS incidents and responses. These might address evacuation protocols, depending on the model; visible hazardous attachments; or UAS payload size.\nConsider using UAS detection technology and Remote ID receivers to enhance situational awareness of UAS activity. Consult legal counsel before employing detection technology, as certain systems may violate federal statutes and regulations.",
+    "crumbs": [
+      "Regulations",
+      "Counter UAS"
+    ]
+  },
+  {
+    "objectID": "regulations/counter-uas.html#other-resources",
+    "href": "regulations/counter-uas.html#other-resources",
+    "title": "Counter UAS",
+    "section": "Other Resources",
+    "text": "Other Resources\n\nCISA Be Air Aware Program UAS risk information and resiliency exercises\nNo Drone Zone Guidance FAA guidance and resources for ‘No Drone Zone’ areas\nAdvisory Report on Counter UAS Additional information on the application of Federal Laws to the acquisition and use of technology to detect and mitigate unmanned aircraft systems.",
+    "crumbs": [
+      "Regulations",
+      "Counter UAS"
+    ]
+  },
+  {
+    "objectID": "regulations/definitions.html",
+    "href": "regulations/definitions.html",
+    "title": "Definitions",
+    "section": "",
+    "text": "Common terms and acronyms used throughout this site and in UAS operations generally.",
+    "crumbs": [
+      "Regulations",
+      "Definitions"
+    ]
+  },
+  {
+    "objectID": "regulations/definitions.html#general",
+    "href": "regulations/definitions.html#general",
+    "title": "Definitions",
+    "section": "General",
+    "text": "General\n\nsUAS (Small Unmanned Aircraft System)\n\nAn unmanned aircraft weighing less than 55 lbs (25 kg), the FAA’s regulatory category for most drones.\n\nPart 107\n\nThe FAA regulation (14 CFR Part 107) governing most commercial and institutional small UAS operations in the United States.\n\nRemote Pilot Certificate\n\nThe FAA certification required to operate a UAS under Part 107.\n\nTRUST Certificate\n\nThe Recreational UAS Safety Test Certification for recreational, hobbyist, and many educational UAS operations.\n\nVLOS (Visual Line of Sight)\n\nThe pilot or a visual observer must be able to see the aircraft, unaided except for corrective lenses, at all times during flight.\n\nBVLOS (Beyond Visual Line of Sight)\n\nOperations conducted outside the pilot’s unaided visual range. Requires a waiver or Certificate of Authorization under current regulations.\n\nLAANC (Low Altitude Authorization and Notification Capability)\n\nThe system used to request near-real-time airspace authorization in controlled airspace.\n\nTFR (Temporary Flight Restriction)\n\nA short-term airspace restriction, often issued for wildfires, VIP movement, or large events.\n\nNOTAM (Notice to Air Missions)\n\nAn official notice containing information relevant to flight safety, including airspace restrictions.",
+    "crumbs": [
+      "Regulations",
+      "Definitions"
+    ]
+  },
+  {
+    "objectID": "regulations/definitions.html#operational",
+    "href": "regulations/definitions.html#operational",
+    "title": "Definitions",
+    "section": "Operational",
+    "text": "Operational\n\nPIC (Pilot in Command)\n\nThe individual with final responsibility for a UAS operation, whether or not they are manipulating the controls directly.\n\nVO (Visual Observer)\n\nA person assisting the PIC by maintaining visual contact with the aircraft, allowing the PIC to attend to other mission-critical tasks.\n\nGCS (Ground Control Station)\n\nThe equipment used to monitor and, where applicable, control a UAS during flight.",
+    "crumbs": [
+      "Regulations",
+      "Definitions"
+    ]
+  },
+  {
+    "objectID": "regulations/definitions.html#technical-equipment",
+    "href": "regulations/definitions.html#technical-equipment",
+    "title": "Definitions",
+    "section": "Technical & Equipment",
+    "text": "Technical & Equipment\n\nMTOW (Maximum Takeoff Weight)\n\nAn approximation of a drone’s relative size and regulatory category.\n\nRTK (Real-Time Kinematic)\n\nA GNSS correction technique providing centimeter-level positioning accuracy in real time, used for precision mapping.\n\nPPK (Post-Processed Kinematic)\n\nSimilar to RTK, but positioning corrections are applied after the flight rather than in real time.\n\nGSD (Ground Sample Distance)\n\nThe real-world size represented by a single pixel in captured imagery; a key measure of mapping resolution.\n\nGimbal\n\nA motorized stabilization mount that keeps a camera steady independent of the aircraft’s movement.\n\nVTOL (Vertical Takeoff and Landing)\n\nDescribes aircraft capable of taking off and landing vertically, including some fixed-wing mapping drones.\n\nFPV (First Person View)\n\nFlight controlled via a live video feed from the aircraft’s perspective, rather than by direct visual observation.\n\nMultispectral Sensor\n\nA camera capturing multiple specific light wavelength bands (e.g., red, green, near-infrared) beyond standard visible-light photography, commonly used in agricultural and research imaging.\n\nThermal Sensor\n\nA camera capturing infrared radiation to visualize heat differences, used in inspection, wildlife monitoring, and search operations.",
+    "crumbs": [
+      "Regulations",
+      "Definitions"
+    ]
+  },
+  {
+    "objectID": "regulations/definitions.html#regulations",
+    "href": "regulations/definitions.html#regulations",
+    "title": "Definitions",
+    "section": "Regulations",
+    "text": "Regulations\n\nCOA (Certificate of Waiver or Authorization)\n\nAn FAA approval permitting a public operator (including public universities) to conduct specific UAS operations, such as BVLOS, that would otherwise be prohibited.\n\nRemote ID\n\nThe requirement for most drones to broadcast identification and location information in flight, comparable to a digital license plate.\n\nFRIA (FAA-Recognized Identification Area)\n\nA defined location where drones may be flown without Remote ID equipment.\n\nNDAA / Section 848\n\nThe National Defense Authorization Act; Section 848 refers to specific UAS-related provisions restricting the use of federal funds for certain foreign-manufactured drones. See NDAA Compliance.\n\nBlue UAS\n\nA Department of Defense-cleared list of drones approved for federal use. See the Blue UAS Cleared List.\n\nDomestic End Product\n\nThe Buy American Standard test for whether an article qualifies as domestically manufactured, based on U.S. assembly and a domestic-component cost threshold. Full regulatory text (48 C.F.R. § 25.101)\n\nUAS Critical Components\n\nComponents, including software, the FCC defines as core to a UAS for Covered List purposes: flight controllers, navigation systems, sensors, batteries, motors, and more. FCC drone/UAS Covered List page\n\nToy Drone\n\nAn FCC-defined exemption category for very small, sensor-free, non-connected recreational drones meeting twelve specific criteria. FCC drone/UAS Covered List page\n\nMilitary-Grade UAS (proposed)\n\nA proposed FCC definition covering heavier, sensor-equipped, or swarm-capable UAS. DA-26-758\n\nPower Inverters\n\nForeign-produced bi-directional power conversion devices with remote connectivity, added to the FCC Covered List in 2026. DA-26-786\n\nAdvanced Robotic Devices\n\nForeign-produced mobile robots (including humanoids and quadrupeds) meeting specific weight, sensor, and connectivity criteria, added to the FCC Covered List in 2026. DA-26-786",
+    "crumbs": [
+      "Regulations",
+      "Definitions"
+    ]
+  },
+  {
+    "objectID": "regulations/operations-over-people.html",
+    "href": "regulations/operations-over-people.html",
+    "title": "Operations Over People",
+    "section": "",
+    "text": "In April 2021, the FAA updated Part 107 regulations for operations over people. Eligibility depends on both the aircraft’s certification category and the type of Remote ID compliance in use.",
+    "crumbs": [
+      "Regulations",
+      "Operations Over People"
+    ]
+  },
+  {
+    "objectID": "regulations/operations-over-people.html#category-levels",
+    "href": "regulations/operations-over-people.html#category-levels",
+    "title": "Operations Over People",
+    "section": "Category Levels",
+    "text": "Category Levels\n\nCategory 0 — Not Eligible for Flights Over People. The aircraft does not meet the requirements of any category below. Under the baseline Part 107 rule, it may only be flown over a person who is directly participating in the operation, located under a covered structure, or inside a stationary vehicle. “Cat 0” is not an FAA term; it is used on this page to label aircraft that fall outside the four official categories.\nCategory 1 — Under 250 g including payload, with rotor protections. The lowest-risk category. If the aircraft weighs 0.55 lb or less at takeoff, including any attached payload, and has no exposed rotating parts capable of lacerating skin, it qualifies automatically, with no FAA declaration required.\nCategory 2 — FAA-certified, under 11 ft-lb kinetic energy, with rotor protections. The aircraft (or aircraft-and-accessory combination) must be certified, through an FAA-accepted means of compliance, not to cause an injury more severe than the transfer of 11 foot-pounds of kinetic energy on impact with a rigid object.\nCategory 3 — FAA-certified, under 25 ft-lb kinetic energy, with rotor protections. Same certification approach as Category 2, at a higher kinetic-energy threshold. Category 3 aircraft carry additional operating limits: they may not fly over open-air assemblies of people, and are limited to access-controlled sites or brief, transient flights over individuals.\nCategory 4 — FAA airworthiness certificate under Part 21. The most demanding category, requiring a manned-aircraft-style airworthiness certificate rather than a declared means of compliance. This category is generally not applicable to typical Part 107 operations.",
+    "crumbs": [
+      "Regulations",
+      "Operations Over People"
+    ]
+  },
+  {
+    "objectID": "regulations/operations-over-people.html#list-of-faa-certified-drones",
+    "href": "regulations/operations-over-people.html#list-of-faa-certified-drones",
+    "title": "Operations Over People",
+    "section": "List of FAA-Certified Drones",
+    "text": "List of FAA-Certified Drones\nThe FAA maintains a list of all drones certified for operations over people here: Declaration of Compliance list.\n\n\n\n\n\n\nWarning\n\n\n\nMost Category 2 and 3 declarations require a certified parachute recovery system. The parachute reduces the aircraft’s terminal kinetic energy below the category threshold, and it is that combination, not the drone alone, that appears on the FAA’s declaration.",
+    "crumbs": [
+      "Regulations",
+      "Operations Over People"
+    ]
+  },
+  {
+    "objectID": "regulations/operations-over-people.html#the-categories-of-drones",
+    "href": "regulations/operations-over-people.html#the-categories-of-drones",
+    "title": "Operations Over People",
+    "section": "The Categories of Drones",
+    "text": "The Categories of Drones\n\n\n\n\n\n\n\n\n\n\nStandard Remote ID\nBroadcast/Retrofit Remote ID\nNo Remote ID\n\n\n\n\nCat 0 — Not Eligible for Flights Over People\nNo flights over people. BVLOS only with waiver.\nNo flights over people. VLOS only.\nNo flights over people. VLOS only. Recreational Exception under 250g or FRIA only\n\n\nCat 1 — &lt; 250 g + rotor protections\nFlights over open-air assemblies of people. BVLOS only with waiver.\nFlights over open-air assemblies of people. VLOS only.\nOver some people allowed. No flights over open-air assemblies of people. VLOS only. Recreational Exception or FRIA only.\n\n\nCat 2 — FAA cert, &lt; 11 lb·ft KE + rotor protections\nFlights over open-air assemblies of people. BVLOS only with waiver.\nFlights over open-air assemblies of people. VLOS only.\nOver some people allowed. No flights over open-air assemblies of people. FRIA only.\n\n\nCat 3 — FAA cert, &lt; 25 lb·ft KE + rotor protections\nFlights over open-air assemblies of people in access-controlled locations. BVLOS only with waiver.\nFlights over open-air assemblies of people in access-controlled locations. VLOS only.\nOver some people allowed. No flights over open-air assemblies of people. VLOS only. FRIA only.\n\n\nCat 4 — FAA cert, Part 21 Airworthiness\nFlights over open-air assemblies of people. BVLOS only with waiver.\nFlights over open-air assemblies of people. VLOS only.\nOver some people allowed. No flights over open-air assemblies of people. VLOS only. FRIA only.\n\n\n\nFor background on the category system itself, see Part 107 Subpart D and the FAA’s summary of Operations Over People.\nFor Remote ID compliance options referenced in this table, see Remote ID.",
+    "crumbs": [
+      "Regulations",
+      "Operations Over People"
+    ]
+  },
+  {
+    "objectID": "regulations/remote-id.html",
+    "href": "regulations/remote-id.html",
+    "title": "Remote Identification",
+    "section": "",
+    "text": "Remote ID is a system that broadcasts a drone’s identity, location, and flight information while it is in the air, comparable to a digital license plate. The broadcast can be received by anyone with a compatible receiver, allowing nearby individuals and law enforcement to identify aircraft in the airspace.\nFor more information about Remote Identification, please visit the FAA’s website here",
+    "crumbs": [
+      "Regulations",
+      "Remote Identification"
+    ]
+  },
+  {
+    "objectID": "regulations/remote-id.html#ways-to-comply",
+    "href": "regulations/remote-id.html#ways-to-comply",
+    "title": "Remote Identification",
+    "section": "Ways to Comply",
+    "text": "Ways to Comply\nA drone must meet Remote ID requirements in one of three ways.\n\nStandard Remote Identification\nMost drones manufactured after December 2022 have RID already built-in to the drone’s firmware. Standard RID displays the drone’s location, altitude and speed, as well as the location and altitude of it’s operation station.\n\n\nBroadcast Remote Identification\nFor drones that don’t have RemoteID built in, pilots must install a Remote ID broadcast module. This is a a small and lightweight component that can be added externally to a drone. It functions the same as standard remote identification, minus the ability to broadcast the location of the drone’s operator. Modules can only display the location of the drone’s takeoff point. Examples include the BlueMark DroneBeacon db120, the Dronetag Beacon, and the Spektrum SkyID (for RC aircraft).\n\n\n\nDroneTag Beacon\n\n\n\n\nFAA Recognized Identification Area (FRIA)\nFor drones that do not have RID capabilities, the FAA is allowing pilots to fly their drones only in FAA Recognized Identification Areas. As of now, only Educational institutions and FAA-recognized Community Based Organizations can apply for a FRIA.\nThe Drone Map of California has been updated with all approved FRIAs in California: Drone Map of California.",
+    "crumbs": [
+      "Regulations",
+      "Remote Identification"
+    ]
+  },
+  {
+    "objectID": "regulations/remote-id.html#updating-your-registration",
+    "href": "regulations/remote-id.html#updating-your-registration",
+    "title": "Remote Identification",
+    "section": "Updating your Registration",
+    "text": "Updating your Registration\nTo complete the transition to Remote ID, all drone registrations must be updated on the FAA Drone Zone.\n\nLog into FAA Drone Zone\nFrom your dashboard, enter your drone inventory.\n\nFind the drone registration you want to update, and click the three vertical dots to open the menu.\n\nSelect ‘Edit’ from the dropdown menu.\n\nIn the new window, when it asks ‘Does your drone broadcast FAA Remote ID information?’ select ‘YES.’\nUpdate your UAS TYPE - the options will change when you select ‘YES’\n\nSelect either ‘Standard Remote ID’ or ‘Remote ID Broadcast Module’\n\nEnter in the Remote ID Serial Number\n\nIf your drone has Remote ID built-in (ie, Standard Remote ID), use your drone’s serial number.\nIf you are adding a Remote ID Broadcast Module, use the Remote ID Broadcast Module’s serial number.",
+    "crumbs": [
+      "Regulations",
+      "Remote Identification"
+    ]
+  },
+  {
+    "objectID": "regulations/remote-id.html#frequently-asked-questions",
+    "href": "regulations/remote-id.html#frequently-asked-questions",
+    "title": "Remote Identification",
+    "section": "Frequently Asked Questions",
+    "text": "Frequently Asked Questions\nIs compliance mandatory? Yes. Remote ID is required by federal regulation and enforced by the FAA. Failure to comply is a violation of University policy and may result in disciplinary action.\nShould I choose a Standard Remote ID drone or a broadcast module? Standard Remote ID is simpler and does not carry the added visual-line-of-sight condition that applies to broadcast modules. A module is a practical option for an existing drone that lacks built-in capability.\nAfter installing a module, is further configuration required? Within the US, typically not, beyond updating the registration. Additional configuration may be needed if the drone will be used internationally.\nHow do I read Remote ID broadcasts? See Reading Remote ID.",
+    "crumbs": [
+      "Regulations",
+      "Remote Identification"
+    ]
+  },
+  {
+    "objectID": "selecting-a-drone/index.html",
+    "href": "selecting-a-drone/index.html",
+    "title": "Need to Pick a Drone?",
+    "section": "",
+    "text": "This page directs users to drone recommendations organized by intended use. Select the category below that corresponds to your needs.",
+    "crumbs": [
+      "Need to Pick a Drone?"
+    ]
+  },
+  {
+    "objectID": "selecting-a-drone/index.html#categories",
+    "href": "selecting-a-drone/index.html#categories",
+    "title": "Need to Pick a Drone?",
+    "section": "Categories",
+    "text": "Categories\n\n\n\nIntended Use\nSee\n\n\n\n\nA low-cost drone for learning or casual use\nLow-Cost Drones\n\n\nPhotography or videography\nDrones for Multimedia\n\n\nDrones for mapping projects\nDrones for Mapping\n\n\nDrones for federally funded projects\nNDAA-Compliant\n\n\nA full comparison of all available options\nDrone Comparison Table\n\n\n\nFor additional guidance, see the New User Guide.",
+    "crumbs": [
+      "Need to Pick a Drone?"
+    ]
+  },
+  {
+    "objectID": "selecting-a-drone/mapping-drones.html",
+    "href": "selecting-a-drone/mapping-drones.html",
+    "title": "Drones for Mapping",
+    "section": "",
+    "text": "Producing high-resolution maps and elevation models requires a drone compatible with automated mapping software.\n\n\n\n\n\n\nImportant\n\n\n\nThere are no low-cost drones for mapping that are US-made or NDAA compliant. Please refer to NDAA-Compliant Drones.\n\n\n\nMatrice 4E — Matrice 4E, $5,300. Part of DJI’s enterprise Mavic-sized line, with Mavic 3-comparable performance, an improved camera, and enhanced autonomy.\nAutel EVO II Pro — Evo II Pro, $2,500. A comparable alternative to the Mavic series with mapping functionality included, unlike comparable DJI models.",
+    "crumbs": [
+      "Need to Pick a Drone?",
+      "Drones for Mapping"
+    ]
+  },
+  {
+    "objectID": "selecting-a-drone/ndaa-compliance.html",
+    "href": "selecting-a-drone/ndaa-compliance.html",
+    "title": "NDAA Compliant Drones",
+    "section": "",
+    "text": "Important\n\n\n\nIn late 2023, the National Defense Authorization Act introduced new regulations that prohibit the use of Federal Funds for any drone manufactured in China, or any drone utilizing critical components manufactured in China. Unfortunately, there aren’t a lot of good options right now, but there are a couple worthy of investment for larger grants and contracts.",
+    "crumbs": [
+      "Need to Pick a Drone?",
+      "NDAA Compliant Drones"
+    ]
+  },
+  {
+    "objectID": "selecting-a-drone/ndaa-compliance.html#ndaa-compliant-options",
+    "href": "selecting-a-drone/ndaa-compliance.html#ndaa-compliant-options",
+    "title": "NDAA Compliant Drones",
+    "section": "NDAA Compliant Options",
+    "text": "NDAA Compliant Options\n\nSkydio X10 — Skydio X10, ~$20k. Good camera and zoom. Main advantage is NDAA compliance itself. RGB-only mapping requires an additional subscription.\nWingtraOne Gen II — Wingtra. Tail-sitter VTOL, up to an hour of flight time, good for tight takeoff spaces with large areas to cover. NDAA 848 compliant versions available.\neBee X — eBee, from $11,000 (+$4k–$10k for payload). NDAA 848 and Class 3 (operations over people) compliant. Best for large open areas.\nFreefly Astro Max (NDAA/Blue) — Freefly Astro Max, $40k. Configurable medium-lift M300/350 replacement. No RTK support in the compliant version.\nInspired Flight IF800 - Inspired Flight IF800, $40k. Configurable medium-lift M300/350 replacement. A little more stable than the Astro, but otherwise very similar performance.",
+    "crumbs": [
+      "Need to Pick a Drone?",
+      "NDAA Compliant Drones"
+    ]
+  },
+  {
+    "objectID": "tools-and-resources/templates.html",
+    "href": "tools-and-resources/templates.html",
+    "title": "Documents and Templates",
+    "section": "",
+    "text": "Templates and checklists to support mission planning, risk evaluation, and pre-flight preparation. Download and customize as needed for your program.\n\nMission Planning Template (DOCX)\nHazard and Risk Evaluation Template (DOCX)\nPre-Flight Crew Briefing Template (DOCX)\nPre-Flight Checklist (DOCX)\nMission Checklist (DOCX)\nEmergency Procedures (DOCX)",
+    "crumbs": [
+      "Tools and Resources",
+      "Documents and Templates"
+    ]
+  },
+  {
+    "objectID": "tools-and-resources/vlos/easa.html",
+    "href": "tools-and-resources/vlos/easa.html",
+    "title": "The EASA formula",
+    "section": "",
+    "text": "The dashed black curve in the VLOS estimator comes from guidance published by the European Union Aviation Safety Agency (EASA). It is the only widely published formula that turns a drone’s size into a VLOS distance, which makes it a useful reference point for the acuity model.",
+    "crumbs": [
+      "Tools and Resources",
+      "How far can you really see the drone?",
+      "The EASA formula"
+    ]
+  },
+  {
+    "objectID": "tools-and-resources/vlos/easa.html#the-formula",
+    "href": "tools-and-resources/vlos/easa.html#the-formula",
+    "title": "The EASA formula",
+    "section": "The formula",
+    "text": "The formula\nEASA’s Guidelines for UAS operations in the open and specific category (Issue 03, 17 July 2025) compute VLOS from two parameters and use the smaller one.\nAttitude line of sight (ALOS) is the farthest distance at which the pilot can still see the drone’s position and orientation, based on its size:\n\\[\n\\text{ALOS}_{\\text{multirotor}} = 327 \\times CD + 20\\ \\text{m}\n\\qquad\n\\text{ALOS}_{\\text{fixed-wing}} = 490 \\times CD + 30\\ \\text{m}\n\\]\n\\(CD\\) is the characteristic dimension in meters, which EASA defines as the drone’s maximum dimension. For a multirotor that is usually the prop-tip-to-prop-tip distance; for a fixed-wing it is usually the wingspan.\nDetection line of sight (DLOS) is the distance within which the pilot can spot other aircraft in time to avoid them:\n\\[\n\\text{DLOS} = 0.3 \\times GV\n\\]\n\\(GV\\) is ground visibility. EASA recommends at least 5 km, which gives a DLOS of 1,500 m (about 4,920 ft).\n\\[\n\\text{VLOS} = \\min(\\text{ALOS},\\ \\text{DLOS})\n\\]\nEASA’s guidelines credit additional detail to a guidance document from Germany’s Federal Aviation Office (LBA). They also state that the guidelines are not legally binding.\n\n\n\n\n\n\nNoteWhat the estimator shows\n\n\n\nThe estimator plots ALOS only. For the drones on this page, ALOS is far below a 5 km DLOS, so DLOS would not change the result in good visibility. In poor visibility it can: at 1 km ground visibility, DLOS drops to 300 m (about 984 ft).",
+    "crumbs": [
+      "Tools and Resources",
+      "How far can you really see the drone?",
+      "The EASA formula"
+    ]
+  },
+  {
+    "objectID": "tools-and-resources/vlos/easa.html#straight-line-vs.-horizontal-distance",
+    "href": "tools-and-resources/vlos/easa.html#straight-line-vs.-horizontal-distance",
+    "title": "The EASA formula",
+    "section": "Straight-line vs. horizontal distance",
+    "text": "Straight-line vs. horizontal distance\nEASA measures VLOS as the straight-line distance between the pilot and the drone. The estimator’s x-axis is horizontal distance, so the ALOS limit is converted at each altitude \\(a\\):\n\\[\nd_{\\text{horizontal}} = \\sqrt{\\text{ALOS}^2 - a^2}\n\\]\nThat is why the dashed curve bends toward the y-axis as altitude increases. Drawing it as a vertical line would overstate how far the drone can go horizontally at altitude.",
+    "crumbs": [
+      "Tools and Resources",
+      "How far can you really see the drone?",
+      "The EASA formula"
+    ]
+  },
+  {
+    "objectID": "tools-and-resources/vlos/easa.html#worked-examples",
+    "href": "tools-and-resources/vlos/easa.html#worked-examples",
+    "title": "The EASA formula",
+    "section": "Worked examples",
+    "text": "Worked examples\n\n\n\nDrone\nCD\nALOS\nHorizontal at 400 ft AGL\n\n\n\n\nEVO II Pro V3 (multirotor)\n0.558 m\n202.5 m (664 ft)\n530 ft\n\n\neBee X (fixed-wing)\n1.161 m\n598.8 m (1,965 ft)\n1,923 ft\n\n\n\nThe EVO II’s CD uses the largest dimension listed on retailer spec sheets. Measure your own aircraft if you can.",
+    "crumbs": [
+      "Tools and Resources",
+      "How far can you really see the drone?",
+      "The EASA formula"
+    ]
+  },
+  {
+    "objectID": "tools-and-resources/vlos/easa.html#how-this-compares-to-part-107",
+    "href": "tools-and-resources/vlos/easa.html#how-this-compares-to-part-107",
+    "title": "The EASA formula",
+    "section": "How this compares to Part 107",
+    "text": "How this compares to Part 107\nUS rules don’t set a VLOS distance. 14 CFR 107.31 instead requires the pilot or visual observer to see the drone well enough to:\n\nknow its location;\ndetermine its attitude, altitude, and direction of flight;\nobserve the airspace for other traffic or hazards; and\ndetermine that it does not endanger people or property.\n\nEASA’s two parameters map loosely onto these abilities. ALOS relates to item 2 (seeing attitude), and DLOS relates to item 3 (seeing other traffic). This is an interpretation for comparison, not an FAA position. Part 107 also sets a minimum flight visibility of 3 statute miles (about 4.8 km) in 14 CFR 107.51.",
+    "crumbs": [
+      "Tools and Resources",
+      "How far can you really see the drone?",
+      "The EASA formula"
+    ]
+  },
+  {
+    "objectID": "tools-and-resources/vlos/easa.html#references",
+    "href": "tools-and-resources/vlos/easa.html#references",
+    "title": "The EASA formula",
+    "section": "References",
+    "text": "References\n\nEASA, Guidelines for UAS operations in the open and specific category, Issue 03, 17 July 2025. Section “Calculation of the VLOS distance.”\n14 CFR 107.31, Visual line of sight aircraft operation.\n14 CFR 107.51, Operating limitations for small unmanned aircraft.\n\n← Back to the estimator",
+    "crumbs": [
+      "Tools and Resources",
+      "How far can you really see the drone?",
+      "The EASA formula"
+    ]
+  },
+  {
+    "objectID": "tools-and-resources/vlos/index.html",
+    "href": "tools-and-resources/vlos/index.html",
+    "title": "How far can you really see the drone?",
+    "section": "",
+    "text": "Introduction\nMaintaining visual line of sight (VLOS) of a drone is a fundamental requirement under 14 CFR Part 107, which governs the commercial use of small unmanned aircraft systems (sUAS) in the United States. According to these regulations, drone pilots (or their visual observers) must always be able to see their aircraft unaided by any device other than corrective lenses.\nIn practical terms, “visual line of sight” means that the operator or observer can clearly identify the drone’s orientation and location in real time. While this may sound straightforward, factors such as distance, weather conditions, obstacles, and lighting can all compromise VLOS. Consequently, ensuring VLOS compliance across varying operational scenarios is not always a simple task.\nDespite its importance, relatively little research has been dedicated to developing systematic methods to estimate or verify VLOS. Most current industry practices rely on manual observation and conservative flight planning to ensure the drone remains within sight, but these approaches can be subjective and prone to human error.\n\n\nVLOS estimator\nPick a drone from the list to load its dimensions, or choose Custom and enter your own. Editing any value on a preset switches the selector to Custom automatically, so you can start from a known drone and adjust it.\n\n\n\n\n  \n    Drone\n    \n      Custom…\n    \n  \n  \n\n  \n    \n      Type\n      \n        \n        Multirotor\n        \n        Fixed-wing\n      \n    \n  \n  \n\n    \n    \n      \n        Height\n        \n          \n          in\n        \n      \n      \n        Width\n        \n          \n          in\n        \n      \n      \n        Max dimension\n        \n          \n          in\n        \n      \n    \n  \n\n  \n    \n      Height and width of the side profile, props or wings included. Max dimension is EASA's characteristic dimension: wingspan or diagonal motor distance. Type selects the EASA formula; Custom lets you enter your own drone.\n    \n  \n\n\n\n\n\n\n\n\nHow to read the plot. Each colored curve shows how far away, horizontally, the drone can be at a given altitude before its angular size drops below that visual-acuity threshold. The dashed black curve is EASA’s attitude-line-of-sight (ALOS) limit. EASA defines it as a straight-line distance, so it bends inward as altitude increases instead of being a vertical line.\nTo learn more:\n\nHow the estimate works: the geometry, the equation, and the acuity thresholds.\nThe EASA formula: where the ALOS line comes from and how it compares to Part 107.",
+    "crumbs": [
+      "Tools and Resources",
+      "How far can you really see the drone?"
+    ]
+  }
+]

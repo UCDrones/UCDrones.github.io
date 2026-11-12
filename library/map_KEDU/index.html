@@ -1,0 +1,98 @@
+<!--
+
+To run this demo, you need to replace 'YOUR_API_KEY' with an API key from the ArcGIS Developers dashboard.
+
+Sign up for a free account and get an API key.
+
+https://developers.arcgis.com/documentation/mapping-apis-and-services/get-started/
+
+-->
+
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="initial-scale=1, maximum-scale=1, user-scalable=no">
+  <title>KEDU Drone Altitudes</title>
+  <style>
+    html, body, #viewDiv {
+      padding: 0;
+      margin: 0;
+      height: 100%;
+      width: 100%;
+    }
+  </style>
+  <link rel="stylesheet" href="https://js.arcgis.com/4.24/esri/themes/light/main.css">
+  <script src="https://js.arcgis.com/4.24/"></script>
+
+  <script>
+  require([
+    "esri/config",
+    "esri/Map",
+    "esri/views/MapView",
+	"esri/widgets/BasemapToggle",
+	"esri/widgets/BasemapGallery",
+    "esri/layers/FeatureLayer"
+
+  ], function(esriConfig,Map, MapView, BasemapToggle, BasemapGallery, FeatureLayer) {
+
+  esriConfig.apiKey = "AAPK9fcd062cb3a1491ab1816a3972840a341CS3gTjl6llMrXLA8YPLQNp2dTyaBsTaN6j3z_dNqM5zjKNjMCohgjnWA_PAr6T3";
+
+  const map = new Map({
+    basemap: "gray-vector"
+  });
+
+  const view = new MapView({
+    container: "viewDiv",
+    map: map,
+    center: [-121.788400, 38.532834],
+    zoom: 14
+  });
+
+const basemapToggle = new BasemapToggle({
+        view: view,
+        nextBasemap: "arcgis-imagery"
+     });
+
+      view.ui.add(basemapToggle,"bottom-right");
+	  
+	
+
+var label_KEDU_text = {
+	type: "text",
+    color: "#000000",
+    haloColor: "#FFFFFF",
+    haloSize: "1px",
+    font: {
+      size: "10px",
+      family: "Noto Sans",
+      weight: "normal"
+    }
+}
+
+	var KEDU_Label = {
+	symbol: label_KEDU_text,
+	labelPlacement: "always-horizontal",
+	labelExpressionInfo: {expression: "$feature.Altitude"},
+};
+
+
+
+  const KEDULayer = new FeatureLayer({
+    url: "https://services2.arcgis.com/wx8u046p68e0iGuj/ArcGIS/rest/services/UC_Davis_Airspace/FeatureServer/0",
+	labelingInfo: [KEDU_Label],
+	popupTemplate:{
+        title:"{NAME}",
+        content: "{Hazard}. Suggested Max Altitude: {Altitude}. "
+    }
+  });
+
+  map.add(KEDULayer, 0);
+
+  });
+</script>
+
+</head>
+<body>
+  <div id="viewDiv"></div>
+</body>
+</html>
